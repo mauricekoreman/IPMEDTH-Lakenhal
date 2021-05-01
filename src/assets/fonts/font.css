@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "MainFontThin";
+  src: local("MainFontThin"), url("./Brandon_thin.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MainFontLight";
+  src: local("MainFontLight"), url("./Brandon_light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MainFontRegular";
+  src: local("MainFontRegular"), url("./Brandon_reg.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MainFontMedium";
+  src: local("MainFontMedium"), url("./Brandon_med.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MainFontBlack";
+  src: local("MainFontBlack"), url("./Brandon_blk.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MainFontBold";
+  src: local("MainFontBold"), url("./Brandon_bld.otf") format("opentype");
+}
