@@ -4,7 +4,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import HomeIcon from "@material-ui/icons/Home";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
@@ -54,4 +54,4 @@ const BottomTabBar = () => {
   );
 };
 
-export default withRouter(BottomTabBar);
+export default BottomTabBar;

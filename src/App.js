@@ -12,7 +12,6 @@ import Header from "./components/header/header";
 function App() {
   let location = useLocation();
   const [headerTitle, setHeaderTitle] = useState("");
-
   useEffect(() => {
     switch (location.pathname) {
       case "/":

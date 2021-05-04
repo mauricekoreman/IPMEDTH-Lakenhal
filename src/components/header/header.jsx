@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   IconButton,
@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import MenuDrawer from "../menuDrawer/menuDrawer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = ({ title }) => {
   const classes = useStyles();
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  function toggleDrawer() {
+    setOpenDrawer(!openDrawer);
+  }
 
   return (
     <div className={classes.root}>
@@ -31,7 +37,8 @@ const Header = ({ title }) => {
             edge="start"
             className={classes.menuButton}
             color="inherit"
-            aria-label="menu"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
           >
             <MenuIcon />
           </IconButton>
@@ -40,6 +47,7 @@ const Header = ({ title }) => {
           </Typography>
         </Toolbar>
       </AppBar>
+      <MenuDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
     </div>
   );
 };
