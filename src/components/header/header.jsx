@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = () => {
+const Header = ({ title }) => {
   const classes = useStyles();
 
   return (
@@ -36,7 +36,7 @@ const Header = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Home
+            {title}
           </Typography>
         </Toolbar>
       </AppBar>
