@@ -2,7 +2,7 @@ import React from "react";
 
 import Typography from "@material-ui/core/Typography";
 
-const HomePage = () => (
+const Homepage = () => (
   <>
     <Typography>Homepage</Typography>
   </>
@@ -10,4 +10,4 @@ const HomePage = () => (
 
 const styles = {};
 
-export default HomePage;
+export default Homepage;
