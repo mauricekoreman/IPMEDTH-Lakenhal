@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-import { Button, FormGroup, FormControlLabel, Checkbox } from "@material-ui/core";
+import { FormGroup, FormControlLabel, Checkbox } from "@material-ui/core";
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import axios from "axios";
 
@@ -24,6 +26,7 @@ const CategorieCard = ({categorie, categorie_ID}) => {
     })
     .then(res => {
         console.log(res.data);
+        window.location.reload()
     })
     .catch(error => {
         console.log(error.response);
@@ -33,8 +36,9 @@ const CategorieCard = ({categorie, categorie_ID}) => {
   return (
     <FormGroup>
         <FormControlLabel
-            control={<Checkbox checked={state.checked} onChange={handleChange} name="checked" />}
+            control={<Checkbox icon={<DeleteOutlineIcon />} checkedIcon={<DeleteIcon />} checked={state.checked} onChange={handleChange} name="checked" />}
             label={categorie}
+            labelPlacement="start"
          />
     </FormGroup>
 

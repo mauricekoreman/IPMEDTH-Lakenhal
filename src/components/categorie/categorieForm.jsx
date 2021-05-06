@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-import { Button, TextField, Typography } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 
 import axios from "axios";
 
@@ -17,9 +17,9 @@ const CategorieForm = (props) => {
     console.log(JSONcategorie);
     axios.post(TEST_URL+"categorie/create", JSONcategorie, {
         headers: { Accept: "application/json" },
-    })
-    .then(res => {
+    }).then(res => {
         console.log(res.data);
+        window.location.reload()
     })
     .catch(error => {
         console.log(error.response);
