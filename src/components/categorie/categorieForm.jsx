@@ -4,7 +4,7 @@ import { Button, TextField } from "@material-ui/core";
 
 import axios from "axios";
 
-const CategorieForm = (props) => {
+const CategorieForm = ({onReload}) => {
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
@@ -19,7 +19,7 @@ const CategorieForm = (props) => {
         headers: { Accept: "application/json" },
     }).then(res => {
         console.log(res.data);
-        window.location.reload()
+        onReload();
     })
     .catch(error => {
         console.log(error.response);

@@ -6,8 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import axios from "axios";
 
-const CategorieCard = ({categorie, categorie_ID}) => {
-
+const CategorieCard = ({categorie, categorie_ID, onReload}) => {
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
   const [state, setState] = useState({
@@ -18,7 +17,6 @@ const CategorieCard = ({categorie, categorie_ID}) => {
     setState({ ...state, [event.target.name]: event.target.checked });
     onSubmit();
   };
-  console.log(state, categorie_ID, categorie);
 
   const onSubmit = () => {
     axios.put(TEST_URL+"categorie/delete/"+categorie_ID, {
@@ -26,17 +24,17 @@ const CategorieCard = ({categorie, categorie_ID}) => {
     })
     .then(res => {
         console.log(res.data);
-        window.location.reload()
+        onReload();
     })
     .catch(error => {
-        console.log(error.response);
+        console.log(error.message);
     });
   };
 
   return (
     <FormGroup>
         <FormControlLabel
-            control={<Checkbox icon={<DeleteOutlineIcon />} checkedIcon={<DeleteIcon />} checked={state.checked} onChange={handleChange} name="checked" />}
+            control={<Checkbox icon={<DeleteOutlineIcon />} checkedIcon={<DeleteIcon />} checked={state.checked} onChange={handleChange} name="checked"/>}
             label={categorie}
             labelPlacement="start"
          />
