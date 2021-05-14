@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { TextField, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import axios from "axios";
+
+import { useAuth } from '../../contexts/authContext'
+import { useHistory } from "react-router-dom";
   
 const LoginForm = () => {
 
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
     const { register, handleSubmit } = useForm();
+    const history = useHistory();
+    const { setCurrentUser } = useAuth();
 
     const onSubmit = async (loginData) => {
         console.log(loginData);
@@ -15,6 +20,12 @@ const LoginForm = () => {
             headers: { Accept: "application/json" },
         }).then(res => {
             console.log(res.data);
+            //useContext user
+            setCurrentUser(res.data);
+            //localstorgae user
+            localStorage.setItem('user', res.data);
+            //ga naar homepage
+            history.push('/');
         })
         .catch(error => {
             console.log(error.response);

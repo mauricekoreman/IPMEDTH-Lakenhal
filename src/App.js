@@ -13,6 +13,8 @@ import Register from "./pages/authpage/registerpage";
 import BottomTabBar from "./components/bottomTabBar/bottomTabBar";
 import Header from "./components/header/header";
 
+import { AuthProvider } from "./contexts/authContext";
+
 function App() {
   let location = useLocation();
   const [headerTitle, setHeaderTitle] = useState("");
@@ -32,18 +34,22 @@ function App() {
     }
   }, [location]);
 
+  const user = localStorage.getItem('user') || [];
+
   return (
     <div>
       <Header title={headerTitle} />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/chat" component={Chat} />
-        <Route exact path="/profiel" component={Profile} />
-        <Route exact path="/moderator" component={Moderator} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-      </Switch>
-      <BottomTabBar />
+      <AuthProvider user={user}>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/chat" component={Chat} />
+          <Route exact path="/profiel" component={Profile} />
+          <Route exact path="/moderator" component={Moderator} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+        </Switch>
+        <BottomTabBar />
+      </AuthProvider>
     </div>
   );
 }
