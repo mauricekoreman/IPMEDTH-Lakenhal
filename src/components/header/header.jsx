@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuDrawer from "../menuDrawer/menuDrawer";
+import Logout from "../authentication/logout";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +46,7 @@ const Header = ({ title }) => {
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
+          <Logout />
         </Toolbar>
       </AppBar>
       <MenuDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />

@@ -1,7 +1,7 @@
 import React from "react";
 
 import Typography from "@material-ui/core/Typography";
-import RegistreerForm from "../../components/authenticatie/registerForm";
+import RegistreerForm from "../../components/authentication/registerForm";
 
 const LoginPage = () => (
   <>

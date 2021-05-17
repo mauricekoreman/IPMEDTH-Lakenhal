@@ -21,14 +21,16 @@ const LoginForm = () => {
         }).then(res => {
             console.log(res.data);
             //useContext user
-            setCurrentUser(res.data);
+            setCurrentUser(res.data.data);
             //localstorgae user
-            localStorage.setItem('user', res.data);
+            localStorage.setItem('user', JSON.stringify(res.data.data));
+            //localstorgae user token
+            localStorage.setItem('token', JSON.stringify(res.data.token));
             //ga naar homepage
             history.push('/');
         })
         .catch(error => {
-            console.log(error.response);
+            console.log(error);
         });
     };
 

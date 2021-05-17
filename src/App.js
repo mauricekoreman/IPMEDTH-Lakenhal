@@ -34,20 +34,20 @@ function App() {
     }
   }, [location]);
 
-  const user = localStorage.getItem('user') || [];
+  const user = localStorage.getItem('user');
 
   return (
     <div>
-      <Header title={headerTitle} />
       <AuthProvider user={user}>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/chat" component={Chat} />
-          <Route exact path="/profiel" component={Profile} />
-          <Route exact path="/moderator" component={Moderator} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-        </Switch>
+        <Header title={headerTitle} />
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/chat" component={Chat} />
+            <Route exact path="/profiel" component={Profile} />
+            <Route exact path="/moderator" component={Moderator} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+          </Switch>
         <BottomTabBar />
       </AuthProvider>
     </div>
