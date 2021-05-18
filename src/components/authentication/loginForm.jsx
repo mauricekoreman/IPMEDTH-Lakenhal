@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import { TextField, Button, FormControl } from '@material-ui/core';
+import { TextField, Button, FormControl, makeStyles, Container, Grid } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
 import axios from "axios";
 
 import { useAuth } from '../../contexts/authContext'
 import { useHistory } from "react-router-dom";
+
+const useStyles = makeStyles((theme) => ({
+    formContainer: {
+      padding: theme.spacing(3),
+    },
+}));
   
 const LoginForm = () => {
+    const classes = useStyles();
 
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
@@ -43,41 +50,43 @@ const LoginForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-
-            <FormControl>
-                <Controller
-                    name="email"
-                    control={control}
-                    defaultValue=""
-                    render={({ field }) => <TextField {...field} helperText={errors.email ? errors.email.message : "E-mail" } error={!!errors.email} />}
-                    rules={{
-                        required: 'Verplicht',
-                        pattern: {
-                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                          message: 'ongeldig e-mailadres'
-                        }
-                    }}
-                />
-            </FormControl>
-
-            <FormControl>
-                <Controller
-                    name="password"
-                    control={control}
-                    defaultValue=""
-                    render={({ field }) => <TextField {...field} type="password" helperText={errors.password ? errors.password.message : "password"} error={!!errors.password} />}
-                    rules={{
-                        required: 'Verplicht',
-                        minLength: {value: 5, message: 'wachtwoord is te kort'}
-                    }}
-                />
-            </FormControl>
-            {generalLoginError && <box>Wachtwoord of e-mailadres is verkeerd</box>}
-            <Button type="submit"> 
-                Login
-            </Button>
-        </form>
+        <Container className={classes.formContainer} maxWidth="xs">
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Grid container direction="column">
+                    <FormControl>
+                        <Controller
+                            name="email"
+                            control={control}
+                            defaultValue=""
+                            render={({ field }) => <TextField {...field} helperText={errors.email ? errors.email.message : "E-mail" } error={!!errors.email} />}
+                            rules={{
+                                required: 'Verplicht',
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                    message: 'ongeldig e-mailadres'
+                                }
+                            }}
+                            />
+                    </FormControl>
+                    <FormControl>
+                        <Controller
+                            name="password"
+                            control={control}
+                            defaultValue=""
+                            render={({ field }) => <TextField {...field} type="password" helperText={errors.password ? errors.password.message : "Wachtwoord"} error={!!errors.password} />}
+                            rules={{
+                                required: 'Verplicht',
+                                minLength: {value: 5, message: 'wachtwoord is te kort'}
+                            }}
+                            />
+                    </FormControl>
+                    {generalLoginError && <box>Wachtwoord of e-mailadres is verkeerd</box>}
+                    <Button type="submit"x> 
+                        Login
+                    </Button>
+                </Grid>
+            </form>
+        </Container>
     );
 };
   
