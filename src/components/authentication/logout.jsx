@@ -21,8 +21,9 @@ const Logout = () => {
             console.log(res.data);
             //useContext user
             setCurrentUser(null);
-            //localstorgae user
+            //localstorage user en token
             localStorage.setItem('user', null);
+            localStorage.setItem('token', null);
             //ga naar loginpagina
             history.push('/login');
         })
