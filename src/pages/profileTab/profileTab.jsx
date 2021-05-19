@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
 
@@ -76,14 +76,40 @@ const ProfileTab = () => {
   // dit moet vervangen worden voor database data uiteraard
   const props = [
     {
-      title: "Kunst title 1",
-      image: kunst1,
+      category: "Informatie",
+      voornaam: "Ilse",
+      achternaam: "Storm",
+      bio: "Ik ben filmmaker. Op dit moment werk ik aan twee documentaires in Leiden: 'Kind van de Rekening', over jeugdzorg. En 'Leren in Leiden', over de mogelijkheden van elk kind om te leren.",
+      beroep: "Filmmaker",
+      profielfoto: pf,
     },
     {
-      title: "Kunst ttel 2",
-      image: kunst2,
+      category: "Favoriete kunst",
+      items: [
+        {
+          title: "Kunst title 1",
+          image: kunst1,
+        },
+        {
+          title: "Kunst title 2",
+          image: kunst2,
+        },
+      ],
+    },
+    {
+      category: "Interesses",
+      items: ["Film", "Documentaires", "Educatie"],
+    },
+    {
+      category: "eigenschappen",
+      items: ["Sociaal", "Gedreven"],
     },
   ];
+
+  const informatie = props[0];
+  const favoKunst = props[1];
+  const interesses = props[2];
+  const eigenschappen = props[3];
 
   return (
     <Box className={classes.pageContainer}>
@@ -91,16 +117,16 @@ const ProfileTab = () => {
         <Avatar
           alt="Profiel foto"
           className={classes.profilePicture}
-          src={pf}
+          src={informatie.profielfoto}
         />
         <Box>
           <Typography variant="h4" className={classes.name}>
-            Ilse Storm
+            {`${informatie.voornaam} ${informatie.achternaam}`}
           </Typography>
           <Box className={classes.workContainer}>
             <WorkOutlineIcon className={classes.beroepIcon} />
             <Typography variant="subtitle1" className={classes.beroep}>
-              Filmmaker
+              {informatie.beroep}
             </Typography>
           </Box>
         </Box>
@@ -108,13 +134,9 @@ const ProfileTab = () => {
 
       <Box className={classes.subContainer}>
         <Typography variant="h6" component="h3" className={classes.title}>
-          Over Ilse
+          {`Over ${informatie.voornaam}`}
         </Typography>
-        <Typography variant="body1">
-          Ik ben filmmaker. Op dit moment werk ik aan twee documentaires in
-          Leiden: 'Kind van de Rekening', over jeugdzorg. En 'Leren in Leiden',
-          over de mogelijkheden van elk kind om te leren.
-        </Typography>
+        <Typography variant="body1">{informatie.bio}</Typography>
       </Box>
 
       <Box className={classes.subContainer}>
@@ -122,19 +144,19 @@ const ProfileTab = () => {
           Interesses
         </Typography>
         <Box className={classes.chips}>
-          <Chip label="Film" />
-          <Chip label="Documentaires" />
-          <Chip label="Educatie" />
+          {interesses.items.map((interesse) => (
+            <Chip key={interesse} label={interesse} />
+          ))}
         </Box>
       </Box>
-
       <Box className={classes.subContainer}>
         <Typography variant="h6" component="h3" className={classes.title}>
           Kenmerkende eigenschappen
         </Typography>
         <Box className={classes.chips}>
-          <Chip label="Sociaal" />
-          <Chip label="Gedreven" />
+          {eigenschappen.items.map((eigenschap) => (
+            <Chip label={eigenschap} />
+          ))}
         </Box>
       </Box>
 
@@ -143,7 +165,7 @@ const ProfileTab = () => {
           Favoriete kunst
         </Typography>
 
-        {props.map((kunst) => (
+        {favoKunst.items.map((kunst) => (
           <Card
             className={classes.card}
             key={kunst.title}
