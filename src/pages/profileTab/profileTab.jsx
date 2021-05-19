@@ -155,7 +155,7 @@ const ProfileTab = () => {
         </Typography>
         <Box className={classes.chips}>
           {eigenschappen.items.map((eigenschap) => (
-            <Chip label={eigenschap} />
+            <Chip key={eigenschap} label={eigenschap} />
           ))}
         </Box>
       </Box>
