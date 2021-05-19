@@ -37,6 +37,9 @@ export const theme = createMuiTheme({
       main: "#FFF",
       contrastText: "#3DA2C9",
     },
+    background: {
+      default: "#FFF",
+    },
   },
   typography: {
     fontFamily: "Brandon Grotesque, Arial",
