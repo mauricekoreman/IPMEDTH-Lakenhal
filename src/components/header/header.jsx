@@ -5,10 +5,13 @@ import {
   makeStyles,
   Toolbar,
   Typography,
+  Box,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuDrawer from "../menuDrawer/menuDrawer";
 import Logout from "../authentication/logout";
+import { useAuth } from '../../contexts/authContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = ({ title }) => {
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { currentUser } = useAuth();
 
   function toggleDrawer() {
     setOpenDrawer(!openDrawer);
@@ -46,7 +50,7 @@ const Header = ({ title }) => {
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
-          <Logout />
+          {currentUser ? (<Logout />) : (<Box><Link to="/login">Login</Link><Link to="/register">Registreer</Link></Box>)}
         </Toolbar>
       </AppBar>
       <MenuDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />

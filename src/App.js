@@ -14,6 +14,7 @@ import BottomTabBar from "./components/bottomTabBar/bottomTabBar";
 import Header from "./components/header/header";
 
 import { AuthProvider } from "./contexts/authContext";
+import ProtectedRoute from "./contexts/protectedRoute";
 
 function App() {
   let location = useLocation();
@@ -42,8 +43,8 @@ function App() {
         <Header title={headerTitle} />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route exact path="/chat" component={Chat} />
-            <Route exact path="/profiel" component={Profile} />
+            <ProtectedRoute exact path="/chat" ><Chat /></ProtectedRoute>
+            <ProtectedRoute exact path="/profiel" ><Profile /></ProtectedRoute>
             <Route exact path="/moderator" component={Moderator} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { TextField, Button, FormControl, Grid, Container, makeStyles } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     formContainer: {
@@ -15,6 +16,7 @@ const RegistreerForm = () => {
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
     const [generalLoginError, setGeneralLoginError] = useState();
+    const history = useHistory();
 
     const { control, handleSubmit, formState: { errors }, reset, watch } = useForm();
     const password = useRef({});
@@ -27,6 +29,7 @@ const RegistreerForm = () => {
         }).then(res => {
             if(res.status === 200){
                 console.log(res.data);
+                history.push('/login');
             }else{
                 reset({formState: true});
             }
