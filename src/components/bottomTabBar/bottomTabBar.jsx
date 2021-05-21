@@ -1,10 +1,10 @@
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
 import {
   BottomNavigation,
   BottomNavigationAction,
   makeStyles,
 } from "@material-ui/core";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 import HomeIcon from "@material-ui/icons/Home";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
@@ -15,20 +15,32 @@ const useStyles = makeStyles({
     width: "100vw",
     position: "fixed",
     bottom: 0,
-    backgroundColor: "transparent",
+    backgroundColor: "primary",
   },
 });
 
-const BottomTabBar = () => {
+const BottomTabBar = (props) => {
+  const { location } = props;
   const classes = useStyles();
-  const [value, setValue] = useState(0);
+
+  const indexToTabName = {
+    "/": 0,
+    "/chat": 1,
+    "/profiel": 2,
+  };
+
+  const [selectedTab, setSelectedTab] = useState(
+    indexToTabName[location.pathname]
+  );
+
+  const handleChange = (event, newValue) => {
+    setSelectedTab(newValue);
+  };
 
   return (
     <BottomNavigation
-      value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
+      value={selectedTab}
+      onChange={handleChange}
       showLabels
       className={classes.root}
     >
@@ -54,4 +66,4 @@ const BottomTabBar = () => {
   );
 };
 
-export default BottomTabBar;
+export default withRouter(BottomTabBar);

@@ -1,8 +1,20 @@
+import { makeStyles } from "@material-ui/core";
 import React from "react";
-import { Link } from "react-router-dom";
 
-const Chat = () => <h1>Lakenhal Chat</h1>;
+const useStyles = makeStyles((theme) => ({
+  pageContainer: {
+    paddingTop: theme.spacing(10),
+    paddingBottom: theme.spacing(6),
+  },
+}));
 
-const styles = {};
+const Chatpage = () => {
+  const classes = useStyles();
 
-export default Chat;
+  return (
+    <div className={classes.pageContainer}>
+      <h1>chatpage</h1>
+    </div>
+  );
+};
+export default Chatpage;
