@@ -9,6 +9,8 @@ import {
 import HomeIcon from "@material-ui/icons/Home";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
+import SettingsIcon from "@material-ui/icons/Settings";
+import { useAuth } from '../../contexts/authContext'
 
 const useStyles = makeStyles({
   root: {
@@ -19,16 +21,18 @@ const useStyles = makeStyles({
   },
 });
 
+
 const BottomTabBar = (props) => {
   const { location } = props;
   const classes = useStyles();
-
+  const { currentUser } = useAuth();
+  
   const indexToTabName = {
     "/": 0,
     "/chat": 1,
     "/profiel": 2,
   };
-
+  
   const [selectedTab, setSelectedTab] = useState(
     indexToTabName[location.pathname]
   );
@@ -36,7 +40,18 @@ const BottomTabBar = (props) => {
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
-
+  
+  const admin = () =>{
+    try{
+      if(currentUser.admin === 1){
+        return true
+      }
+    }
+    catch(e){
+      return false
+    }
+  }
+ 
   return (
     <BottomNavigation
       value={selectedTab}
@@ -62,6 +77,14 @@ const BottomTabBar = (props) => {
         component={Link}
         to={"/profiel"}
       />
+     {admin() &&
+        (<BottomNavigationAction
+          label="Instellingen"
+          icon={<SettingsIcon/>}
+          component={Link}
+          to={"/instellingen"}
+        />)
+      } 
     </BottomNavigation>
   );
 };
