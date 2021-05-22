@@ -27,6 +27,9 @@ const Logout = () => {
             history.push('/login');
         })
         .catch(error => {
+            history.push('/login');
+            localStorage.clear()
+            setCurrentUser(null);
             console.log(error.response);
         });
     };
