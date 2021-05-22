@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   AppBar,
   Container,
+  Box,
   makeStyles,
   Paper,
   Tab,
@@ -11,6 +12,7 @@ import {
 } from "@material-ui/core";
 import Poststab from "../postsTab/postsTab";
 import ProfileTab from "../profileTab/profileTab";
+import ProfileEditTab from "../profileTab/profileEditTab";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -52,10 +54,14 @@ const Profilepage = ({ width }) => {
         >
           <Tab label="PROFIEL" />
           <Tab label="POSTS" />
+          <Box display="none">
+            <Tab label="EDIT" disabled />
+          </Box>
         </Tabs>
       </AppBar>
-      {selectedTab === 0 && <ProfileTab />}
+      {selectedTab === 0 && <ProfileTab selectedTab={()=>setSelectedTab(2)} />}
       {selectedTab === 1 && <Poststab />}
+      {selectedTab === 2 && <ProfileEditTab selectedTab={()=>setSelectedTab(0)} />}
     </div>
   );
 };

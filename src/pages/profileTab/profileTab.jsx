@@ -2,9 +2,13 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
+import { Link } from "react-router-dom";
+import ProfileEditTab from "./profileEditTab"
+import { useAuth } from '../../contexts/authContext'
 
 import {
   Box,
+  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -67,9 +71,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfileTab = () => {
+const ProfileTab = ({selectedTab}) => {
   const classes = useStyles();
-
+  
   // TODO:
 
   // zodra database images traag loaden -> npm install material-ui-image
@@ -110,6 +114,9 @@ const ProfileTab = () => {
   const favoKunst = props[1];
   const interesses = props[2];
   const eigenschappen = props[3];
+
+  const { currentUser } = useAuth();
+
 
   return (
     <Box className={classes.pageContainer}>
@@ -186,6 +193,7 @@ const ProfileTab = () => {
           </Card>
         ))}
       </Box>
+      <Button onClick={selectedTab}>Bewerk Profiel</Button>
     </Box>
   );
 };
