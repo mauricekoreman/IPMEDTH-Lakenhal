@@ -13,6 +13,7 @@ import PostsTab from "../../pages/postsTab/postsTab";
 import ProfileTab from "../../pages/profileTab/profileTab";
 import ModeratorRapportage from "../../pages/moderatorRapportage/moderatorRapportage";
 import ModeratorCategorie from "../../pages/moderatorCategorie/moderatorCategorie";
+import { useLocation } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "0 5px 6px rgba(0, 0, 0, .15)",
   },
 }));
+
 
 const ExtraTabsHeader = ({ width, tabs}) => {
   // this is equivalent to theme.breakpoints.down("sm")
@@ -37,6 +39,7 @@ const ExtraTabsHeader = ({ width, tabs}) => {
     setSelectedTab(newValue);
   };
 
+  const location = useLocation()
 
   return (
     <div className={classes.pageContainer}>
@@ -57,10 +60,10 @@ const ExtraTabsHeader = ({ width, tabs}) => {
           <Tab label={tabs[1]} />
         </Tabs>
       </AppBar>
-      {window.location.pathname === '/profiel' && selectedTab === 0 && <ProfileTab/>}
-      {window.location.pathname === '/profiel' && selectedTab === 1 && <PostsTab/>}
-      {window.location.pathname === '/moderator' && selectedTab === 0 && <ModeratorRapportage/>}
-      {window.location.pathname === '/moderator' && selectedTab === 1 && <ModeratorCategorie/>}
+      {location.pathname === '/profiel' && selectedTab === 0 && <ProfileTab/>}
+      {location.pathname === '/profiel' && selectedTab === 1 && <PostsTab/>}
+      {location.pathname === '/moderator' && selectedTab === 0 && <ModeratorRapportage/>}
+      {location.pathname === '/moderator' && selectedTab === 1 && <ModeratorCategorie/>}
     </div>
   );
 };
