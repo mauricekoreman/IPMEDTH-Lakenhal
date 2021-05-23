@@ -69,7 +69,8 @@ const Header = ({ title }) => {
           {currentUser ? (<Logout />) : (<Box><Link to="/login">Login</Link><Link to="/register">Registreer</Link></Box>)}
         </Toolbar>
       </AppBar>
-      {console.log(onProfile)}
+      
+      {/* Navigatie naar profiel posts rapportages en categorieën via extra tabs*/}
       {onProfile &&  <ExtraTabsHeader tabs={["PROFIEL", "POSTS"]} onProfile={onProfile}/>}
       {admin() && onModerator &&  <ExtraTabsHeader tabs={["RAPPORTAGES", "CATEGORIEËN"]} onModerator={onModerator}/>}
       <MenuDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
