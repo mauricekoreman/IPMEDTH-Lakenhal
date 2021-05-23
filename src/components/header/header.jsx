@@ -12,6 +12,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import MenuDrawer from "../menuDrawer/menuDrawer";
 import Logout from "../authentication/logout";
 import { useAuth } from '../../contexts/authContext'
+import ExtraTabsHeader from '../header/extraTabsHeader'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +35,17 @@ const Header = ({ title }) => {
     setOpenDrawer(!openDrawer);
   }
 
+  const admin = () =>{
+    try{
+      if(currentUser.admin === 1){
+        return true
+      }
+    }
+    catch(e){
+      return false
+    }
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed">
@@ -53,6 +65,8 @@ const Header = ({ title }) => {
           {currentUser ? (<Logout />) : (<Box><Link to="/login">Login</Link><Link to="/register">Registreer</Link></Box>)}
         </Toolbar>
       </AppBar>
+      {window.location.pathname === '/profiel' &&  <ExtraTabsHeader tabs={["PROFIEL", "POSTS"]}/>}
+      {admin() && window.location.pathname === '/moderator' &&  <ExtraTabsHeader tabs={["RAPPORTAGES", "CATEGORIEËN"]}/>}
       <MenuDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
     </div>
   );

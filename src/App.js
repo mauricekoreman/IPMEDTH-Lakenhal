@@ -5,8 +5,8 @@ import { Switch, Route, useLocation } from "react-router-dom";
 
 import Homepage from "./pages/homepage/homepage";
 import Chatpage from "./pages/chatpage/chatpage";
-import Profilepage from "./pages/profilepage/profilepage";
-import Moderator from "./pages/moderatorpage/moderatorpage";
+import ProfileTab from "./pages/profileTab/profileTab";
+import ModeratorRapportage from "./pages/moderatorRapportage/moderatorRapportage";
 import Login from "./pages/authpage/loginpage";
 import Register from "./pages/authpage/registerpage";
 
@@ -37,6 +37,8 @@ function App() {
 
   const user = localStorage.getItem('user');
 
+  
+
   return (
     <div>
       <AuthProvider user={user}>
@@ -44,8 +46,8 @@ function App() {
           <Switch>
             <Route exact path="/" component={Homepage} />
             <ProtectedRoute exact path="/chat" ><Chatpage /></ProtectedRoute>
-            <ProtectedRoute exact path="/profiel" ><Profilepage /></ProtectedRoute>
-            <Route exact path="/moderator" component={Moderator} />
+            <ProtectedRoute exact path="/profiel" ></ProtectedRoute>
+            <ProtectedRoute exact path="/moderator"></ProtectedRoute>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
           </Switch>

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ModeratorPage = () => {
+const ModeratorCategorie = () => {
   const classes = useStyles();
   const { currentUser } = useAuth();
 
@@ -41,4 +41,4 @@ const ModeratorPage = () => {
 
 const styles = {};
 
-export default ModeratorPage;
+export default ModeratorCategorie;

@@ -9,8 +9,10 @@ import {
   useTheme,
   withWidth,
 } from "@material-ui/core";
-import Poststab from "../postsTab/postsTab";
-import ProfileTab from "../profileTab/profileTab";
+import PostsTab from "../../pages/postsTab/postsTab";
+import ProfileTab from "../../pages/profileTab/profileTab";
+import ModeratorRapportage from "../../pages/moderatorRapportage/moderatorRapportage";
+import ModeratorCategorie from "../../pages/moderatorCategorie/moderatorCategorie";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Profilepage = ({ width }) => {
+const ExtraTabsHeader = ({ width, tabs}) => {
   // this is equivalent to theme.breakpoints.down("sm")
   const isSmallScreen = /xs|sm/.test(width);
   const theme = useTheme();
@@ -34,6 +36,7 @@ const Profilepage = ({ width }) => {
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
+
 
   return (
     <div className={classes.pageContainer}>
@@ -50,14 +53,16 @@ const Profilepage = ({ width }) => {
           centered
           variant={isSmallScreen ? "fullWidth" : "standard"}
         >
-          <Tab label="PROFIEL" />
-          <Tab label="POSTS" />
+          <Tab label={tabs[0]} />
+          <Tab label={tabs[1]} />
         </Tabs>
       </AppBar>
-      {selectedTab === 0 && <ProfileTab />}
-      {selectedTab === 1 && <Poststab />}
+      {window.location.pathname === '/profiel' && selectedTab === 0 && <ProfileTab/>}
+      {window.location.pathname === '/profiel' && selectedTab === 1 && <PostsTab/>}
+      {window.location.pathname === '/moderator' && selectedTab === 0 && <ModeratorRapportage/>}
+      {window.location.pathname === '/moderator' && selectedTab === 1 && <ModeratorCategorie/>}
     </div>
   );
 };
 
-export default withWidth()(Profilepage);
+export default withWidth()(ExtraTabsHeader);
