@@ -13,6 +13,7 @@ import MenuDrawer from "../menuDrawer/menuDrawer";
 import Logout from "../authentication/logout";
 import { useAuth } from '../../contexts/authContext'
 import ExtraTabsHeader from '../header/extraTabsHeader'
+import { useLocation } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +46,9 @@ const Header = ({ title }) => {
       return false
     }
   }
+  const location = useLocation()
+  const onProfile = location.pathname === '/profiel';
+  const onModerator = location.pathname === '/moderator';
 
   return (
     <div className={classes.root}>
@@ -65,8 +69,9 @@ const Header = ({ title }) => {
           {currentUser ? (<Logout />) : (<Box><Link to="/login">Login</Link><Link to="/register">Registreer</Link></Box>)}
         </Toolbar>
       </AppBar>
-      {window.location.pathname === '/profiel' &&  <ExtraTabsHeader tabs={["PROFIEL", "POSTS"]}/>}
-      {admin() && window.location.pathname === '/moderator' &&  <ExtraTabsHeader tabs={["RAPPORTAGES", "CATEGORIEËN"]}/>}
+      {console.log(onProfile)}
+      {onProfile &&  <ExtraTabsHeader tabs={["PROFIEL", "POSTS"]} onProfile={onProfile}/>}
+      {admin() && onModerator &&  <ExtraTabsHeader tabs={["RAPPORTAGES", "CATEGORIEËN"]} onModerator={onModerator}/>}
       <MenuDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
     </div>
   );
