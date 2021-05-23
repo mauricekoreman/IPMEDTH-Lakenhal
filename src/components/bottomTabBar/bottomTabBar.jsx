@@ -82,7 +82,7 @@ const BottomTabBar = (props) => {
           label="Instellingen"
           icon={<SettingsIcon/>}
           component={Link}
-          to={"/instellingen"}
+          to={"/moderator"}
         />)
       } 
     </BottomNavigation>
