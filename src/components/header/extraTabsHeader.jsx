@@ -56,7 +56,6 @@ const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator}) => {
           <Tab label={tabs[1]} />
         </Tabs>
       </AppBar>
-      {console.log(onProfile)}
       {onProfile && selectedTab === 0 && <ProfileTab/>}
       {onProfile && selectedTab === 1 && <PostsTab/>}
       {onModerator && selectedTab === 0 && <ModeratorRapportage/>}

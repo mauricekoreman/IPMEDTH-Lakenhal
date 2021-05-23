@@ -20,19 +20,10 @@ const useStyles = makeStyles((theme) => ({
 const ModeratorRapportage = () => {
   const classes = useStyles();
   const { currentUser } = useAuth();
-  const admin = () =>{
-    try{
-      if(currentUser.admin === 1){
-        return true
-      }
-    }
-    catch(e){
-      return false
-    }
-  } 
+  const currentUserReadable = JSON.parse(currentUser)
   return (
     <div>
-      {admin() ? ( 
+      {currentUserReadable ? ( 
         <Box className={classes.pageContainer}>
           <Grid container spacing={2}>
             <Grid item xs={12}>

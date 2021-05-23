@@ -26,7 +26,7 @@ const BottomTabBar = (props) => {
   const { location } = props;
   const classes = useStyles();
   const { currentUser } = useAuth();
-  
+  const currentUserReadable = JSON.parse(currentUser)
   const indexToTabName = {
     "/": 0,
     "/chat": 1,
@@ -40,18 +40,6 @@ const BottomTabBar = (props) => {
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
-  
-  const admin = () =>{
-    try{
-      if(currentUser.admin === 1){
-        return true
-      }
-    }
-    catch(e){
-      return false
-    }
-  }
- 
   return (
     <BottomNavigation
       value={selectedTab}
@@ -77,9 +65,9 @@ const BottomTabBar = (props) => {
         component={Link}
         to={"/profiel"}
       />
-     {admin() &&
+     {currentUserReadable.admin &&
         (<BottomNavigationAction
-          label="Instellingen"
+          label="moderator"
           icon={<SettingsIcon/>}
           component={Link}
           to={"/moderator"}

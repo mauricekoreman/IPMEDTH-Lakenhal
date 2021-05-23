@@ -31,20 +31,9 @@ const Header = ({ title }) => {
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
   const { currentUser } = useAuth();
-
+  const currentUserReadable = JSON.parse(currentUser)
   function toggleDrawer() {
     setOpenDrawer(!openDrawer);
-  }
-
-  const admin = () =>{
-    try{
-      if(currentUser.admin === 1){
-        return true
-      }
-    }
-    catch(e){
-      return false
-    }
   }
   const location = useLocation()
   const onProfile = location.pathname === '/profiel';
@@ -72,7 +61,7 @@ const Header = ({ title }) => {
       
       {/* Navigatie naar profiel posts rapportages en categorieën via extra tabs*/}
       {onProfile &&  <ExtraTabsHeader tabs={["PROFIEL", "POSTS"]} onProfile={onProfile}/>}
-      {admin() && onModerator &&  <ExtraTabsHeader tabs={["RAPPORTAGES", "CATEGORIEËN"]} onModerator={onModerator}/>}
+      {currentUserReadable && onModerator &&  <ExtraTabsHeader tabs={["RAPPORTAGES", "CATEGORIEËN"]} onModerator={onModerator}/>}
       <MenuDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
     </div>
   );

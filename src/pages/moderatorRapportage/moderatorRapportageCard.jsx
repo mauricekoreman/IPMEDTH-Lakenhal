@@ -16,7 +16,7 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-    
+
   rapportageCard: {
     width: '80%',
     margin: '0 auto',
@@ -63,17 +63,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ModeratorRapportageCard = () => {
   const classes = useStyles();
-  const { currentUser } = useAuth();
-  const admin = () =>{
-    try{
-      if(currentUser.admin === 1){
-        return true
-      }
-    }
-    catch(e){
-      return false
-    }
-  } 
   return (  
         <Card className={classes.rapportageCard}>
           <CardMedia
