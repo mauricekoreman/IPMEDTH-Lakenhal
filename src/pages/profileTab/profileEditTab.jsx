@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Button } from '@material-ui/core';
 import { useAuth } from '../../contexts/authContext';

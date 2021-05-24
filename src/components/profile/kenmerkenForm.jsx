@@ -8,7 +8,7 @@ const KenmerkenForm = ({user, kenmerk, onReload}) => {
 
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
-    const { control, handleSubmit } = useForm();
+    const { control, handleSubmit, reset } = useForm();
 
     const onSubmit = (updateUserData) => {
         console.log(updateUserData);
@@ -16,6 +16,7 @@ const KenmerkenForm = ({user, kenmerk, onReload}) => {
             headers: { Accept: "application/json" },
         }).then(res => {
             console.log(res.data);
+            reset();
             onReload();
         })
         .catch(error => {

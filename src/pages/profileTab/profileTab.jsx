@@ -2,8 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
-import ProfileEditTab from "./profileEditTab"
-import { useAuth } from '../../contexts/authContext'
 
 import {
   Box,

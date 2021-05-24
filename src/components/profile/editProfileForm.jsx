@@ -3,8 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useForm, Controller } from "react-hook-form";
 import { TextField, Button, Container, Grid } from '@material-ui/core';
 import axios from "axios";
-import { useHistory } from "react-router-dom";
-import { useAuth } from '../../contexts/authContext'
 
 import CheckIcon from '@material-ui/icons/Check';
 
