@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const EditProfileForm = ({user, onReload}) => {
+const EditProfileForm = ({user, onReload, selectedTab}) => {
     const classes = useStyles();
 
     const TEST_URL = "http://127.0.0.1:8000/api/";
@@ -31,9 +31,9 @@ const EditProfileForm = ({user, onReload}) => {
             headers: { Accept: "application/json" },
         }).then(res => {
             console.log(res);
-            
+            onReload();
             //ga naar profielpage
-            history.push('/profiel');
+            selectedTab(2);
         })
         .catch(error => {
             console.log(error.response);

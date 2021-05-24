@@ -20,8 +20,12 @@ const ProfileEditTab = ({selectedTab}) => {
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
     const { currentUser, setCurrentUser } = useAuth();
-    let user = JSON.parse(currentUser);
+    let user = currentUser;
 
+    useEffect(() => {
+        updateUser();
+    }, []);
+    
     const updateUser = () => {
         axios.get(TEST_URL+"users/"+user.user_ID, {
             headers: { "Content-Type": "application/json" },
@@ -37,7 +41,7 @@ const ProfileEditTab = ({selectedTab}) => {
 
     return (
         <Box className={classes.pageContainer}>
-            <EditProfileForm user={user} onReload={updateUser}/> 
+            <EditProfileForm user={user} onReload={updateUser} selectedTab={selectedTab}/> 
             <Button onClick={selectedTab}><CloseIcon /></Button>
         </Box>
     );
