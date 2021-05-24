@@ -6,7 +6,7 @@ import BigHeader from "../bigHeader/bigHeader";
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(10),
-    paddingBottom: theme.spacing(6),
+    paddingBottom: theme.spacing(10),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
   },

@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 25,
   },
   registerButton: {
-    marginTop: theme.spacing(7),
+    marginTop: theme.spacing(5),
     marginBottom: theme.spacing(3),
   },
 }));

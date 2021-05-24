@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { makeStyles, Typography } from "@material-ui/core";
+import { Box, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -28,10 +28,11 @@ const BigHeader = ({ text, inBlue }) => {
   const classes = useStyles();
 
   let textSplit = text.split(" ");
-  var wordsInBlue = checkOverlappingValues(textSplit, inBlue);
+
+  var wordsInBlue = checkOverlappingValues(textSplit, inBlue ?? "");
 
   return (
-    <div className={classes.container}>
+    <Box className={classes.container}>
       {textSplit.map((woord, index) => {
         if (wordsInBlue.includes(woord)) {
           return (
@@ -57,7 +58,7 @@ const BigHeader = ({ text, inBlue }) => {
           );
         }
       })}
-    </div>
+    </Box>
   );
 };
 

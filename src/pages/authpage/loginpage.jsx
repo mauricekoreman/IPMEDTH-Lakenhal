@@ -6,12 +6,6 @@ import LoginForm from "../../components/authentication/loginForm";
 import AuthenticationLayout from "../../components/authentication/authenticationLayout";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    paddingTop: theme.spacing(10),
-    paddingBottom: theme.spacing(6),
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
-  },
   link: {
     textDecoration: "underline 1px",
     textUnderlineOffset: "3px",

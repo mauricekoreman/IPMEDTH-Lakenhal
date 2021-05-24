@@ -11,15 +11,21 @@ import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 
 import { useAuth } from "../../contexts/authContext";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     marginTop: 25,
   },
   loginButton: {
-    marginTop: theme.spacing(7),
+    marginTop: theme.spacing(5),
     marginBottom: theme.spacing(3),
+  },
+  link: {
+    textDecoration: "underline 1px",
+    textUnderlineOffset: "3px",
+    textAlign: "right",
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -119,6 +125,9 @@ const LoginForm = () => {
             Wachtwoord of e-mailadres is verkeerd
           </Typography>
         )}
+        <Link className={classes.link} to="/forgotPassword">
+          Wachtwoord vergeten?
+        </Link>
         <Button
           className={classes.loginButton}
           variant="contained"
