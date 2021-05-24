@@ -4,7 +4,7 @@ import { TextField, Button } from '@material-ui/core';
 import ArrowRightRoundedIcon from '@material-ui/icons/ArrowRightRounded';
 import axios from "axios";
 
-const InteresseEigenschapForm = ({user, input}) => {
+const KenmerkenForm = ({user, kenmerk, onReload}) => {
 
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
@@ -12,10 +12,11 @@ const InteresseEigenschapForm = ({user, input}) => {
 
     const onSubmit = async (updateUserData) => {
         console.log(updateUserData);
-        axios.put(TEST_URL+"users/updateJSON/"+user.user_ID, updateUserData, {
+        axios.put(TEST_URL+"users/updateKenmerk/"+user.user_ID, updateUserData, {
             headers: { Accept: "application/json" },
         }).then(res => {
             console.log(res.data);
+            onReload();
         })
         .catch(error => {
             console.log(error.response);
@@ -25,10 +26,10 @@ const InteresseEigenschapForm = ({user, input}) => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller
-                    name={input}
+                    name={kenmerk}
                     control={control}
                     defaultValue=""
-                    render={({ field }) => <TextField {...field} label={input}/>}
+                    render={({ field }) => <TextField {...field} label={kenmerk}/>}
                 />
             <Button type="submit"> 
                 <ArrowRightRoundedIcon />
@@ -37,4 +38,4 @@ const InteresseEigenschapForm = ({user, input}) => {
     );
 };
 
-export default InteresseEigenschapForm;
+export default KenmerkenForm;

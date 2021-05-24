@@ -8,19 +8,20 @@ import { useAuth } from '../../contexts/authContext'
 
 import CheckIcon from '@material-ui/icons/Check';
 
-import InteresseEigenschapForm from '../../components/profile/interesseEigenschapForm'
+import KenmerkenForm from './kenmerkenForm'
+import KenmerkenList from "./kenmerkenList";
 
 const useStyles = makeStyles((theme) => ({
 
 }));
 
-const EditProfileForm = ({user}) => {
+const EditProfileForm = ({user, onReload}) => {
     const classes = useStyles();
 
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
     const history = useHistory();
-    const { setCurrentUser } = useAuth();
+    const { CurrentUser } = useAuth();
 
     const { control, handleSubmit } = useForm();
 
@@ -30,6 +31,7 @@ const EditProfileForm = ({user}) => {
             headers: { Accept: "application/json" },
         }).then(res => {
             console.log(res);
+            
             //ga naar profielpage
             history.push('/profiel');
         })
@@ -38,8 +40,6 @@ const EditProfileForm = ({user}) => {
         });
     }
 
-    
-    console.log(user);
     return (
         <Container maxWidth="xs">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -73,8 +73,11 @@ const EditProfileForm = ({user}) => {
                     <CheckIcon />
                 </Button>
             </form>
-            <InteresseEigenschapForm user={user} input="interesses"/>
-            <InteresseEigenschapForm user={user} input="eigenschappen"/>
+            <KenmerkenList user={user} kenmerk="interesses" onReload={onReload}/>
+            <KenmerkenForm user={user} kenmerk="interesses" onReload={onReload}/>
+
+            <KenmerkenList user={user} kenmerk="eigenschappen" onReload={onReload}/>
+            <KenmerkenForm user={user} kenmerk="eigenschappen" onReload={onReload}/>
         </Container>
     );
 };

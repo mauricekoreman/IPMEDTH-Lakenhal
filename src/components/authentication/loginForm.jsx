@@ -81,7 +81,7 @@ const LoginForm = () => {
                             />
                     </FormControl>
                     {generalLoginError && <box>Wachtwoord of e-mailadres is verkeerd</box>}
-                    <Button type="submit"x> 
+                    <Button type="submit"> 
                         Login
                     </Button>
                 </Grid>
