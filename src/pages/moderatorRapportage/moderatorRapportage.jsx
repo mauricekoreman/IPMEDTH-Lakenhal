@@ -20,10 +20,22 @@ const useStyles = makeStyles((theme) => ({
 const ModeratorRapportage = () => {
   const classes = useStyles();
   const { currentUser } = useAuth();
-  const currentUserReadable = JSON.parse(currentUser)
+  const isJson = (currentUser) => {
+    try {
+        JSON.parse(currentUser);
+    } catch (e) {
+        return false;
+    }
+    return true;
+  }
+
+  let user = currentUser;
+  if(isJson(currentUser)){
+    user = JSON.parse(currentUser);
+  }
   return (
     <div>
-      {currentUserReadable.admin ? ( 
+      {user.admin ? ( 
         <Box className={classes.pageContainer}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
