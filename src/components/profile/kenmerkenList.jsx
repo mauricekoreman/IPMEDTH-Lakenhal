@@ -5,7 +5,7 @@ import KenmerkenCard from "./kenmerkenCard";
 import { Grid, Box} from "@material-ui/core";
 
 const KenmerkenList = ({user, kenmerk, onReload}) => {
-    let objectKenmerken = Object.assign({kenmerk}, (JSON.parse([user[kenmerk]])));
+    let objectKenmerken = Object.assign({kenmerk}, JSON.parse([user[kenmerk]]));
 
     return (
         <Box>

@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfileTab = ({selectedTab}) => {
+const ProfileTab = ({selectedTab, user}) => {
   const classes = useStyles();
   
   // TODO:
@@ -113,12 +113,9 @@ const ProfileTab = ({selectedTab}) => {
   const favoKunst = props[1];
   const interesses = props[2];
   const eigenschappen = props[3];
-
-  const { currentUser } = useAuth();
-  let user = JSON.parse(currentUser);
-  let Interesses = Object.assign({}, JSON.parse([user.interesses]));
-  let Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
-  console.log(Interesses);
+  console.log([user.interesses]);
+  const  Interesses = Object.assign({}, JSON.parse([user.interesses]));
+  const  Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
 
   return (
     <Box className={classes.pageContainer}>

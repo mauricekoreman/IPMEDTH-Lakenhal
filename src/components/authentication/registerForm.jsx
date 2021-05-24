@@ -22,7 +22,7 @@ const RegistreerForm = () => {
     const password = useRef({});
     password.current = watch("password", "");
 
-    const onSubmit = async (registerData) => {
+    const onSubmit = (registerData) => {
         console.log(registerData);
         axios.post(TEST_URL+"auth/register", registerData, {
             headers: { Accept: "application/json" },

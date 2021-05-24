@@ -22,7 +22,7 @@ const EditProfileForm = ({user, onReload, selectedTab}) => {
 
     const { control, handleSubmit } = useForm();
 
-    const onSubmit = async (updateUserData) => {
+    const onSubmit = (updateUserData) => {
         console.log(updateUserData);
         axios.put(TEST_URL+"users/update/"+user.user_ID, updateUserData, {
             headers: { Accept: "application/json" },
@@ -36,6 +36,7 @@ const EditProfileForm = ({user, onReload, selectedTab}) => {
             console.log(error.response);
         });
     }
+    console.log(user);
 
     return (
         <Container maxWidth="xs">

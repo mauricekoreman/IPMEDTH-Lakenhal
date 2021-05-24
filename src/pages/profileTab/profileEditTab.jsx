@@ -15,16 +15,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProfileEditTab = ({selectedTab}) => {
+const ProfileEditTab = ({selectedTab, user}) => {
     const classes = useStyles();
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
-    const { currentUser, setCurrentUser } = useAuth();
-    let user = JSON.parse(currentUser);
-
-    // useEffect(() => {
-    //     updateUser();
-    // }, []);
+    const { setCurrentUser } = useAuth();
     
     const updateUser = () => {
         axios.get(TEST_URL+"users/"+user.user_ID, {
@@ -35,7 +30,7 @@ const ProfileEditTab = ({selectedTab}) => {
             setCurrentUser(res.data);
         })
         .catch(error => {
-            console.log(error.response);
+            console.log(error);
         });
     }
 

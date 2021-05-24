@@ -10,7 +10,7 @@ const KenmerkenForm = ({user, kenmerk, onReload}) => {
 
     const { control, handleSubmit } = useForm();
 
-    const onSubmit = async (updateUserData) => {
+    const onSubmit = (updateUserData) => {
         console.log(updateUserData);
         axios.put(TEST_URL+"users/updateKenmerk/"+user.user_ID, updateUserData, {
             headers: { Accept: "application/json" },

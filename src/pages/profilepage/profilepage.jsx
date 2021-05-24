@@ -14,6 +14,8 @@ import Poststab from "../postsTab/postsTab";
 import ProfileTab from "../profileTab/profileTab";
 import ProfileEditTab from "../profileTab/profileEditTab";
 
+import { useAuth } from '../../contexts/authContext'
+
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
     flexGrow: 1,
@@ -37,6 +39,22 @@ const Profilepage = ({ width }) => {
     setSelectedTab(newValue);
   };
 
+  const { currentUser } = useAuth();
+
+  const isJson = (currentUser) => {
+    try {
+        JSON.parse(currentUser);
+    } catch (e) {
+        return false;
+    }
+    return true;
+  }
+
+  let user = currentUser;
+  if(isJson(currentUser)){
+    user = JSON.parse(currentUser);
+  }
+
   return (
     <div className={classes.pageContainer}>
       <AppBar
@@ -59,9 +77,9 @@ const Profilepage = ({ width }) => {
           </Box>
         </Tabs>
       </AppBar>
-      {selectedTab === 0 && <ProfileTab selectedTab={()=>setSelectedTab(2)} />}
+      {selectedTab === 0 && <ProfileTab user={user} selectedTab={()=>setSelectedTab(2)} />}
       {selectedTab === 1 && <Poststab />}
-      {selectedTab === 2 && <ProfileEditTab selectedTab={()=>setSelectedTab(0)} />}
+      {selectedTab === 2 && <ProfileEditTab user={user} selectedTab={()=>setSelectedTab(0)} />}
     </div>
   );
 };
