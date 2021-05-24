@@ -20,9 +20,6 @@ const EditProfileForm = ({user, onReload, selectedTab}) => {
 
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
-    const history = useHistory();
-    const { CurrentUser } = useAuth();
-
     const { control, handleSubmit } = useForm();
 
     const onSubmit = async (updateUserData) => {

@@ -20,11 +20,11 @@ const ProfileEditTab = ({selectedTab}) => {
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
     const { currentUser, setCurrentUser } = useAuth();
-    let user = currentUser;
+    let user = JSON.parse(currentUser);
 
-    useEffect(() => {
-        updateUser();
-    }, []);
+    // useEffect(() => {
+    //     updateUser();
+    // }, []);
     
     const updateUser = () => {
         axios.get(TEST_URL+"users/"+user.user_ID, {

@@ -115,7 +115,10 @@ const ProfileTab = ({selectedTab}) => {
   const eigenschappen = props[3];
 
   const { currentUser } = useAuth();
-
+  let user = JSON.parse(currentUser);
+  let Interesses = Object.assign({}, JSON.parse([user.interesses]));
+  let Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
+  console.log(Interesses);
 
   return (
     <Box className={classes.pageContainer}>
@@ -127,12 +130,12 @@ const ProfileTab = ({selectedTab}) => {
         />
         <Box>
           <Typography variant="h4" className={classes.name}>
-            {`${informatie.voornaam} ${informatie.achternaam}`}
+            {user.naam}
           </Typography>
           <Box className={classes.workContainer}>
             <WorkOutlineIcon className={classes.beroepIcon} />
             <Typography variant="subtitle1" className={classes.beroep}>
-              {informatie.beroep}
+              {user.beroep}
             </Typography>
           </Box>
         </Box>
@@ -140,9 +143,9 @@ const ProfileTab = ({selectedTab}) => {
 
       <Box className={classes.subContainer}>
         <Typography variant="h6" component="h3" className={classes.title}>
-          {`Over ${informatie.voornaam}`}
+          Over {user.naam}
         </Typography>
-        <Typography variant="body1">{informatie.bio}</Typography>
+        <Typography variant="body1">{user.biografie}</Typography>
       </Box>
 
       <Box className={classes.subContainer}>
@@ -150,9 +153,15 @@ const ProfileTab = ({selectedTab}) => {
           Interesses
         </Typography>
         <Box className={classes.chips}>
-          {interesses.items.map((interesse) => (
+          {/* {interesses.items.map((interesse) => (
             <Chip key={interesse} label={interesse} />
-          ))}
+          ))} */}
+          {Object.entries(Interesses).map(([key, value]) => {
+              return(<Chip
+                  key={key}
+                  label={value}
+              />)
+          })}
         </Box>
       </Box>
       <Box className={classes.subContainer}>
@@ -160,9 +169,15 @@ const ProfileTab = ({selectedTab}) => {
           Kenmerkende eigenschappen
         </Typography>
         <Box className={classes.chips}>
-          {eigenschappen.items.map((eigenschap) => (
+          {/* {eigenschappen.items.map((eigenschap) => (
             <Chip key={eigenschap} label={eigenschap} />
-          ))}
+          ))} */}
+          {Object.entries(Eigenschappen).map(([key, value]) => {
+              return(<Chip
+                  key={key}
+                  label={value}
+              />)
+          })}
         </Box>
       </Box>
 
