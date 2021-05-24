@@ -61,7 +61,7 @@ const Header = ({ title }) => {
       
       {/* Navigatie naar profiel posts rapportages en categorieën via extra tabs*/}
       {onProfile &&  <ExtraTabsHeader tabs={["PROFIEL", "POSTS"]} onProfile={onProfile}/>}
-      {currentUserReadable.admin && onModerator &&  <ExtraTabsHeader tabs={["RAPPORTAGES", "CATEGORIEËN"]} onModerator={onModerator}/>}
+      {currentUserReadable && currentUserReadable.admin && onModerator &&  <ExtraTabsHeader tabs={["RAPPORTAGES", "CATEGORIEËN"]} onModerator={onModerator}/>}
       <MenuDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
     </div>
   );

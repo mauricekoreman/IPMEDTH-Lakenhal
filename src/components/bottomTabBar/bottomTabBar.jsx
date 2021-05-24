@@ -65,7 +65,7 @@ const BottomTabBar = (props) => {
         component={Link}
         to={"/profiel"}
       />
-     {currentUserReadable.admin &&
+     {currentUserReadable && currentUserReadable.admin &&
         (<BottomNavigationAction
           label="moderator"
           icon={<SettingsIcon/>}
