@@ -6,6 +6,7 @@ import {
   makeStyles,
   Container,
   Grid,
+  Typography,
 } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
@@ -15,7 +16,14 @@ import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
-    padding: theme.spacing(3),
+    padding: 0,
+  },
+  formControl: {
+    marginTop: 25,
+  },
+  loginButton: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
   },
 }));
 
@@ -64,58 +72,66 @@ const LoginForm = () => {
   };
 
   return (
-    <Container className={classes.formContainer} maxWidth="xs">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container direction="column">
-          <FormControl>
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  helperText={errors.email ? errors.email.message : "E-mail"}
-                  error={!!errors.email}
-                />
-              )}
-              rules={{
-                required: "Verplicht",
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: "ongeldig e-mailadres",
-                },
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  type="password"
-                  helperText={
-                    errors.password ? errors.password.message : "Wachtwoord"
-                  }
-                  error={!!errors.password}
-                />
-              )}
-              rules={{
-                required: "Verplicht",
-                minLength: { value: 5, message: "wachtwoord is te kort" },
-              }}
-            />
-          </FormControl>
-          {generalLoginError && (
-            <box>Wachtwoord of e-mailadres is verkeerd</box>
-          )}
-          <Button type="submit">Login</Button>
-        </Grid>
-      </form>
-    </Container>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid container direction="column">
+        <FormControl className={classes.formControl}>
+          <Controller
+            name="email"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label={"Email"}
+                variant="standard"
+                helperText={errors.email ? errors.email.message : ""}
+                error={!!errors.email}
+              />
+            )}
+            rules={{
+              required: "Verplicht",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "ongeldig e-mailadres",
+              },
+            }}
+          />
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label={"Password"}
+                type="password"
+                helperText={errors.password ? errors.password.message : ""}
+                error={!!errors.password}
+              />
+            )}
+            rules={{
+              required: "Verplicht",
+              minLength: { value: 5, message: "wachtwoord is te kort" },
+            }}
+          />
+        </FormControl>
+        {generalLoginError && (
+          <Typography style={{ marginTop: 10 }}>
+            Wachtwoord of e-mailadres is verkeerd
+          </Typography>
+        )}
+        <Button
+          className={classes.loginButton}
+          variant="contained"
+          color="primary"
+          type="submit"
+        >
+          Ga verder
+        </Button>
+      </Grid>
+    </form>
   );
 };
 

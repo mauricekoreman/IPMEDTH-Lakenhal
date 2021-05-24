@@ -25,7 +25,12 @@ const LoginPage = () => {
         inBlue={["MuseumMatcht!"]}
       />
       <RegistreerForm />
-      <Link to="/login">Login</Link>
+      <Box>
+        <Typography>
+          Al een account?
+          <Link to="/login">Log nu in!</Link>
+        </Typography>
+      </Box>
     </Box>
   );
 };
