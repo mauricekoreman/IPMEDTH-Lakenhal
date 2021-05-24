@@ -33,6 +33,13 @@ export const theme = createMuiTheme({
       main: "#3DA2C9",
       contrastText: "#FFF",
     },
+    secondary: {
+      main: "#FFF",
+      contrastText: "#3DA2C9",
+    },
+    background: {
+      default: "#FFF",
+    },
   },
   typography: {
     fontFamily: "Brandon Grotesque, Arial",

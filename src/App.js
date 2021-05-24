@@ -3,9 +3,9 @@ import "./App.css";
 
 import { Switch, Route, useLocation } from "react-router-dom";
 
-import HomePage from "./pages/homepage/homepage";
-import Chat from "./pages/chatpage/chatpage";
-import Profile from "./pages/profilepage/profilepage";
+import Homepage from "./pages/homepage/homepage";
+import Chatpage from "./pages/chatpage/chatpage";
+import Profilepage from "./pages/profilepage/profilepage";
 import Moderator from "./pages/moderatorpage/moderatorpage";
 import Login from "./pages/authpage/loginpage";
 import Register from "./pages/authpage/registerpage";
