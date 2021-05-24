@@ -1,10 +1,9 @@
 import React from "react";
-
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import RegistreerForm from "../../components/authentication/registerForm";
-import BigHeader from "../../components/bigHeader/bigHeader";
 import { Box, makeStyles } from "@material-ui/core";
+import AuthenticationLayout from "../../components/authentication/authenticationLayout";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -13,26 +12,32 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
   },
+  link: {
+    textDecoration: "underline 1px",
+    textUnderlineOffset: "3px",
+    marginLeft: 4,
+  },
 }));
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.container}>
-      <BigHeader
-        text={"Registreer bij MuseumMatcht!"}
-        inBlue={["MuseumMatcht!"]}
-      />
+    <AuthenticationLayout
+      bigHeaderText="Registreer bij MuseumMatch!"
+      inBlueArr={["MuseumMatch!"]}
+    >
       <RegistreerForm />
-      <Box>
+      <Box style={{ textAlign: "center" }}>
         <Typography>
           Al een account?
-          <Link to="/login">Log nu in!</Link>
+          <Link className={classes.link} to="/login">
+            Login!
+          </Link>
         </Typography>
       </Box>
-    </Box>
+    </AuthenticationLayout>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

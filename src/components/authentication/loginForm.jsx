@@ -4,7 +4,6 @@ import {
   Button,
   FormControl,
   makeStyles,
-  Container,
   Grid,
   Typography,
 } from "@material-ui/core";
@@ -15,14 +14,11 @@ import { useAuth } from "../../contexts/authContext";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
-  formContainer: {
-    padding: 0,
-  },
   formControl: {
     marginTop: 25,
   },
   loginButton: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(7),
     marginBottom: theme.spacing(3),
   },
 }));
@@ -105,7 +101,8 @@ const LoginForm = () => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label={"Password"}
+                label="Password"
+                variant="standard"
                 type="password"
                 helperText={errors.password ? errors.password.message : ""}
                 error={!!errors.password}

@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Box, Container, makeStyles, Typography } from "@material-ui/core";
+import { Box, makeStyles, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/authentication/loginForm";
-import BigHeader from "../../components/bigHeader/bigHeader";
+import AuthenticationLayout from "../../components/authentication/authenticationLayout";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -23,8 +23,10 @@ const LoginPage = () => {
   const classes = useStyles();
 
   return (
-    <Container className={classes.container} maxWidth="xs">
-      <BigHeader text={"Login bij MuseumMatch!"} inBlue={["MuseumMatch!"]} />
+    <AuthenticationLayout
+      bigHeaderText="Login bij MuseumMatch!"
+      inBlueArr={["MuseumMatch!"]}
+    >
       <LoginForm />
       <Box style={{ textAlign: "center" }}>
         <Typography>
@@ -34,7 +36,7 @@ const LoginPage = () => {
           </Link>
         </Typography>
       </Box>
-    </Container>
+    </AuthenticationLayout>
   );
 };
 
