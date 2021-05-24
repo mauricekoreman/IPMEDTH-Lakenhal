@@ -23,7 +23,7 @@ const ModeratorRapportage = () => {
   const currentUserReadable = JSON.parse(currentUser)
   return (
     <div>
-      {currentUserReadable ? ( 
+      {currentUserReadable.admin ? ( 
         <Box className={classes.pageContainer}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
