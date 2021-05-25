@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 const CategorieForm = ({addCategorie, categorieError}) => {
   const classes = useStyles();
   const [lakenhal_activiteit, setLakenhalActiviteit] = useState(false)
-  const [categorie, setCategorie] = useState()
+  const [categorie, setCategorie] = useState('')
 
   const handleChange = (e) => {
     setLakenhalActiviteit(e.target.checked)
@@ -33,7 +33,7 @@ const CategorieForm = ({addCategorie, categorieError}) => {
     addCategorie({categorie, lakenhal_activiteit})
     setLakenhalActiviteit(false)
     setCategorie('')
-  }
+  } 
 
   return (
       <form className={classes.categorieForm} noValidate autoComplete="off">
@@ -52,7 +52,8 @@ const CategorieForm = ({addCategorie, categorieError}) => {
         error={categorieError}
         helperText={categorieError ? 'Categorie bestaat al of categorie is leeg!' : ''}
         id="categorie"
-        label="Nieuwe categorie" 
+        value={categorie}
+        label='Nieuwe categorie' 
         variant="outlined"
         onChange={(e)=>{setCategorie(e.target.value)}} 
         />

@@ -21,6 +21,8 @@ const ModeratorCategorie = () => {
   const { currentUser } = useAuth();
   const [categorieList, setCategorie] = useState([]);
   const [categorieError, setCategorieError] = useState(false)
+  const [nieuweCategorie, setNieuweCategorie] = useState(false)
+  const [showList, setShowList] = useState(false)
   const isJson = (currentUser) => {
     try {
         JSON.parse(currentUser);
@@ -49,7 +51,6 @@ const ModeratorCategorie = () => {
   }, []);
 
   const deleteCategorie = async (categorie_ID) => {
-    console.log(categorie_ID)
     await fetch(TEST_URL + 'categorie/delete/' + categorie_ID, {
       method: 'DELETE'
     })
@@ -65,11 +66,16 @@ const ModeratorCategorie = () => {
           headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
           body: JSON.stringify(categorie)
         })
+        if(!res.ok){
+          throw new Error(res.statusText)
+        }
         setCategorieError(false)
         let data = await res.json()
         data.categorie_ID = data.id
         setCategorie([...categorieList, data])
-      } catch (e){
+        setNieuweCategorie(true)
+        setShowList(true)
+      }catch(e){
         setCategorieError(true)
       }
     }
@@ -78,12 +84,16 @@ const ModeratorCategorie = () => {
     }
   }
 
+  const setTheShowList = (show) => {
+    setShowList(show)
+  }
+
   return (
     <div>
       {user.admin ? 
       (<Box className={classes.pageContainer}>
         <CategorieForm categorieError={categorieError} addCategorie={addCategorie}/>
-        <CategorieList categorieList={categorieList} deleteCategorie={deleteCategorie}/>
+        <CategorieList nieuweCategorie={nieuweCategorie} categorieList={categorieList} deleteCategorie={deleteCategorie} showList={showList} setTheShowList={setTheShowList}/>
       </Box>)
       :
       (<div>404</div>)}
