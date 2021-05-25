@@ -11,12 +11,11 @@ const CategorieCard = ({categorie, deleteCategorie, lakenhal, categorie_ID}) => 
 
   return (
     <div>
-    <Typography>{categorie}</Typography>
     <ListItem>
+      <ListItemText primary={categorie}/>
       <ListItemIcon>
         <DeleteIcon onClick={() => deleteCategorie(categorie_ID)} />
       </ListItemIcon>
-      <ListItemText primary={categorie}/>
     </ListItem>
     </div>
 

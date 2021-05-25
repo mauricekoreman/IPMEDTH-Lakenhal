@@ -56,8 +56,9 @@ const ModeratorCategorie = () => {
 
   const addCategorie = async (categorie) =>{
     console.log(categorie)
-    const res = await fetch('http://localhost:5000/api/categorie/create' , {
+    const res = await fetch(TEST_URL+'categorie/store', {
       method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
       body: JSON.stringify(categorie)
     })
     
