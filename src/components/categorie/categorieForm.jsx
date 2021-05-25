@@ -20,29 +20,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CategorieForm = ({addCategorie}) => {
+const CategorieForm = ({addCategorie, categorieError}) => {
   const classes = useStyles();
   const [lakenhal_activiteit, setLakenhalActiviteit] = useState(false)
-  const [categorie, setCategorie] = useState()
-
-  // const onSubmit = (e) => {
-    
-    
-  //   const formData = new FormData(formEl.current);
-  //   const categorie = formData.get("categorie");
-  //   const JSONcategorie = {categorie: categorie}
-  //   console.log(JSONcategorie);
-  //   axios.post(TEST_URL+"categorie/create", JSONcategorie, {
-  //       headers: { Accept: "application/json" },
-  //   }).then(res => {
-  //       console.log(res.data);
-  //       onReload();
-  //   })
-  //   .catch(error => {
-  //       console.log(error.response);
-  //   });
-  //   e.preventDefault();
-  // };
+  const [categorie, setCategorie] = useState('')
 
   const handleChange = (e) => {
     setLakenhalActiviteit(e.target.checked)
@@ -52,7 +33,7 @@ const CategorieForm = ({addCategorie}) => {
     addCategorie({categorie, lakenhal_activiteit})
     setLakenhalActiviteit(false)
     setCategorie('')
-  }
+  } 
 
   return (
       <form className={classes.categorieForm} noValidate autoComplete="off">
@@ -68,8 +49,11 @@ const CategorieForm = ({addCategorie}) => {
           label="Lakenhal activiteit?"
         />
         <TextField className={classes.categorieFormTextField}
+        error={categorieError}
+        helperText={categorieError ? 'Categorie bestaat al of categorie is leeg!' : ''}
         id="categorie"
-        label="Nieuwe categorie" 
+        value={categorie}
+        label='Nieuwe categorie' 
         variant="outlined"
         onChange={(e)=>{setCategorie(e.target.value)}} 
         />

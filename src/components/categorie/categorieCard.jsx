@@ -1,32 +1,42 @@
 import DeleteIcon from '@material-ui/icons/Delete';
+import lakenhal_sw from "../../assets/img/lakenhal_sw.png";
 
 import {
   Typography,
   ListItem,
   ListItemIcon,
   ListItemText,
+  makeStyles,
+  CardMedia
 } from "@material-ui/core";
 
-const CategorieCard = ({categorie, deleteCategorie, lakenhal, categorie_ID}) => {
+const useStyles = makeStyles((theme) => ({
+  cardMediaLogo: {
+    width: theme.spacing(3.5),
+    height: theme.spacing(4),
+    position: 'absolute',
+    right: '8px'
+  },  
+}));
 
+
+const CategorieCard = ({categorie, deleteCategorie, lakenhal, categorie_ID}) => {
+  const classes = useStyles()
   return (
-    <div>
     <ListItem>
       <ListItemText primary={categorie}/>
       <ListItemIcon>
         <DeleteIcon onClick={() => deleteCategorie(categorie_ID)} />
       </ListItemIcon>
+      {lakenhal ? 
+      (<CardMedia
+        className={classes.cardMediaLogo}
+        component="img"
+        alt="Lakenhal logo"
+        src={lakenhal_sw}
+        title="Lakenhal logo"
+      />) : ''}
     </ListItem>
-    </div>
-
-    // <FormGroup>
-    //     <FormControlLabel
-    //         control={<Checkbox icon={<DeleteOutlineIcon />} checkedIcon={<DeleteIcon />} checked={state.checked} onChange={handleChange} name="checked"/>}
-    //         label={categorie}
-    //         labelPlacement="start"
-    //      />
-    // </FormGroup>
-
   );
 }
 
