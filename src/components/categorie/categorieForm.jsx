@@ -20,29 +20,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CategorieForm = ({addCategorie}) => {
+const CategorieForm = ({addCategorie, categorieError}) => {
   const classes = useStyles();
   const [lakenhal_activiteit, setLakenhalActiviteit] = useState(false)
   const [categorie, setCategorie] = useState()
-
-  // const onSubmit = (e) => {
-    
-    
-  //   const formData = new FormData(formEl.current);
-  //   const categorie = formData.get("categorie");
-  //   const JSONcategorie = {categorie: categorie}
-  //   console.log(JSONcategorie);
-  //   axios.post(TEST_URL+"categorie/create", JSONcategorie, {
-  //       headers: { Accept: "application/json" },
-  //   }).then(res => {
-  //       console.log(res.data);
-  //       onReload();
-  //   })
-  //   .catch(error => {
-  //       console.log(error.response);
-  //   });
-  //   e.preventDefault();
-  // };
 
   const handleChange = (e) => {
     setLakenhalActiviteit(e.target.checked)
@@ -68,6 +49,8 @@ const CategorieForm = ({addCategorie}) => {
           label="Lakenhal activiteit?"
         />
         <TextField className={classes.categorieFormTextField}
+        error={categorieError}
+        helperText={categorieError ? 'Categorie bestaat al of categorie is leeg!' : ''}
         id="categorie"
         label="Nieuwe categorie" 
         variant="outlined"

@@ -20,6 +20,7 @@ const ModeratorCategorie = () => {
   const classes = useStyles();
   const { currentUser } = useAuth();
   const [categorieList, setCategorie] = useState([]);
+  const [categorieError, setCategorieError] = useState(false)
   const isJson = (currentUser) => {
     try {
         JSON.parse(currentUser);
@@ -48,6 +49,7 @@ const ModeratorCategorie = () => {
   }, []);
 
   const deleteCategorie = async (categorie_ID) => {
+    console.log(categorie_ID)
     await fetch(TEST_URL + 'categorie/delete/' + categorie_ID, {
       method: 'DELETE'
     })
@@ -56,22 +58,31 @@ const ModeratorCategorie = () => {
 
   const addCategorie = async (categorie) =>{
     console.log(categorie)
-    const res = await fetch(TEST_URL+'categorie/store', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-      body: JSON.stringify(categorie)
-    })
-    
-    const data = await res.json()
-
-    setCategorie([...categorieList, data])
+    if(categorie.categorie && categorie.categorie !== ""){
+      try{
+        const res = await fetch(TEST_URL+'categorie/store', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+          body: JSON.stringify(categorie)
+        })
+        setCategorieError(false)
+        let data = await res.json()
+        data.categorie_ID = data.id
+        setCategorie([...categorieList, data])
+      } catch (e){
+        setCategorieError(true)
+      }
+    }
+    else{
+      return setCategorieError(true)
+    }
   }
 
   return (
     <div>
       {user.admin ? 
       (<Box className={classes.pageContainer}>
-        <CategorieForm addCategorie={addCategorie}/>
+        <CategorieForm categorieError={categorieError} addCategorie={addCategorie}/>
         <CategorieList categorieList={categorieList} deleteCategorie={deleteCategorie}/>
       </Box>)
       :
