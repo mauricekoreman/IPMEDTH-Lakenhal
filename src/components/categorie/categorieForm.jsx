@@ -20,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CategorieForm = ({onReload}) => {
+const CategorieForm = ({addCategorie}) => {
   const classes = useStyles();
-  const [lakenhalActiviteit, setLakenhalActiviteit] = useState(false)
+  const [lakenhal_activiteit, setLakenhalActiviteit] = useState(false)
+  const [categorie, setCategorie] = useState()
 
   // const onSubmit = (e) => {
     
@@ -47,12 +48,18 @@ const CategorieForm = ({onReload}) => {
     setLakenhalActiviteit(e.target.checked)
   }
 
+  const onSubmit = () =>{
+    addCategorie({categorie, lakenhal_activiteit})
+    setLakenhalActiviteit(false)
+    setCategorie('')
+  }
+
   return (
       <form className={classes.categorieForm} noValidate autoComplete="off">
         <FormControlLabel
           control={
             <Checkbox
-              checked={lakenhalActiviteit}
+              checked={lakenhal_activiteit}
               onChange={handleChange}
               name="checkedB"
               color="primary"
@@ -63,9 +70,10 @@ const CategorieForm = ({onReload}) => {
         <TextField className={classes.categorieFormTextField}
         id="categorie"
         label="Nieuwe categorie" 
-        variant="outlined" 
+        variant="outlined"
+        onChange={(e)=>{setCategorie(e.target.value)}} 
         />
-        <Button className={classes.maakCategorieButton} variant="contained" color="primary"> 
+        <Button onClick={onSubmit} className={classes.maakCategorieButton} variant="contained" color="primary"> 
             Maak Categorie 
         </Button>
       </form>

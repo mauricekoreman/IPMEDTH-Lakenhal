@@ -19,9 +19,20 @@ const ModeratorCategorie = () => {
   const TEST_URL = "http://127.0.0.1:8000/api/";
   const classes = useStyles();
   const { currentUser } = useAuth();
-  const currentUserReadable = JSON.parse(currentUser)
   const [categorieList, setCategorie] = useState([]);
+  const isJson = (currentUser) => {
+    try {
+        JSON.parse(currentUser);
+    } catch (e) {
+        return false;
+    }
+    return true;
+  }
 
+  let user = currentUser;
+  if(isJson(currentUser)){
+    user = JSON.parse(currentUser);
+  }
   const fetchCategorie = async () =>{
     const res = await fetch(TEST_URL+"categorie")
     const data = await res.json()
@@ -43,28 +54,23 @@ const ModeratorCategorie = () => {
     setCategorie(categorieList.filter((categorie) => categorie.categorie_ID !== categorie_ID))
   };
 
-  // const addCategorie = async (task) =>{
-  //   const res = await fetch('http://localhost:5000/categorie', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-type': 'application/json'
-  //     },
-  //     body: JSON.stringify(task)
-  //   })
+  const addCategorie = async (categorie) =>{
+    console.log(categorie)
+    const res = await fetch('http://localhost:5000/api/categorie/create' , {
+      method: 'POST',
+      body: JSON.stringify(categorie)
+    })
     
-  //   const data = await res.json()
+    const data = await res.json()
 
-  //   setTasks([...tasks, data])
-  //   // const id = Math.floor(Math.random() * 10000) +1
-  //   // const newTask = {id, ...task}
-  //   // setTasks([...tasks, newTask])
-  // }
+    setCategorie([...categorieList, data])
+  }
 
   return (
     <div>
-      {currentUserReadable.admin ? 
+      {user.admin ? 
       (<Box className={classes.pageContainer}>
-        <CategorieForm />
+        <CategorieForm addCategorie={addCategorie}/>
         <CategorieList categorieList={categorieList} deleteCategorie={deleteCategorie}/>
       </Box>)
       :
