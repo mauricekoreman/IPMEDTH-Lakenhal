@@ -75,6 +75,9 @@ const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator}) => {
         >
           <Tab label={tabs[0]} />
           <Tab label={tabs[1]} />
+          <Box hidden>
+            <Tab label={tabs[2]}/>
+          </Box>
         </Tabs>
       </AppBar>
       {onProfile && selectedTab === 0 && <ProfileTab user={user} selectedTab={()=>setSelectedTab(2)}/>}

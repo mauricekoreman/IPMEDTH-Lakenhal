@@ -111,9 +111,25 @@ const ProfileTab = ({selectedTab, user}) => {
   const favoKunst = props[1];
   const interesses = props[2];
   const eigenschappen = props[3];
-  console.log([user.interesses]);
-  const  Interesses = Object.assign({}, JSON.parse([user.interesses]));
-  const  Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
+
+  console.log([user.eigenschappen]);
+
+
+  const isJson = (currentUser) => {
+    try {
+        JSON.parse(currentUser);
+    } catch (e) {
+        return false;
+    }
+    return true;
+  }  
+
+  let Interesses = Object.assign({}, [user.interesses]);
+  let Eigenschappen = Object.assign({}, [user.eigenschappen]);
+  if(isJson([user.interesses])){
+    Interesses = Object.assign({}, JSON.parse([user.interesses]));
+    Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
+  }
 
   return (
     <Box className={classes.pageContainer}>
