@@ -31,7 +31,20 @@ const Header = ({ title }) => {
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
   const { currentUser } = useAuth();
-  const currentUserReadable = JSON.parse(currentUser)
+
+  const isJson = (currentUser) => {
+    try {
+        JSON.parse(currentUser);
+    } catch (e) {
+        return false;
+    }
+    return true;
+  }
+
+  let user = currentUser;
+  if(isJson(currentUser)){
+    user = JSON.parse(currentUser);
+  }
   function toggleDrawer() {
     setOpenDrawer(!openDrawer);
   }
@@ -55,13 +68,13 @@ const Header = ({ title }) => {
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
-          {currentUser ? (<Logout />) : (<Box><Link to="/login">Login</Link><Link to="/register">Registreer</Link></Box>)}
+          {user ? (<Logout />) : (<Box><Link to="/login">Login</Link><Link to="/register">Registreer</Link></Box>)}
         </Toolbar>
       </AppBar>
       
       {/* Navigatie naar profiel posts rapportages en categorieën via extra tabs*/}
       {onProfile &&  <ExtraTabsHeader tabs={["PROFIEL", "POSTS"]} onProfile={onProfile}/>}
-      {currentUserReadable && onModerator &&  <ExtraTabsHeader tabs={["RAPPORTAGES", "CATEGORIEËN"]} onModerator={onModerator}/>}
+      {user && user.admin && onModerator &&  <ExtraTabsHeader tabs={["RAPPORTAGES", "CATEGORIEËN"]} onModerator={onModerator}/>}
       <MenuDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
     </div>
   );

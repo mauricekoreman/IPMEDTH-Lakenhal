@@ -26,7 +26,21 @@ const BottomTabBar = (props) => {
   const { location } = props;
   const classes = useStyles();
   const { currentUser } = useAuth();
-  const currentUserReadable = JSON.parse(currentUser)
+
+  const isJson = (currentUser) => {
+    try {
+        JSON.parse(currentUser);
+    } catch (e) {
+        return false;
+    }
+    return true;
+  }
+
+  let user = currentUser;
+  if(isJson(currentUser)){
+    user = JSON.parse(currentUser);
+  }
+  
   const indexToTabName = {
     "/": 0,
     "/chat": 1,
@@ -65,7 +79,7 @@ const BottomTabBar = (props) => {
         component={Link}
         to={"/profiel"}
       />
-     {currentUserReadable.admin &&
+     {user && user.admin &&
         (<BottomNavigationAction
           label="moderator"
           icon={<SettingsIcon/>}
