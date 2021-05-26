@@ -12,7 +12,7 @@ const Logout = () => {
     const history = useHistory();
     const { setCurrentUser } = useAuth();
 
-    const signOut = async () => {
+    const signOut = () => {
         const token = JSON.parse(localStorage.getItem("token"));
 
         axios.get(TEST_URL+"auth/logout", {

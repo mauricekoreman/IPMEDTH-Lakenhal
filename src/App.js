@@ -34,7 +34,7 @@ function App() {
         break;
     }
   }, [location]);
-
+  
   const user = localStorage.getItem('user');
 
   

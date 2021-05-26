@@ -24,7 +24,7 @@ const LoginForm = () => {
     const history = useHistory();
     const { setCurrentUser } = useAuth();
 
-    const onSubmit = async (loginData) => {
+    const onSubmit = (loginData) => {
         console.log(loginData);
         axios.post(TEST_URL+"auth/login", loginData, {
             headers: { Accept: "application/json" },
@@ -81,7 +81,7 @@ const LoginForm = () => {
                             />
                     </FormControl>
                     {generalLoginError && <box>Wachtwoord of e-mailadres is verkeerd</box>}
-                    <Button type="submit"x> 
+                    <Button type="submit"> 
                         Login
                     </Button>
                 </Grid>

@@ -5,6 +5,7 @@ import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
 
 import {
   Box,
+  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -67,9 +68,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfileTab = () => {
+const ProfileTab = ({selectedTab, user}) => {
   const classes = useStyles();
-
+  
   // TODO:
 
   // zodra database images traag loaden -> npm install material-ui-image
@@ -110,6 +111,9 @@ const ProfileTab = () => {
   const favoKunst = props[1];
   const interesses = props[2];
   const eigenschappen = props[3];
+  console.log([user.interesses]);
+  const  Interesses = Object.assign({}, JSON.parse([user.interesses]));
+  const  Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
 
   return (
     <Box className={classes.pageContainer}>
@@ -121,12 +125,12 @@ const ProfileTab = () => {
         />
         <Box>
           <Typography variant="h4" className={classes.name}>
-            {`${informatie.voornaam} ${informatie.achternaam}`}
+            {user.naam}
           </Typography>
           <Box className={classes.workContainer}>
             <WorkOutlineIcon className={classes.beroepIcon} />
             <Typography variant="subtitle1" className={classes.beroep}>
-              {informatie.beroep}
+              {user.beroep}
             </Typography>
           </Box>
         </Box>
@@ -134,9 +138,9 @@ const ProfileTab = () => {
 
       <Box className={classes.subContainer}>
         <Typography variant="h6" component="h3" className={classes.title}>
-          {`Over ${informatie.voornaam}`}
+          Over {user.naam}
         </Typography>
-        <Typography variant="body1">{informatie.bio}</Typography>
+        <Typography variant="body1">{user.biografie}</Typography>
       </Box>
 
       <Box className={classes.subContainer}>
@@ -144,9 +148,15 @@ const ProfileTab = () => {
           Interesses
         </Typography>
         <Box className={classes.chips}>
-          {interesses.items.map((interesse) => (
+          {/* {interesses.items.map((interesse) => (
             <Chip key={interesse} label={interesse} />
-          ))}
+          ))} */}
+          {Object.entries(Interesses).map(([key, value]) => {
+              return(<Chip
+                  key={key}
+                  label={value}
+              />)
+          })}
         </Box>
       </Box>
       <Box className={classes.subContainer}>
@@ -154,9 +164,15 @@ const ProfileTab = () => {
           Kenmerkende eigenschappen
         </Typography>
         <Box className={classes.chips}>
-          {eigenschappen.items.map((eigenschap) => (
+          {/* {eigenschappen.items.map((eigenschap) => (
             <Chip key={eigenschap} label={eigenschap} />
-          ))}
+          ))} */}
+          {Object.entries(Eigenschappen).map(([key, value]) => {
+              return(<Chip
+                  key={key}
+                  label={value}
+              />)
+          })}
         </Box>
       </Box>
 
@@ -186,6 +202,7 @@ const ProfileTab = () => {
           </Card>
         ))}
       </Box>
+      <Button onClick={selectedTab}>Bewerk Profiel</Button>
     </Box>
   );
 };

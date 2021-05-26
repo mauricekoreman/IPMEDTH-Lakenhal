@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   AppBar,
   Container,
+  Box,
   makeStyles,
   Paper,
   Tab,
@@ -13,6 +14,9 @@ import PostsTab from "../../pages/postsTab/postsTab";
 import ProfileTab from "../../pages/profileTab/profileTab";
 import ModeratorRapportage from "../../pages/moderatorRapportage/moderatorRapportage";
 import ModeratorCategorie from "../../pages/moderatorCategorie/moderatorCategorie";
+import ProfileEditTab from "../profileTab/profileEditTab";
+
+import { useAuth } from '../../contexts/authContext'
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -37,6 +41,23 @@ const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator}) => {
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
+
+  const { currentUser } = useAuth();
+
+  const isJson = (currentUser) => {
+    try {
+        JSON.parse(currentUser);
+    } catch (e) {
+        return false;
+    }
+    return true;
+  }
+
+  let user = currentUser;
+  if(isJson(currentUser)){
+    user = JSON.parse(currentUser);
+  }
+
   return (
     <div className={classes.pageContainer}>
       <AppBar
@@ -56,10 +77,16 @@ const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator}) => {
           <Tab label={tabs[1]} />
         </Tabs>
       </AppBar>
-      {onProfile && selectedTab === 0 && <ProfileTab/>}
+      {onProfile && selectedTab === 0 && <ProfileTab user={user} selectedTab={()=>setSelectedTab(2)}/>}
+      {onProfile && selectedTab === 2 && <ProfileEditTab user={user} selectedTab={()=>setSelectedTab(0)} />}
       {onProfile && selectedTab === 1 && <PostsTab/>}
       {onModerator && selectedTab === 0 && <ModeratorRapportage/>}
       {onModerator && selectedTab === 1 && <ModeratorCategorie/>}
+          <Tab label="PROFIEL" />
+          <Tab label="POSTS" />
+          <Box display="none">
+            <Tab label="EDIT" disabled />
+          </Box>
     </div>
   );
 };
