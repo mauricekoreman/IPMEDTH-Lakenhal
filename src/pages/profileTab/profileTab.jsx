@@ -115,13 +115,13 @@ const ProfileTab = ({selectedTab, user}) => {
 
   let Interesses = Object.assign({}, [user.interesses]);
   let Eigenschappen = Object.assign({}, [user.eigenschappen]);
-  console.log(Eigenschappen, Interesses);
+
 
   if(isJson([user.interesses])){
     Interesses = Object.assign({}, JSON.parse([user.interesses]));
     Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
   }
-  console.log(Eigenschappen, Interesses);
+
   return (
     <Box className={classes.pageContainer}>
       <Box className={classes.avatarContainer}>

@@ -3,7 +3,6 @@ import Typography from "@material-ui/core/Typography";
 import CategorieList from "../../components/categorie/categorieList";
 import { Box, makeStyles } from "@material-ui/core";
 import { useAuth } from '../../contexts/authContext'
-import axios from "axios";
 import CategorieForm from "../../components/categorie/categorieForm";
 import isJson from '../../contexts/isJson'
 
@@ -93,7 +92,5 @@ const ModeratorCategorie = () => {
     </div>
   );
 };
-
-const styles = {};
 
 export default ModeratorCategorie;
