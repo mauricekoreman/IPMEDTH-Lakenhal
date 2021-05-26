@@ -14,7 +14,7 @@ import PostsTab from "../../pages/postsTab/postsTab";
 import ProfileTab from "../../pages/profileTab/profileTab";
 import ModeratorRapportage from "../../pages/moderatorRapportage/moderatorRapportage";
 import ModeratorCategorie from "../../pages/moderatorCategorie/moderatorCategorie";
-import ProfileEditTab from "../profileTab/profileEditTab";
+import ProfileEditTab from "../../pages/profileTab/profileEditTab";
 
 import { useAuth } from '../../contexts/authContext'
 
