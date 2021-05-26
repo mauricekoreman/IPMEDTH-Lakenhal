@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
+import isJson from '../../contexts/isJson';
 
 import {
   Box,
@@ -98,7 +99,7 @@ const ProfileTab = ({selectedTab, user}) => {
       ],
     },
     {
-      category: "Interesses",
+      category: "interesses",
       items: ["Film", "Documentaires", "Educatie"],
     },
     {
@@ -112,25 +113,15 @@ const ProfileTab = ({selectedTab, user}) => {
   const interesses = props[2];
   const eigenschappen = props[3];
 
-  console.log([user.eigenschappen]);
-
-
-  const isJson = (currentUser) => {
-    try {
-        JSON.parse(currentUser);
-    } catch (e) {
-        return false;
-    }
-    return true;
-  }  
-
   let Interesses = Object.assign({}, [user.interesses]);
   let Eigenschappen = Object.assign({}, [user.eigenschappen]);
+  console.log(Eigenschappen, Interesses);
+
   if(isJson([user.interesses])){
     Interesses = Object.assign({}, JSON.parse([user.interesses]));
     Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
   }
-
+  console.log(Eigenschappen, Interesses);
   return (
     <Box className={classes.pageContainer}>
       <Box className={classes.avatarContainer}>

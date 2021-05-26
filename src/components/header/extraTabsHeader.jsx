@@ -15,6 +15,7 @@ import ProfileTab from "../../pages/profileTab/profileTab";
 import ModeratorRapportage from "../../pages/moderatorRapportage/moderatorRapportage";
 import ModeratorCategorie from "../../pages/moderatorCategorie/moderatorCategorie";
 import ProfileEditTab from "../../pages/profileTab/profileEditTab";
+import isJson from '../../contexts/isJson'
 
 import { useAuth } from '../../contexts/authContext'
 
@@ -43,15 +44,6 @@ const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator}) => {
   };
 
   const { currentUser } = useAuth();
-
-  const isJson = (currentUser) => {
-    try {
-        JSON.parse(currentUser);
-    } catch (e) {
-        return false;
-    }
-    return true;
-  }
 
   let user = currentUser;
   if(isJson(currentUser)){

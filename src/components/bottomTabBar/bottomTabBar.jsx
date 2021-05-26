@@ -10,7 +10,8 @@ import HomeIcon from "@material-ui/icons/Home";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
 import SettingsIcon from "@material-ui/icons/Settings";
-import { useAuth } from '../../contexts/authContext'
+import { useAuth } from '../../contexts/authContext';
+import isJson from '../../contexts/isJson';
 
 const useStyles = makeStyles({
   root: {
@@ -26,15 +27,6 @@ const BottomTabBar = (props) => {
   const { location } = props;
   const classes = useStyles();
   const { currentUser } = useAuth();
-
-  const isJson = (currentUser) => {
-    try {
-        JSON.parse(currentUser);
-    } catch (e) {
-        return false;
-    }
-    return true;
-  }
 
   let user = currentUser;
   if(isJson(currentUser)){

@@ -5,6 +5,7 @@ import { Box, makeStyles } from "@material-ui/core";
 import { useAuth } from '../../contexts/authContext'
 import axios from "axios";
 import CategorieForm from "../../components/categorie/categorieForm";
+import isJson from '../../contexts/isJson'
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -20,17 +21,9 @@ const ModeratorCategorie = () => {
   const classes = useStyles();
   const { currentUser } = useAuth();
   const [categorieList, setCategorie] = useState([]);
-  const [categorieError, setCategorieError] = useState(false)
-  const [nieuweCategorie, setNieuweCategorie] = useState(false)
-  const [showList, setShowList] = useState(false)
-  const isJson = (currentUser) => {
-    try {
-        JSON.parse(currentUser);
-    } catch (e) {
-        return false;
-    }
-    return true;
-  }
+  const [categorieError, setCategorieError] = useState(false);
+  const [nieuweCategorie, setNieuweCategorie] = useState(false);
+  const [showList, setShowList] = useState(false);
 
   let user = currentUser;
   if(isJson(currentUser)){

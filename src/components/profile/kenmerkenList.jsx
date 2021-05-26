@@ -1,18 +1,11 @@
 import React from "react";
 
 import KenmerkenCard from "./kenmerkenCard";
+import isJson from '../../contexts/isJson';
 
 import { Grid, Box} from "@material-ui/core";
 
 const KenmerkenList = ({user, kenmerk, onReload}) => {
-    const isJson = (currentUser) => {
-        try {
-            JSON.parse(currentUser);
-        } catch (e) {
-            return false;
-        }
-        return true;
-    }  
     let objectKenmerken = Object.assign({kenmerk}, [user[kenmerk]]);
     if(isJson([user.interesses])){
         objectKenmerken = Object.assign({kenmerk}, JSON.parse([user[kenmerk]]));

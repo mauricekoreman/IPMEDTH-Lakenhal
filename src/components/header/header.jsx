@@ -13,7 +13,8 @@ import MenuDrawer from "../menuDrawer/menuDrawer";
 import Logout from "../authentication/logout";
 import { useAuth } from '../../contexts/authContext'
 import ExtraTabsHeader from '../header/extraTabsHeader'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
+import isJson from '../../contexts/isJson';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,15 +32,6 @@ const Header = ({ title }) => {
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
   const { currentUser } = useAuth();
-
-  const isJson = (currentUser) => {
-    try {
-        JSON.parse(currentUser);
-    } catch (e) {
-        return false;
-    }
-    return true;
-  }
 
   let user = currentUser;
   if(isJson(currentUser)){
