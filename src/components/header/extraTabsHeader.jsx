@@ -82,11 +82,6 @@ const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator}) => {
       {onProfile && selectedTab === 1 && <PostsTab/>}
       {onModerator && selectedTab === 0 && <ModeratorRapportage/>}
       {onModerator && selectedTab === 1 && <ModeratorCategorie/>}
-          <Tab label="PROFIEL" />
-          <Tab label="POSTS" />
-          <Box display="none">
-            <Tab label="EDIT" disabled />
-          </Box>
     </div>
   );
 };
