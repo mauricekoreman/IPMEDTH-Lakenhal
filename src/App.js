@@ -9,6 +9,7 @@ import ProfileTab from "./pages/profileTab/profileTab";
 import ModeratorRapportage from "./pages/moderatorRapportage/moderatorRapportage";
 import Login from "./pages/authpage/loginpage";
 import Register from "./pages/authpage/registerpage";
+import ForgotPassword from "./pages/authpage/passwordForgetpage";
 
 import BottomTabBar from "./components/bottomTabBar/bottomTabBar";
 import Header from "./components/header/header";
@@ -34,21 +35,24 @@ function App() {
         break;
     }
   }, [location]);
-  
-  const user = localStorage.getItem('user');
+
+  const user = localStorage.getItem("user");
 
   return (
     <div>
       <AuthProvider user={user}>
         <Header title={headerTitle} />
-          <Switch>
-            <Route exact path="/" component={Homepage} />
-            <ProtectedRoute exact path="/chat" ><Chatpage /></ProtectedRoute>
-            <ProtectedRoute exact path="/profiel" ></ProtectedRoute>
-            <ProtectedRoute exact path="/moderator"></ProtectedRoute>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-          </Switch>
+        <Switch>
+          <Route exact path="/" component={Homepage} />
+          <ProtectedRoute exact path="/chat">
+            <Chatpage />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/profiel"></ProtectedRoute>
+          <ProtectedRoute exact path="/moderator"></ProtectedRoute>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/forgotPassword" component={ForgotPassword} />
+        </Switch>
         <BottomTabBar />
       </AuthProvider>
     </div>

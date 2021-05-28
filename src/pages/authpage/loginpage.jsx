@@ -1,20 +1,37 @@
 import React from "react";
 
-import { Typography } from '@material-ui/core';
+import { Box, makeStyles, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/authentication/loginForm";
+import AuthenticationLayout from "../../components/authentication/authenticationLayout";
 
-const LoginPage = () => (
-  <>
-    <Typography>Login</Typography>
-    <LoginForm />
-    <Link to="/register">Registreer</Link>
-  </>
-);
+const useStyles = makeStyles((theme) => ({
+  link: {
+    textDecoration: "underline 1px",
+    textUnderlineOffset: "3px",
+    marginLeft: 4,
+  },
+}));
 
-const styles = {};
+const LoginPage = () => {
+  const classes = useStyles();
+
+  return (
+    <AuthenticationLayout
+      bigHeaderText="Login bij MuseumMatch!"
+      inBlueArr={["MuseumMatch!"]}
+    >
+      <LoginForm />
+      <Box style={{ textAlign: "center" }}>
+        <Typography>
+          Geen accound?
+          <Link className={classes.link} to="/register">
+            Registreer nu!
+          </Link>
+        </Typography>
+      </Box>
+    </AuthenticationLayout>
+  );
+};
 
 export default LoginPage;
-
-
-
