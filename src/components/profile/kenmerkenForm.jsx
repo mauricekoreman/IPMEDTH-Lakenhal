@@ -30,7 +30,7 @@ const KenmerkenForm = ({user, kenmerk, onReload}) => {
                     name={kenmerk}
                     control={control}
                     defaultValue=""
-                    render={({ field }) => <TextField {...field} label={kenmerk}/>}
+                    render={({ field }) => <TextField {...field} label={kenmerk+":"}/>}
                 />
             <Button type="submit"> 
                 <ArrowRightRoundedIcon />

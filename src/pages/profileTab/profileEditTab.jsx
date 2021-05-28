@@ -36,8 +36,8 @@ const ProfileEditTab = ({selectedTab, user}) => {
 
     return (
         <Box className={classes.pageContainer}>
-            <EditProfileForm user={user} onReload={updateUser} selectedTab={selectedTab}/> 
             <Button onClick={() => { updateUser(); selectedTab();}}><CloseIcon /></Button>
+            <EditProfileForm user={user} onReload={updateUser} selectedTab={selectedTab}/> 
         </Box>
     );
 };

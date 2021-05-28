@@ -11,7 +11,6 @@ const KenmerkenList = ({user, kenmerk, onReload}) => {
         objectKenmerken = Object.assign({kenmerk}, JSON.parse([user[kenmerk]]));
     }
 
-
     return (
         <Box>
             <Grid>

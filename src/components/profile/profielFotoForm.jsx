@@ -1,10 +1,9 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Button } from '@material-ui/core';
 import axios from "axios";
 
 const ProefielFotoForm = ({user, onReload}) => {
-
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
     const { handleSubmit, reset, register } = useForm();
@@ -17,6 +16,7 @@ const ProefielFotoForm = ({user, onReload}) => {
             headers: { 'content-type': 'multipart/form-data', 'enctype' : 'multipart/form-data',}
         }).then(res => {
             console.log(res);
+            reset();
             onReload();
         })
         .catch(error => {
@@ -25,10 +25,10 @@ const ProefielFotoForm = ({user, onReload}) => {
     }
     
     return (
-        <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-             <input type="file" {...register('profiel_foto')} />
-            <Button type="submit">Verander Profielfoto</Button>
-        </form>
+            <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+                <input type="file" {...register('profiel_foto')} />
+                <Button color="primary" type="submit">Verander Profielfoto</Button>
+            </form>
     );
 };
 

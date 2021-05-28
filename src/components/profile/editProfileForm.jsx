@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
     profilePicture: {
       width: theme.spacing(10),
       height: theme.spacing(10),
-      marginRight: theme.spacing(2),
+      margin: theme.spacing(1, 'auto'), 
     },
-  }));
+}));
 
 const EditProfileForm = ({user, onReload, selectedTab}) => {
     const classes = useStyles();
@@ -50,6 +50,9 @@ const EditProfileForm = ({user, onReload, selectedTab}) => {
             />
             <ProfielFotoForm user={user} onReload={onReload}/>
             <form onSubmit={handleSubmit(onSubmit)}>
+                <Button type="submit"> 
+                    <CheckIcon />
+                </Button>
                 <Grid container direction="column">
                     <Controller
                         name="beroep"
@@ -70,9 +73,6 @@ const EditProfileForm = ({user, onReload, selectedTab}) => {
                         render={({ field }) => <TextField {...field} multiline rows={4} variant="outlined" label="Over jouw:" />}
                     />
                 </Grid>
-                <Button type="submit"> 
-                    <CheckIcon />
-                </Button>
             </form>
             <KenmerkenList user={user} kenmerk="interesses" onReload={onReload}/>
             <KenmerkenForm user={user} kenmerk="interesses" onReload={onReload}/>
