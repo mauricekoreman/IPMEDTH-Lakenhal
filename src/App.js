@@ -37,8 +37,6 @@ function App() {
   
   const user = localStorage.getItem('user');
 
-  
-
   return (
     <div>
       <AuthProvider user={user}>

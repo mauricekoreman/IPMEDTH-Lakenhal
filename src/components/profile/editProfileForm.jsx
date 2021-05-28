@@ -1,17 +1,22 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm, Controller } from "react-hook-form";
-import { TextField, Button, Container, Grid } from '@material-ui/core';
+import { TextField, Button, Container, Grid, Avatar } from '@material-ui/core';
 import axios from "axios";
 
 import CheckIcon from '@material-ui/icons/Check';
 
-import KenmerkenForm from './kenmerkenForm'
+import KenmerkenForm from './kenmerkenForm';
 import KenmerkenList from "./kenmerkenList";
+import ProfielFotoForm from './profielFotoForm';
 
 const useStyles = makeStyles((theme) => ({
-
-}));
+    profilePicture: {
+      width: theme.spacing(10),
+      height: theme.spacing(10),
+      marginRight: theme.spacing(2),
+    },
+  }));
 
 const EditProfileForm = ({user, onReload, selectedTab}) => {
     const classes = useStyles();
@@ -34,18 +39,18 @@ const EditProfileForm = ({user, onReload, selectedTab}) => {
             console.log(error.response);
         });
     }
-    console.log(user);
+    console.log(user.profiel_foto);
 
     return (
         <Container maxWidth="xs">
+            <Avatar
+                src={"http://localhost:8000/storage/profiel_foto/" + user.profiel_foto} 
+                className={classes.profilePicture}
+                alt="profiel foto" 
+            />
+            <ProfielFotoForm user={user} onReload={onReload}/>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container direction="column">
-                    <Controller
-                        name="profiel_foto"
-                        control={control}
-                        defaultValue=""
-                        render={({ field }) => <Button component="label">Verander Profielfoto<input {...field} type="file" hidden/></Button>}
-                    />
                     <Controller
                         name="beroep"
                         control={control}

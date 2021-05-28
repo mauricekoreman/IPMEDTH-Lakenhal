@@ -116,7 +116,6 @@ const ProfileTab = ({selectedTab, user}) => {
   let Interesses = Object.assign({}, [user.interesses]);
   let Eigenschappen = Object.assign({}, [user.eigenschappen]);
 
-
   if(isJson([user.interesses])){
     Interesses = Object.assign({}, JSON.parse([user.interesses]));
     Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
@@ -128,7 +127,7 @@ const ProfileTab = ({selectedTab, user}) => {
         <Avatar
           alt="Profiel foto"
           className={classes.profilePicture}
-          src={informatie.profielfoto}
+          src={"http://localhost:8000/storage/profiel_foto/" + user.profiel_foto}
         />
         <Box>
           <Typography variant="h4" className={classes.name}>
