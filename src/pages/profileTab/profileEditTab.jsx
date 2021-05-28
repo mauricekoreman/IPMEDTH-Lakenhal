@@ -19,7 +19,7 @@ const ProfileEditTab = ({selectedTab, user}) => {
     const classes = useStyles();
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
-    const { setCurrentUser } = useAuth();
+    const { currentUser, setCurrentUser } = useAuth();
     
     const updateUser = () => {
         axios.get(TEST_URL+"users/"+user.user_ID, {
@@ -33,6 +33,7 @@ const ProfileEditTab = ({selectedTab, user}) => {
             console.log(error);
         });
     }
+    console.log(currentUser);
 
     return (
         <Box className={classes.pageContainer}>

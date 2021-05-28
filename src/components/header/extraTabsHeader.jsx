@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AppBar,
   Container,
@@ -16,7 +16,7 @@ import ModeratorRapportage from "../../pages/moderatorRapportage/moderatorRappor
 import ModeratorCategorie from "../../pages/moderatorCategorie/moderatorCategorie";
 import ProfileEditTab from "../../pages/profileTab/profileEditTab";
 import isJson from '../../contexts/isJson'
-
+import axios from "axios";
 import { useAuth } from '../../contexts/authContext'
 
 const useStyles = makeStyles((theme) => ({
@@ -43,13 +43,23 @@ const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator}) => {
     setSelectedTab(newValue);
   };
 
-  const { currentUser } = useAuth();
+  const TEST_URL = "http://127.0.0.1:8000/api/";
+  const { currentUser, setCurrentUser } = useAuth();
+  const updateUser = () => {
+    axios.get(TEST_URL+"users/"+user.user_ID, {
+        headers: { "Content-Type": "application/json" },
+    }).then(res => {setCurrentUser(res.data);})
+  }
+
+  useEffect(() => {
+    updateUser();
+  }, [])
 
   let user = currentUser;
   if(isJson(currentUser)){
     user = JSON.parse(currentUser);
   }
-
+  console.log(user);
   return (
     <div className={classes.pageContainer}>
       <AppBar

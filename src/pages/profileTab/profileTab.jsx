@@ -79,10 +79,8 @@ const ProfileTab = ({selectedTab, user}) => {
   const props = [
     {
       category: "Informatie",
-      voornaam: "Ilse",
-      achternaam: "Storm",
-      bio: "Ik ben filmmaker. Op dit moment werk ik aan twee documentaires in Leiden: 'Kind van de Rekening', over jeugdzorg. En 'Leren in Leiden', over de mogelijkheden van elk kind om te leren.",
-      beroep: "Filmmaker",
+      bio: "voorbeeld biografie",
+      beroep: "voorbeeld beroep",
       profielfoto: pf,
     },
     {
@@ -100,11 +98,11 @@ const ProfileTab = ({selectedTab, user}) => {
     },
     {
       category: "interesses",
-      items: ["Film", "Documentaires", "Educatie"],
+      items: ["voorbeeld interesse"],
     },
     {
       category: "eigenschappen",
-      items: ["Sociaal", "Gedreven"],
+      items: ["voorbeeld eigenschappen"],
     },
   ];
 
@@ -113,10 +111,10 @@ const ProfileTab = ({selectedTab, user}) => {
   const interesses = props[2];
   const eigenschappen = props[3];
 
-  let Interesses = Object.assign({}, [user.interesses]);
-  let Eigenschappen = Object.assign({}, [user.eigenschappen]);
+  let Interesses = user && Object.assign({}, [user.interesses]);
+  let Eigenschappen = user && Object.assign({}, [user.eigenschappen]);
 
-  if(isJson([user.interesses])){
+  if(user && isJson([user.interesses])){
     Interesses = Object.assign({}, JSON.parse([user.interesses]));
     Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
   }
@@ -124,11 +122,10 @@ const ProfileTab = ({selectedTab, user}) => {
   return (
     <Box className={classes.pageContainer}>
       <Box className={classes.avatarContainer}>
-        <Avatar
-          alt="Profiel foto"
-          className={classes.profilePicture}
-          src={"http://localhost:8000/storage/profiel_foto/" + user.profiel_foto}
-        />
+        {user.profiel_foto != null? 
+          <Avatar alt="Profiel foto" className={classes.profilePicture} src={"http://localhost:8000/storage/profiel_foto/" + user.profiel_foto}/> : 
+          <Avatar alt="Profiel foto" className={classes.profilePicture} src={informatie.profielfoto} />
+        }
         <Box>
           <Typography variant="h4" className={classes.name}>
             {user.naam}
@@ -136,7 +133,7 @@ const ProfileTab = ({selectedTab, user}) => {
           <Box className={classes.workContainer}>
             <WorkOutlineIcon className={classes.beroepIcon} />
             <Typography variant="subtitle1" className={classes.beroep}>
-              {user.beroep}
+              {user.beroep ? user.beroep : informatie.beroep}
             </Typography>
           </Box>
         </Box>
@@ -146,7 +143,7 @@ const ProfileTab = ({selectedTab, user}) => {
         <Typography variant="h6" component="h3" className={classes.title}>
           Over {user.naam}
         </Typography>
-        <Typography variant="body1">{user.biografie}</Typography>
+        <Typography variant="body1">{user.biografie ? user.biografie : informatie.bio}</Typography>
       </Box>
 
       <Box className={classes.subContainer}>
@@ -154,15 +151,17 @@ const ProfileTab = ({selectedTab, user}) => {
           Interesses
         </Typography>
         <Box className={classes.chips}>
-          {/* {interesses.items.map((interesse) => (
-            <Chip key={interesse} label={interesse} />
-          ))} */}
-          {Object.entries(Interesses).map(([key, value]) => {
-              return(<Chip
-                  key={key}
-                  label={value}
-              />)
-          })}
+          {user.interesses ?           
+            Object.entries(Interesses).map(([key, value]) => {
+                return(<Chip
+                    key={key}
+                    label={value}
+                />)
+            }) :
+            interesses.items.map((interesse) => (
+              <Chip key={interesse} label={interesse} />
+            ))
+          }
         </Box>
       </Box>
       <Box className={classes.subContainer}>
@@ -170,15 +169,17 @@ const ProfileTab = ({selectedTab, user}) => {
           Kenmerkende eigenschappen
         </Typography>
         <Box className={classes.chips}>
-          {/* {eigenschappen.items.map((eigenschap) => (
-            <Chip key={eigenschap} label={eigenschap} />
-          ))} */}
-          {Object.entries(Eigenschappen).map(([key, value]) => {
-              return(<Chip
-                  key={key}
-                  label={value}
-              />)
-          })}
+          {user.interesses ? 
+            Object.entries(Eigenschappen).map(([key, value]) => {
+                return(<Chip
+                    key={key}
+                    label={value}
+                />)
+            }) :
+            eigenschappen.items.map((eigenschap) => (
+              <Chip key={eigenschap} label={eigenschap} />
+            ))
+          }
         </Box>
       </Box>
 
