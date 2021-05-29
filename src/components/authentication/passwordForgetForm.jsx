@@ -7,6 +7,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import { Controller, useForm } from "react-hook-form";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -21,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 const PasswordForgetForm = () => {
   const classes = useStyles();
 
+  const TEST_URL = "http://127.0.0.1:8000/api/";
+
   const {
     control,
     handleSubmit,
@@ -29,8 +32,19 @@ const PasswordForgetForm = () => {
     watch,
   } = useForm();
 
-  const onSubmit = (registerData) => {
-    console.log(registerData);
+  const onSubmit = (forgotPasswordData) => {
+    console.log(forgotPasswordData);
+
+    axios
+      .post(TEST_URL + "auth/forgot-password", forgotPasswordData, {
+        headers: { Accept: "applicatoin/json" },
+      })
+      .then((res) => {
+        console.log("SUCCESS", res);
+      })
+      .catch((error) => {
+        console.log("a wild error occured!", error.response);
+      });
   };
 
   return (
@@ -46,9 +60,8 @@ const PasswordForgetForm = () => {
                 {...field}
                 label="Email"
                 variant="standard"
-                type="password"
-                helperText={errors.password ? errors.password.message : ""}
-                error={!!errors.password}
+                helperText={errors.email ? errors.email.message : ""}
+                error={!!errors.email}
               />
             )}
             rules={{
