@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useParams } from "react-router";
 import {
   TextField,
@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
+import FeedbackBlock from "../feedbackBlock/feedbackBlock";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -20,9 +21,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ResetPasswordForm = () => {
+const PasswordResetForm = () => {
   const classes = useStyles();
   const { token } = useParams();
+
+  const [passwordResetted, setPasswordResetted] = useState(false);
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
@@ -30,7 +33,6 @@ const ResetPasswordForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-    reset,
     watch,
   } = useForm();
   const password = useRef({});
@@ -38,7 +40,6 @@ const ResetPasswordForm = () => {
 
   const onSubmit = (resetData) => {
     let resetDataWithToken = { ...resetData, token: token };
-    console.log("with token: ", resetDataWithToken);
 
     axios
       .post(TEST_URL + "auth/reset-password", resetDataWithToken, {
@@ -46,6 +47,7 @@ const ResetPasswordForm = () => {
       })
       .then((res) => {
         console.log("resetted password", res);
+        setPasswordResetted(true);
       })
       .catch((error) => {
         console.log("error shit", error.response);
@@ -55,6 +57,12 @@ const ResetPasswordForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
+        {passwordResetted && (
+          <FeedbackBlock
+            success={passwordResetted}
+            text={"Uw wachtwoord is gereset!"}
+          />
+        )}
         <FormControl className={classes.formControl}>
           <Controller
             name="email"
@@ -134,4 +142,4 @@ const ResetPasswordForm = () => {
   );
 };
 
-export default ResetPasswordForm;
+export default PasswordResetForm;

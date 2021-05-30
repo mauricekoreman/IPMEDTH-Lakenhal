@@ -1,6 +1,6 @@
 import React from "react";
 import AuthenticationLayout from "../../components/authentication/authenticationLayout";
-import ResetPasswordForm from "../../components/authentication/resetPasswordForm";
+import PasswordResetForm from "../../components/authentication/passwordResetForm";
 
 const PasswordResetPage = () => {
   return (
@@ -8,7 +8,7 @@ const PasswordResetPage = () => {
       bigHeaderText="Wachtwoord resetten"
       inBlueArr={["resetten"]}
     >
-      <ResetPasswordForm />
+      <PasswordResetForm />
     </AuthenticationLayout>
   );
 };

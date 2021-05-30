@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
+import FeedbackBlock from "../feedbackBlock/feedbackBlock";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -18,15 +19,6 @@ const useStyles = makeStyles((theme) => ({
   submitButton: {
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(3),
-  },
-  sentBox: {
-    backgroundColor: "#DAF9DA",
-    display: "flex",
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    paddingTop: theme.spacing(1.5),
-    paddingBottom: theme.spacing(1.5),
-    marginTop: theme.spacing(2),
   },
 }));
 
@@ -63,11 +55,10 @@ const PasswordForgetForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
         {mailSent && (
-          <Box className={classes.sentBox}>
-            <Typography variant="body2">
-              We hebben de reset link naar u gemaild!
-            </Typography>
-          </Box>
+          <FeedbackBlock
+            success={mailSent}
+            text={"We hebben de reset link naar u gemaild!"}
+          />
         )}
         <FormControl className={classes.formControl}>
           <Controller
