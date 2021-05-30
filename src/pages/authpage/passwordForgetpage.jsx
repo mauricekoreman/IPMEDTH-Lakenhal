@@ -4,8 +4,8 @@ import PasswordForgetForm from "../../components/authentication/passwordForgetFo
 
 const PasswordForgetpage = () => (
   <AuthenticationLayout
-    bigHeaderText="Wachtwoord resetten"
-    inBlueArr={["resetten"]}
+    bigHeaderText="Wachtwoord reset link"
+    inBlueArr={["reset"]}
   >
     <PasswordForgetForm />
   </AuthenticationLayout>

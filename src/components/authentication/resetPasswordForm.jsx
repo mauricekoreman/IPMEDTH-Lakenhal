@@ -48,7 +48,7 @@ const ResetPasswordForm = () => {
         console.log("resetted password", res);
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log("error shit", error.response);
       });
   };
 

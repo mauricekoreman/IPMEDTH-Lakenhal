@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import {
+  Box,
   Button,
   FormControl,
   Grid,
   makeStyles,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
@@ -17,10 +19,21 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(3),
   },
+  sentBox: {
+    backgroundColor: "#DAF9DA",
+    display: "flex",
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingTop: theme.spacing(1.5),
+    paddingBottom: theme.spacing(1.5),
+    marginTop: theme.spacing(2),
+  },
 }));
 
 const PasswordForgetForm = () => {
   const classes = useStyles();
+
+  const [mailSent, setMailSent] = useState(false);
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
@@ -28,8 +41,6 @@ const PasswordForgetForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-    reset,
-    watch,
   } = useForm();
 
   const onSubmit = (forgotPasswordData) => {
@@ -41,6 +52,7 @@ const PasswordForgetForm = () => {
       })
       .then((res) => {
         console.log("SUCCESS", res);
+        setMailSent(true);
       })
       .catch((error) => {
         console.log("a wild error occured!", error.response);
@@ -50,6 +62,13 @@ const PasswordForgetForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
+        {mailSent && (
+          <Box className={classes.sentBox}>
+            <Typography variant="body2">
+              We hebben de reset link naar u gemaild!
+            </Typography>
+          </Box>
+        )}
         <FormControl className={classes.formControl}>
           <Controller
             name="email"
@@ -79,7 +98,7 @@ const PasswordForgetForm = () => {
           color="primary"
           type="submit"
         >
-          Verstuur reset mail
+          Mail reset link
         </Button>
       </Grid>
     </form>
