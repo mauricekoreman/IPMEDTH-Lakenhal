@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from "react";
 import { makeStyles, Typography, FormControl} from "@material-ui/core/";
 import { useForm, Controller } from "react-hook-form";
+import { useAuth } from '../../contexts/authContext'
 import { TextField, Button, Container, Grid } from '@material-ui/core';
 import axios from "axios";
+import isJson from '../../contexts/isJson'
 
 import CheckIcon from '@material-ui/icons/Check';
 
@@ -14,21 +16,24 @@ const useStyles = makeStyles((theme) => ({
 const initialValues ={
     titel :'',
     beschrijving :'',
-    afbeelding :'',
+    afbeelding :' ',
     aantalDeelnemers : 4,
     lakenhalActiviteit : false,
     zichtbaar :true,
     aantalGerapporteerd : 0,
-    datumAangemaakt: new Date(),
-    datumUpdate: new Date(),
-    categorie :'',
+    categorie :' ',
     userID :0, 
 }
 
-const CreatePost = ({user, onReload, selectedTab}) => {
+const CreatePost = () => {
     const classes = useStyles();
-
+    const { currentUser } = useAuth();
     const TEST_URL = "http://127.0.0.1:8000/api/";
+    
+    let user = currentUser;
+    if(isJson(currentUser)){
+        user = JSON.parse(currentUser);
+    }
     
     const[values, setValues] = useState(initialValues);
 
@@ -41,12 +46,13 @@ const CreatePost = ({user, onReload, selectedTab}) => {
     }
     const onSubmit = () =>{
         console.log(values)
-        axios.post(TEST_URL+'catagorie')
+        console.log(user.user_ID)
+        axios.post(TEST_URL+'activiteit', values)
             .then(response => {
                 console.log(response)
             })
             .catch(error => {
-                console.log(error)
+                console.log(error.response)
             })
     }
     
