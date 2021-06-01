@@ -1,6 +1,8 @@
 import React from "react";
 
 import Typography from "@material-ui/core/Typography";
+import CreatePost from "../../components/activiteit/createpost";
+import ShowPost from "../../components/activiteit/showpost"
 
 import Fab from "../../components/fab/fab";
 import { Box, makeStyles, useTheme } from "@material-ui/core";
@@ -27,6 +29,8 @@ const Homepage = () => {
   return (
     <Box className={classes.pageContainer}>
       <Typography>Homepage</Typography>
+      <ShowPost/>
+      <CreatePost/>
       <Fab
         position={classes.fabPosition}
         color={"primary"}
