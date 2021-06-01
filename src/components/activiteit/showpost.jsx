@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Component} from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -20,7 +20,7 @@ import isJson from '../../contexts/isJson'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 1000,
   },
   media: {
     height: 0,
@@ -43,20 +43,9 @@ const useStyles = makeStyles((theme) => ({
 
 const TEST_URL = "http://127.0.0.1:8000/api/";
 
-const initialValues ={
-    titel :'',
-    beschrijving :'',
-    afbeelding :' ',
-    aantalDeelnemers : 4,
-    lakenhalActiviteit : false,
-    zichtbaar :true,
-    aantalGerapporteerd : 0,
-    categorie :' ',
-    userID :0, 
-}
+const activiteitData = [];
 
-
-export default function ShowPost() {
+const ShowPost = () => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -64,19 +53,21 @@ export default function ShowPost() {
     setExpanded(!expanded);
   };
 
-  const[values, setValues] = useState(initialValues);
-
-  axios.get(TEST_URL+'activiteit')
+  const[values, setValues] = useState(activiteitData);
+  
+  useEffect(() => {
+    axios.get(TEST_URL+'activiteit')
             .then(response => {
                 console.log(response.data)
-                //setValues(response.data)             
+                setValues(response.data)             
             })
             .catch(error => {
                 console.log(error.response)
             })
+  }, []);
             
-  console.log(values.beschrijving)
-
+  console.log(values[0])
+  
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -90,7 +81,11 @@ export default function ShowPost() {
             <MoreVertIcon />
           </IconButton>
         }
-        title=""
+        title={
+          values.length ?
+          values.map(values => <div key= {values.activiteit_ID}>{values.titel}</div>):
+          null
+        }
         subheader=""
       />
       <CardMedia
@@ -100,7 +95,11 @@ export default function ShowPost() {
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Dit is de beschrijving.
+        {
+          values.length ?
+          values.map(values => <div key= {values.activiteit_ID}>{values.beschrijving}</div>):
+          null
+        }
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -126,3 +125,5 @@ export default function ShowPost() {
     </Card>
   );
 }
+
+export default ShowPost;

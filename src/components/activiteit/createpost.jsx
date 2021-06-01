@@ -55,7 +55,6 @@ const CreatePost = () => {
                 console.log(error.response)
             })
     }
-    
 
     return (
         <form >
