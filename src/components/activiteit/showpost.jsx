@@ -54,12 +54,14 @@ const ShowPost = () => {
   };
 
   const[values, setValues] = useState(activiteitData);
+  const[proberen, setProberen] = useState('o');
   
   useEffect(() => {
     axios.get(TEST_URL+'activiteit')
             .then(response => {
                 console.log(response.data)
-                setValues(response.data)             
+                setValues(response.data) 
+                setProberen(values[0].titel)            
             })
             .catch(error => {
                 console.log(error.response)
@@ -83,7 +85,7 @@ const ShowPost = () => {
         }
         title={
           values.length ?
-          values.map(values => <div key= {values.activiteit_ID}>{values.titel}</div>):
+          values.map(value => <div key= {value.activiteit_ID}>{value.titel}</div>):
           null
         }
         subheader=""
@@ -97,7 +99,7 @@ const ShowPost = () => {
         <Typography variant="body2" color="textSecondary" component="p">
         {
           values.length ?
-          values.map(values => <div key= {values.activiteit_ID}>{values.beschrijving}</div>):
+          values.map(value => <div key= {value.activiteit_ID}>{value.beschrijving}</div>):
           null
         }
         </Typography>
