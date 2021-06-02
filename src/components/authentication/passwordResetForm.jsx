@@ -25,7 +25,9 @@ const PasswordResetForm = () => {
   const classes = useStyles();
   const { token } = useParams();
 
+  const [show, setShow] = useState(false);
   const [passwordResetted, setPasswordResetted] = useState(false);
+  const [serverText, setServerText] = useState("");
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
@@ -46,23 +48,28 @@ const PasswordResetForm = () => {
         headers: { Accept: "application/json" },
       })
       .then((res) => {
-        console.log("resetted password", res);
-        setPasswordResetted(true);
+        console.log(res);
+        if (res.data.success) {
+          setPasswordResetted(true);
+          setServerText(res.data.message);
+        } else {
+          setPasswordResetted(false);
+          setServerText(res.data.message);
+        }
+        setShow(true);
       })
       .catch((error) => {
-        console.log("error shit", error.response);
+        console.log(error.response);
+        setPasswordResetted(false);
+        setShow(true);
+        setServerText("Er is een netwerk error");
       });
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
-        {passwordResetted && (
-          <FeedbackBlock
-            success={passwordResetted}
-            text={"Uw wachtwoord is gereset!"}
-          />
-        )}
+        {show && <FeedbackBlock success={passwordResetted} text={serverText} />}
         <FormControl className={classes.formControl}>
           <Controller
             name="email"
@@ -79,6 +86,10 @@ const PasswordResetForm = () => {
             )}
             rules={{
               required: "Verplicht",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "ongeldig e-mailadres",
+              },
             }}
           />
         </FormControl>

@@ -25,7 +25,9 @@ const useStyles = makeStyles((theme) => ({
 const PasswordForgetForm = () => {
   const classes = useStyles();
 
+  const [show, setShow] = useState(false);
   const [mailSent, setMailSent] = useState(false);
+  const [serverText, setServerText] = useState("");
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
@@ -43,23 +45,29 @@ const PasswordForgetForm = () => {
         headers: { Accept: "applicatoin/json" },
       })
       .then((res) => {
-        console.log("SUCCESS", res);
-        setMailSent(true);
+        console.log(res);
+        if (res.data.success) {
+          setMailSent(true);
+          setServerText(res.data.message);
+        } else {
+          setMailSent(false);
+          setServerText(res.data.message);
+        }
+
+        setShow(true);
       })
       .catch((error) => {
-        console.log("a wild error occured!", error.response);
+        console.log(error.response);
+        setMailSent(false);
+        setShow(true);
+        setServerText("Er is een netwerk error");
       });
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
-        {mailSent && (
-          <FeedbackBlock
-            success={mailSent}
-            text={"We hebben de reset link naar u gemaild!"}
-          />
-        )}
+        {show && <FeedbackBlock success={mailSent} text={serverText} />}
         <FormControl className={classes.formControl}>
           <Controller
             name="email"
