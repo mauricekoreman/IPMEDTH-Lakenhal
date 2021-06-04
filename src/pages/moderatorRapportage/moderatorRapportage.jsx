@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 const ModeratorRapportage = () => {
   const TEST_URL = "http://127.0.0.1:8000/api/";
   const [detailRapportageOpen, setDetailRapportageOpen] = useState(false)
+  const [detailRapportage, setDetailRapportage] = useState([])
   const [rapportageList, setRapportageList] = useState([])
   const classes = useStyles();
   const { currentUser } = useAuth();
@@ -51,6 +52,8 @@ const ModeratorRapportage = () => {
 
   const detailRapportageClick = (rapportage) =>{
     setDetailRapportageOpen(!detailRapportageOpen)
+    console.log(rapportage)
+    setDetailRapportage(rapportage)
   }
   console.log(rapportageList)
   return (
@@ -70,7 +73,7 @@ const ModeratorRapportage = () => {
       : 
         <div>404</div>
       }
-      <DetailPost open={detailRapportageOpen} closeScreen={detailRapportageClick}/>
+      <DetailPost open={detailRapportageOpen} closeScreen={detailRapportageClick} activiteit={detailRapportage}/>
     </div>
   );
 };
