@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {forwardRef, useState, useEffect} from 'react'
 import CloseIcon from '@material-ui/icons/Close';
-import Image from "material-ui-image";
+import Image from 'material-ui-image';
 import lakenhal_sw from "../../assets/img/lakenhal_sw.png";
 import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
 import detailPost_img_placeholder from "../../assets/img/placeholders/detailPost_placeholder.png";
@@ -19,6 +19,8 @@ import {
     Button,
     Chip
   } from "@material-ui/core";
+import AanmeldingenList from './aanmeldingenList';
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -75,24 +77,42 @@ const useStyles = makeStyles((theme) => ({
     }
 })); 
 
-const Transition = React.forwardRef(function Transition(props, ref) {
+const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
-  });
+});
 
 
-const DetailPost = ({open, closeScreen}) => {
+const DetailPost = ({open, closeScreen, activiteit}) => {
     const classes = useStyles();
-    
+    const TEST_URL = "http://127.0.0.1:8000/api/";
+
+    const [aangemeldeUsers, setAangemeldeUsers] = useState();
+
+    const fetchAangemeldeUsers = () =>{
+        axios.get(TEST_URL+'inschrijvingen/activiteit/' + activiteit)
+        .then(response => {
+            console.log(response.data)
+            setAangemeldeUsers(response.data)
+        })
+        .catch(error => {
+            console.log(error.response)
+        })
+    }
+
+    useEffect(() => {
+        fetchAangemeldeUsers();
+    }, []);
+
     return (
     <div>
         <Dialog fullScreen open={open} onClose={()=> closeScreen()} TransitionComponent={Transition}>
             <AppBar className={classes.appBar}>
             <Toolbar>
                 <IconButton edge="start" color="inherit" onClick={()=> closeScreen()} aria-label="close">
-                <CloseIcon />
+                    <CloseIcon />
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>
-                Detail Post
+                    Detail Post
                 </Typography>
             </Toolbar>
             </AppBar>
@@ -111,7 +131,7 @@ const DetailPost = ({open, closeScreen}) => {
                     </Box>
                 </Box>
                 <Typography variant='body1' component='p' className={classes.detailsOpdracht}>
-                Vilt ontstaat als de schubben van wol aan elkaar gaan haken. Dat doe je met warm water en zeep. Door deze combinatie door je handen te wrijven, ontstaat er een stevig lapje stof. Deze stof, die heel warm, stevig en waterdicht is, wordt laken genoemd. De techniek is eeuwenoud en wordt ook vandaag de dag  nog gebruikt. Dit lijkt mij een leuke opdracht om mee bezig te zijn, maar ik zoek wat mensen om dit mee samen te doen.
+                    Vilt ontstaat als de schubben van wol aan elkaar gaan haken. Dat doe je met warm water en zeep. Door deze combinatie door je handen te wrijven, ontstaat er een stevig lapje stof. Deze stof, die heel warm, stevig en waterdicht is, wordt laken genoemd. De techniek is eeuwenoud en wordt ook vandaag de dag  nog gebruikt. Dit lijkt mij een leuke opdracht om mee bezig te zijn, maar ik zoek wat mensen om dit mee samen te doen.
                 </Typography>
                 <Box className={classes.detailsOpdrachtBottom}>
                     <Chip label='Thuis atelier'/>
@@ -121,6 +141,8 @@ const DetailPost = ({open, closeScreen}) => {
                     </Box>
                 </Box>
             </Box>
+            <Typography>Aanmeldingen</Typography>
+            <AanmeldingenList AangemeldeUsers={aangemeldeUsers}/>
         </Dialog>
     </div>
     )

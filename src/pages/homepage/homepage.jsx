@@ -39,6 +39,7 @@ const Homepage = () => {
   if(isJson(currentUser)){
       user = JSON.parse(currentUser);
   }
+  
   const Activiteit = async () =>{
     axios.get(TEST_URL+'activiteit')
     .then(response => {

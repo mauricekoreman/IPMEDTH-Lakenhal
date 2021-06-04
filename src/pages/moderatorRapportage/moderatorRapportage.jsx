@@ -34,6 +34,8 @@ const ModeratorRapportage = () => {
     setDetailRapportageOpen(!detailRapportageOpen)
   }
 
+  let activiteitList = 3;
+
   return (
     <div>
       {user.admin ?  
@@ -47,7 +49,7 @@ const ModeratorRapportage = () => {
       : 
         <div>404</div>
       }
-      <DetailPost open={detailRapportageOpen} closeScreen={detailRapportageClick}/>
+      <DetailPost open={detailRapportageOpen} closeScreen={detailRapportageClick} activiteit={activiteitList}/>
     </div>
   );
 };
