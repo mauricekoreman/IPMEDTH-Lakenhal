@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import {
+  Box,
   Button,
   FormControl,
   Grid,
   makeStyles,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import { Controller, useForm } from "react-hook-form";
+import axios from "axios";
+import FeedbackBlock from "../feedbackBlock/feedbackBlock";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -21,21 +25,49 @@ const useStyles = makeStyles((theme) => ({
 const PasswordForgetForm = () => {
   const classes = useStyles();
 
+  const [show, setShow] = useState(false);
+  const [mailSent, setMailSent] = useState(false);
+  const [serverText, setServerText] = useState("");
+
+  const TEST_URL = "http://127.0.0.1:8000/api/";
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-    reset,
-    watch,
   } = useForm();
 
-  const onSubmit = (registerData) => {
-    console.log(registerData);
+  const onSubmit = (forgotPasswordData) => {
+    console.log(forgotPasswordData);
+
+    axios
+      .post(TEST_URL + "auth/forgot-password", forgotPasswordData, {
+        headers: { Accept: "applicatoin/json" },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.success) {
+          setMailSent(true);
+          setServerText(res.data.message);
+        } else {
+          setMailSent(false);
+          setServerText(res.data.message);
+        }
+
+        setShow(true);
+      })
+      .catch((error) => {
+        console.log(error.response);
+        setMailSent(false);
+        setShow(true);
+        setServerText("Er is een netwerk error");
+      });
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
+        {show && <FeedbackBlock success={mailSent} text={serverText} />}
         <FormControl className={classes.formControl}>
           <Controller
             name="email"
@@ -46,9 +78,8 @@ const PasswordForgetForm = () => {
                 {...field}
                 label="Email"
                 variant="standard"
-                type="password"
-                helperText={errors.password ? errors.password.message : ""}
-                error={!!errors.password}
+                helperText={errors.email ? errors.email.message : ""}
+                error={!!errors.email}
               />
             )}
             rules={{
@@ -66,7 +97,7 @@ const PasswordForgetForm = () => {
           color="primary"
           type="submit"
         >
-          Verstuur reset mail
+          Mail reset link
         </Button>
       </Grid>
     </form>

@@ -15,9 +15,9 @@ import ProfileTab from "../../pages/profileTab/profileTab";
 import ModeratorRapportage from "../../pages/moderatorRapportage/moderatorRapportage";
 import ModeratorCategorie from "../../pages/moderatorCategorie/moderatorCategorie";
 import ProfileEditTab from "../../pages/profileTab/profileEditTab";
-import isJson from '../../contexts/isJson'
+import isJson from "../../contexts/isJson";
 import axios from "axios";
-import { useAuth } from '../../contexts/authContext'
+import { useAuth } from "../../contexts/authContext";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -30,8 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator}) => {
+const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator }) => {
   // this is equivalent to theme.breakpoints.down("sm")
   const isSmallScreen = /xs|sm/.test(width);
   const theme = useTheme();
@@ -46,17 +45,21 @@ const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator}) => {
   const TEST_URL = "http://127.0.0.1:8000/api/";
   const { currentUser, setCurrentUser } = useAuth();
   const updateUser = () => {
-    axios.get(TEST_URL+"users/"+user.user_ID, {
+    axios
+      .get(TEST_URL + "users/" + user.user_ID, {
         headers: { "Content-Type": "application/json" },
-    }).then(res => {setCurrentUser(res.data);})
-  }
+      })
+      .then((res) => {
+        setCurrentUser(res.data);
+      });
+  };
 
   useEffect(() => {
     updateUser();
-  }, [])
+  }, []);
 
   let user = currentUser;
-  if(isJson(currentUser)){
+  if (isJson(currentUser)) {
     user = JSON.parse(currentUser);
   }
   console.log(user);
@@ -78,15 +81,19 @@ const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator}) => {
           <Tab label={tabs[0]} />
           <Tab label={tabs[1]} />
           <Box hidden>
-            <Tab label={tabs[2]}/>
+            <Tab label={tabs[2]} />
           </Box>
         </Tabs>
       </AppBar>
-      {onProfile && selectedTab === 0 && <ProfileTab user={user} selectedTab={()=>setSelectedTab(2)}/>}
-      {onProfile && selectedTab === 2 && <ProfileEditTab user={user} selectedTab={()=>setSelectedTab(0)} />}
-      {onProfile && selectedTab === 1 && <PostsTab/>}
-      {onModerator && selectedTab === 0 && <ModeratorRapportage/>}
-      {onModerator && selectedTab === 1 && <ModeratorCategorie/>}
+      {onProfile && selectedTab === 0 && (
+        <ProfileTab user={user} selectedTab={() => setSelectedTab(2)} />
+      )}
+      {onProfile && selectedTab === 2 && (
+        <ProfileEditTab user={user} selectedTab={() => setSelectedTab(0)} />
+      )}
+      {onProfile && selectedTab === 1 && <PostsTab />}
+      {onModerator && selectedTab === 0 && <ModeratorRapportage />}
+      {onModerator && selectedTab === 1 && <ModeratorCategorie />}
     </div>
   );
 };

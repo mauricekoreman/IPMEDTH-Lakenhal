@@ -1,86 +1,75 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
+import { useParams } from "react-router";
 import {
   TextField,
   Button,
   FormControl,
   Grid,
   makeStyles,
-  Typography,
 } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import FeedbackBlock from "../feedbackBlock/feedbackBlock";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     marginTop: 25,
   },
-  registerButton: {
+  resetButton: {
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(3),
   },
 }));
 
-const RegistreerForm = () => {
+const PasswordResetForm = () => {
   const classes = useStyles();
+  const { token } = useParams();
+
+  const [show, setShow] = useState(false);
+  const [passwordResetted, setPasswordResetted] = useState(false);
+  const [serverText, setServerText] = useState("");
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
-
-  const [generalLoginError, setGeneralLoginError] = useState();
-  const history = useHistory();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-    reset,
     watch,
   } = useForm();
   const password = useRef({});
   password.current = watch("password", "");
 
-  const onSubmit = async (registerData) => {
-    console.log(registerData);
+  const onSubmit = (resetData) => {
+    let resetDataWithToken = { ...resetData, token: token };
+
     axios
-      .post(TEST_URL + "auth/register", registerData, {
+      .post(TEST_URL + "auth/reset-password", resetDataWithToken, {
         headers: { Accept: "application/json" },
       })
       .then((res) => {
-        if (res.status === 200) {
-          console.log(res.data);
-          history.push("/login");
+        console.log(res);
+        if (res.data.success) {
+          setPasswordResetted(true);
+          setServerText(res.data.message);
         } else {
-          reset({ formState: true });
+          setPasswordResetted(false);
+          setServerText(res.data.message);
         }
+        setShow(true);
       })
       .catch((error) => {
-        setGeneralLoginError(true);
         console.log(error.response);
+        setPasswordResetted(false);
+        setShow(true);
+        setServerText("Er is een netwerk error");
       });
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column">
-        <FormControl className={classes.formControl}>
-          <Controller
-            name="naam"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label={"Naam"}
-                variant="standard"
-                helperText={errors.naam ? errors.naam.message : ""}
-                error={!!errors.naam}
-              />
-            )}
-            rules={{
-              required: "Verplicht",
-            }}
-          />
-        </FormControl>
+        {show && <FeedbackBlock success={passwordResetted} text={serverText} />}
         <FormControl className={classes.formControl}>
           <Controller
             name="email"
@@ -89,7 +78,7 @@ const RegistreerForm = () => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Email"
+                label={"Email"}
                 variant="standard"
                 helperText={errors.email ? errors.email.message : ""}
                 error={!!errors.email}
@@ -151,22 +140,17 @@ const RegistreerForm = () => {
             }}
           />
         </FormControl>
-        {generalLoginError && (
-          <Typography style={{ marginTop: 10 }}>
-            Emailadres is al in gebruik
-          </Typography>
-        )}
         <Button
-          className={classes.registerButton}
+          className={classes.resetButton}
           variant="contained"
           color="primary"
           type="submit"
         >
-          Registreer
+          Reset wachtwoord
         </Button>
       </Grid>
     </form>
   );
 };
 
-export default RegistreerForm;
+export default PasswordResetForm;
