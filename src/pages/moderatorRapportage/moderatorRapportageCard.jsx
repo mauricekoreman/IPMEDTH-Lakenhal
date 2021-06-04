@@ -61,31 +61,32 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ModeratorRapportageCard = () => {
+const ModeratorRapportageCard = ({titel, categorie, naam, aantalRapportages, profielfoto, lakenhal_activiteit}) => {
   const classes = useStyles();
   return (  
         <Card className={classes.rapportageCard}>
-          <CardMedia
-                  className={classes.cardMediaLogo}
-                  component="img"
-                  alt="Lakenhal logo"
-                  src={lakenhal_sw}
-                  title="Lakenhal logo"
-          />
+          {lakenhal_activiteit && 
+            <CardMedia
+              className={classes.cardMediaLogo}
+              component="img"
+              alt="Lakenhal logo"
+              src={lakenhal_sw}
+              title="Lakenhal logo"
+          />}
           <CardContent className={classes.rapportageCardContent}>
             <Box className={classes.headerCard}>
               <Avatar
                 alt="Profiel foto"
                 className={classes.profilePicture}
-                src={pf}
+                src={`data:image/png;base64, ${profielfoto}`} 
               />
               <Box className={classes.opdrachtCard}>
-                <Typography variant='h6' component='h3' className={classes.opdrachtCardTitle}>3D Vilten</Typography>
-                <Typography variant='caption' className={classes.opdrachtCardSubtitle}>Thuisatelier opdracht</Typography>
+                <Typography variant='h6' component='h3' className={classes.opdrachtCardTitle}>{titel}</Typography>
+                <Typography variant='caption' className={classes.opdrachtCardSubtitle}>{categorie}</Typography>
               </Box>
             </Box>
-            <Typography className={classes.typoCard} variant="body2">Naam: Ilse Storm</Typography>
-            <Typography className={classes.typoCard} variant="body2">Aantal keer gerapporteerd: 68</Typography>
+            <Typography className={classes.typoCard} variant="body2">Naam: {naam}</Typography>
+            <Typography className={classes.typoCard} variant="body2">Aantal keer gerapporteerd: {aantalRapportages}</Typography>
             <CardActions className={classes.actie}>
               <Button className={classes.actieButton} size='large' color="primary">
                 ACTIES
