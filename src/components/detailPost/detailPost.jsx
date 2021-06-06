@@ -5,6 +5,7 @@ import lakenhal_sw from "../../assets/img/lakenhal_sw.png";
 import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
 import detailPost_img_placeholder from "../../assets/img/placeholders/detailPost_placeholder.png";
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
+import AanmeldingeList from './aanmeldingenList.jsx'
 
 import {
     Typography,
@@ -88,7 +89,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 //geef ook het activiteit mee waarop is gedrukt en je krijgt de juiste detail post te zien
 const DetailPost = ({open, closeScreen, activiteit}) => {
     const classes = useStyles();
-    
+    console.log(activiteit);
     return ( 
         <Dialog fullScreen open={open} onClose={()=> closeScreen()} TransitionComponent={Transition}>
             <AppBar className={classes.appBar}>
@@ -118,7 +119,7 @@ const DetailPost = ({open, closeScreen, activiteit}) => {
                             </Box>
                         </Box>
                         <Typography variant='body1' component='p' className={classes.detailsOpdracht}>
-                        {activiteit.beschrijving}
+                            {activiteit.beschrijving}
                         </Typography>
                         <Box className={classes.detailsOpdrachtBottom}>
                             <Chip label={activiteit.categorie}/>
@@ -129,6 +130,8 @@ const DetailPost = ({open, closeScreen, activiteit}) => {
                             </Box>
                         </Box>
                     </Box>
+
+                    <AanmeldingeList activiteit_ID={activiteit.activiteit_ID}/>
                 </div>
             }
         </Dialog>

@@ -1,5 +1,6 @@
 import React, {useEffect, useState } from "react";
 import AanmeldingenCard from "./aanmeldingenCard";
+import axios from "axios";
 
 import { 
     List, 
@@ -10,15 +11,34 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const CategorieList = ({AangemeldeUsers}) => {   
-    console.log(AangemeldeUsers)
+const CategorieList = ({activiteit_ID}) => {   
+    console.log(activiteit_ID)
     const classes = useStyles(); 
+
+    const TEST_URL = "http://127.0.0.1:8000/api/";
+
+    const [aangemeldeUsers, setAangemeldeUsers] = useState();
+
+    const fetchAangemeldeUsers = () =>{
+        axios.get(TEST_URL+'inschrijvingen/activiteitUser/' + activiteit_ID)
+        .then(response => {
+            console.log(response.data)
+            setAangemeldeUsers(response.data)
+        })
+        .catch(error => {
+            console.log(error.response)
+        })
+    }
+
+    useEffect(() => {
+        fetchAangemeldeUsers();
+    }, []);
 
     return (
         <List>
-            {AangemeldeUsers.map((AangemeldeUser =>
+            {aangemeldeUsers.map((user =>
                 <AanmeldingenCard
-                    AangemeldeUser={AangemeldeUser}
+                    aangemeldeUser={user}
                 />
             ))}
         </List>

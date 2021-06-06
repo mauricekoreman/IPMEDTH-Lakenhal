@@ -5,19 +5,19 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const AanmeldingenCard = ({AangemeldeUser}) => {
+const AanmeldingenCard = ({aangemeldeUser}) => {
   const classes = useStyles();
-  console.log(AangemeldeUser);
+  console.log(aangemeldeUser);
   return (
     <Accordion>
         <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
         >
-            <Typography>gebruiker</Typography>
+            <Typography>{aangemeldeUser.naam}</Typography>
         </AccordionSummary>
         <AccordionDetails>
             <Typography>
-                ingezonde tekst
+                {aangemeldeUser.bericht != null ? aangemeldeUser.bericht : "De aangemelde persoon heeft geen tekst ingestuurd"}
             </Typography>
         </AccordionDetails>
     </Accordion>
