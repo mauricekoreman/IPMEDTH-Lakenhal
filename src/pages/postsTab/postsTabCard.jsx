@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PostsTabCard = ({titel, categorie, profielfoto, lakenhal_activiteit, beschrijving}) => {
   const classes = useStyles();
+
   return (  
         <Card className={classes.rapportageCard}>
           {lakenhal_activiteit && 

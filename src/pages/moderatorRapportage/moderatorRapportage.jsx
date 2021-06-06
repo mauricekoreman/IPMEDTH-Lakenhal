@@ -52,7 +52,7 @@ const ModeratorRapportage = () => {
     console.log(rapportage)
     setDetailRapportage(rapportage)
   }
-  console.log(rapportageList)
+
   return (
     <div>
       {user.admin ?  

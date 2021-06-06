@@ -37,7 +37,8 @@ const PostsTab = ({user}) => {
     console.log(profielPost)
     setDetailPost(profielPost)
   }
-  console.log(postList)
+  console.log(detailPost);
+
   return (
     <div>
       <Box className={classes.pageContainer}>
@@ -48,8 +49,8 @@ const PostsTab = ({user}) => {
         <Grid container spacing={2}>
           {Object.keys(postList).map((post, key) =>{
             return(
-              <Grid item xs={12} key={key} onClick={()=>detailPostClick(post)}>
-                <PostsTabCard titel={post.titel} categorie={post.categorie} profielfoto={post.profiel_foto} lakenhal={post.lakenhal_activiteit} activiteit={post.activiteit_ID} beschrijving={post.beschrijving}/>
+              <Grid item xs={12} key={key} onClick={()=>detailPostClick(postList[post])}>
+                <PostsTabCard titel={postList[post].titel} categorie={postList[post].categorie} profielfoto={postList[post].profiel_foto} lakenhal={postList[post].lakenhal_activiteit} activiteit={postList[post].activiteit_ID} beschrijving={postList[post].beschrijving}/>
               </Grid>
             )
           })}
