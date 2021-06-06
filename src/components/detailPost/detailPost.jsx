@@ -5,7 +5,7 @@ import lakenhal_sw from "../../assets/img/lakenhal_sw.png";
 import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
 import detailPost_img_placeholder from "../../assets/img/placeholders/detailPost_placeholder.png";
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
-import AanmeldingeList from './aanmeldingenList.jsx'
+import AanmeldingenList from './aanmeldingenList.jsx'
 
 import {
     Typography,
@@ -131,7 +131,7 @@ const DetailPost = ({open, closeScreen, activiteit}) => {
                         </Box>
                     </Box>
 
-                    <AanmeldingeList activiteit_ID={activiteit.activiteit_ID}/>
+                    <AanmeldingenList activiteit_ID={activiteit.activiteit_ID}/>
                 </div>
             }
         </Dialog>

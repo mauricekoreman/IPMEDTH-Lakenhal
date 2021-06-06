@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const CategorieList = ({activiteit_ID}) => {   
-    console.log(activiteit_ID)
+const AanmeldingenList = ({activiteit_ID}) => {   
+    console.log(activiteit_ID);
     const classes = useStyles(); 
 
     const TEST_URL = "http://127.0.0.1:8000/api/";
@@ -29,14 +29,15 @@ const CategorieList = ({activiteit_ID}) => {
             console.log(error.response)
         })
     }
-
+    
     useEffect(() => {
-        fetchAangemeldeUsers();
+        console.log(aangemeldeUsers);
+        fetchAangemeldeUsers()
     }, []);
 
     return (
         <List>
-            {aangemeldeUsers.map((user =>
+            {aangemeldeUsers && aangemeldeUsers.map((user =>
                 <AanmeldingenCard
                     aangemeldeUser={user}
                 />
@@ -45,4 +46,4 @@ const CategorieList = ({activiteit_ID}) => {
     );
 }
 
-export default CategorieList;
+export default AanmeldingenList;
