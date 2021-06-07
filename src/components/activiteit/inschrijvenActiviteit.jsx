@@ -2,28 +2,32 @@ import React, {useState} from "react";
 import { TextField, Button, Box } from '@material-ui/core';
 import axios from "axios";
 
-const InschrijvenActiviteit = ({user, activiteit_ID}) => {
+const InschrijvenActiviteit = ({user, activiteit}) => {
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
     const [show, setShow] = useState(false);
 
     const initialValues ={
         user_ID: user.user_ID, 
-        activiteit_ID: activiteit_ID,
+        activiteit_ID: activiteit,
         bericht: ''
     }    
 
     const[inschrijving, setInschrijving] = useState(initialValues);
     const handleInput = e => {
-        const{ name, value} = e.target
+        const{ name, value} = e.target;
+        console.log(name, value)
         setInschrijving({
             ...inschrijving,
             [name]:value
         })
     }
 
+    console.log(initialValues);
+
     const onSubmit = () => {
         console.log(inschrijving);
+        inschrijving.activiteit_ID = activiteit;
         axios.post(TEST_URL+"inschrijvingen", inschrijving, {
             headers: { Accept: "application/json" },
         }).then(res => {

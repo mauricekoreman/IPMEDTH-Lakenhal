@@ -34,13 +34,13 @@ const Homepage = () => {
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
   const { currentUser } = useAuth();
-  const [activiteit_ID, setActiviteit_ID] = useState([]);
+  const [activiteit_ID, setActiviteit_ID] = useState();
   let user = currentUser;
   if(isJson(currentUser)){
       user = JSON.parse(currentUser);
   }
   
-  const Activiteit = async () =>{
+  const Activiteit = () =>{
     axios.get(TEST_URL+'activiteit')
     .then(response => {
         console.log(response.data[2].activiteit_ID)
@@ -53,14 +53,15 @@ const Homepage = () => {
 
   useEffect(() => {
     Activiteit()
-  }, []);
+  }, []);    
+  console.log(activiteit_ID);
 
   return (
     <Box className={classes.pageContainer}>
       <Typography>Homepage</Typography>
       <ShowPost/>
       <CreatePost/>
-      <InschrijvenActiviteit user={user} activiteit_ID={activiteit_ID}/>
+      <InschrijvenActiviteit user={user} activiteit={activiteit_ID}/>
       <Fab
         position={classes.fabPosition}
         color={"primary"}
