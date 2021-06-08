@@ -70,7 +70,7 @@ const CreatePost = () => {
     }
 
     return (
-        <form >
+        <form style={{paddingBottom: "80px"}}>
             <Grid container direction="column">
                 <TextField
                     label='Titel'

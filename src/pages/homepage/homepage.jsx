@@ -3,6 +3,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import CreatePost from "../../components/activiteit/createpost";
 import ShowPost from "../../components/activiteit/showpost"
+import PostList from "../../components/activiteit/postList"
 import Grid from '@material-ui/core/Grid';
 import Fab from "../../components/fab/fab";
 import { Box, makeStyles, useTheme } from "@material-ui/core";
@@ -34,7 +35,7 @@ const Homepage = () => {
         </Grid>
 
         <Grid item xs={8}>
-          <ShowPost/>
+          <PostList/>
         </Grid>
 
         <Grid item xs={2}>
@@ -45,6 +46,7 @@ const Homepage = () => {
       </Grid>
 
       <CreatePost/>
+      
 
       <Fab
           position={classes.fabPosition}
