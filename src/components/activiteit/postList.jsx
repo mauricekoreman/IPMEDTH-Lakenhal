@@ -33,12 +33,15 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: red[500],
     },
     container: {
-        // height: "500px",
+        // maxHeight: "500px",
         paddingTop: "60px",
         // overflow: "auto",
     },
     appBar: {
       position: 'relative',
+    },
+    content: {
+      marginBottom: theme.spacing(0),
     },
   }));
 
@@ -92,9 +95,9 @@ const PostList = () => {
                     image={`data:image/png;base64, ${value.afbeelding}`}
                     title=""
                 />
-                <CardContent>
-                    <Typography variant="body2" color="textSecondary" component="p" >
-                        {value.beschrijving}
+                <CardContent className={classes.content}>
+                    <Typography className={classes.contentText} variant="body2" color="textSecondary" component="p" >
+                        {value.beschrijving.substring(0, 200) + "..."}
                     </Typography>
                 </CardContent>
                 <CardActions>
