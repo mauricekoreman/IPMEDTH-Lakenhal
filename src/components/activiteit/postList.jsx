@@ -19,6 +19,7 @@ import axios from "axios";
 import isJson from '../../contexts/isJson'
 import FlatList from 'flatlist-react';
 import { Button } from '@material-ui/core/';
+import DetailPost from "../detailPost/detailPost";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,6 +48,8 @@ const activiteitData = [];
 const PostList = () => {
     const classes = useStyles();
     const [values, setValues] = useState(activiteitData);
+    const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false)
+    const [detailActiviteit, setDetailActiviteit] = useState([])
 
     useEffect(() => {
         axios.get(TEST_URL+'activiteit')
@@ -58,6 +61,10 @@ const PostList = () => {
                     console.log(error.response)
                 })
       }, []);
+    const activiteitClick = (activiteit) =>{
+      setDetailActiviteitOpen(!detailActiviteitOpen)
+      setDetailActiviteit(activiteit)
+    }
 
     const renderPost = (value, idx) => {
         return (  
@@ -88,7 +95,7 @@ const PostList = () => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary">
+                  <Button onClick={() =>{activiteitClick(value)}} size="small" color="primary">
                     Meer informatie
                   </Button>
                 </CardActions>
@@ -98,12 +105,15 @@ const PostList = () => {
       }
 
     return (
+      <div>
         <FlatList
             list={values}
             renderItem={renderPost}
             renderWhenEmpty={() => <div>List is empty!</div>}
             renderOnScroll
-        />    
+        />
+        <DetailPost open={detailActiviteitOpen} closeScreen={activiteitClick} activiteit={detailActiviteit}/>    
+      </div>
     )
   } 
 
