@@ -93,12 +93,6 @@ const Transition = forwardRef(function Transition(props, ref) {
 const DetailPost = ({open, closeScreen, activiteit}) => {
     const classes = useStyles();
 
-    const { currentUser } = useAuth();
-    let user = currentUser;
-    if(isJson(currentUser)){
-        user = JSON.parse(currentUser);
-    }
-
     console.log(activiteit);
     return ( 
         <Dialog fullScreen open={open} onClose={()=> closeScreen()} TransitionComponent={Transition}>
@@ -140,7 +134,8 @@ const DetailPost = ({open, closeScreen, activiteit}) => {
                             </Box>
                         </Box>
                     </Box>
-                    <InschrijvenActiviteit user={user} activiteit={activiteit.activiteit_ID}/>
+                    
+                    <InschrijvenActiviteit user={activiteit} activiteit={activiteit.activiteit_ID}/>
                     <AanmeldingenList activiteit_ID={activiteit.activiteit_ID}/>
                 </div>
             }
