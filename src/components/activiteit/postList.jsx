@@ -72,8 +72,11 @@ const PostList = () => {
               <Card className={classes.root}>
                 <CardHeader
                     avatar={
-                    <Avatar aria-label="" className={classes.avatar}>
-                        R
+                    <Avatar 
+                      alt="Profiel foto"
+                      className={classes.profilePicture}
+                      src={`data:image/png;base64, ${value.profiel_foto}`}>
+    
                     </Avatar>
                     }
                     action={
@@ -82,7 +85,7 @@ const PostList = () => {
                     </IconButton>
                     }
                     title={value.titel}
-                    subheader=""
+                    subheader={value.categorie}
                 />
                 <CardMedia
                     className={classes.media}
@@ -90,7 +93,7 @@ const PostList = () => {
                     title=""
                 />
                 <CardContent>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="body2" color="textSecondary" component="p" >
                         {value.beschrijving}
                     </Typography>
                 </CardContent>
