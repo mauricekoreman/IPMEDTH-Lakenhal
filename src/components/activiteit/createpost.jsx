@@ -39,6 +39,18 @@ const CreatePost = () => {
     if(isJson(currentUser)){
         user = JSON.parse(currentUser);
     }
+
+    const initialValues ={
+        titel :'',
+        beschrijving :'',
+        afbeelding :' ',
+        aantalDeelnemers : 4,
+        lakenhalActiviteit : false,
+        zichtbaar :true,
+        aantalGerapporteerd : 0,
+        categorie :' ',
+        user_ID : user.user_ID, 
+    }
     
     const[values, setValues] = useState(initialValues);
     const [lakenhal_activiteit, setLakenhalActiviteit] = useState(false);

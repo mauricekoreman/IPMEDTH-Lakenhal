@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
 import { useAuth } from '../../contexts/authContext';
 import EditProfileForm from '../../components/profile/editProfileForm';
 import axios from "axios";
@@ -13,13 +13,17 @@ const useStyles = makeStyles((theme) => ({
       paddingRight: theme.spacing(2),
       paddingTop: theme.spacing(5),
     },
+    titelText: {
+        display: "inline",
+        align: "center"
+    },
 }));
 
 const ProfileEditTab = ({selectedTab, user}) => {
     const classes = useStyles();
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
-    const { setCurrentUser } = useAuth();
+    const { currentUser, setCurrentUser } = useAuth();
     
     const updateUser = () => {
         axios.get(TEST_URL+"users/"+user.user_ID, {
@@ -33,11 +37,13 @@ const ProfileEditTab = ({selectedTab, user}) => {
             console.log(error);
         });
     }
+    console.log(currentUser);
 
     return (
         <Box className={classes.pageContainer}>
+            <Button onClick={() => { updateUser(); selectedTab();}}><CloseIcon /></Button>
+            <Typography className={classes.titelText} variant="h6">Bewerk profiel</Typography>
             <EditProfileForm user={user} onReload={updateUser} selectedTab={selectedTab}/> 
-            <Button onClick={selectedTab}><CloseIcon /></Button>
         </Box>
     );
 };

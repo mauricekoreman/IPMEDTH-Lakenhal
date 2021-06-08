@@ -1,5 +1,4 @@
 import React from "react";
-import { useAuth } from '../../contexts/authContext'
 import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
 import lakenhal_sw from "../../assets/img/lakenhal_sw.png";
 
@@ -16,7 +15,6 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-
   rapportageCard: {
     width: '80%',
     margin: '0 auto',
@@ -61,8 +59,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ModeratorRapportageCard = ({titel, categorie, naam, aantalRapportages, profielfoto, lakenhal_activiteit}) => {
+const PostsTabCard = ({titel, categorie, profielfoto, lakenhal_activiteit, beschrijving}) => {
   const classes = useStyles();
+
   return (  
         <Card className={classes.rapportageCard}>
           {lakenhal_activiteit && 
@@ -85,11 +84,10 @@ const ModeratorRapportageCard = ({titel, categorie, naam, aantalRapportages, pro
                 <Typography variant='caption' className={classes.opdrachtCardSubtitle}>{categorie}</Typography>
               </Box>
             </Box>
-            <Typography className={classes.typoCard} variant="body2">Naam: {naam}</Typography>
-            <Typography className={classes.typoCard} variant="body2">Aantal keer gerapporteerd: {aantalRapportages}</Typography>
+            <Typography className={classes.typoCard} variant="body2">{beschrijving}</Typography>
             <CardActions className={classes.actie}>
               <Button className={classes.actieButton} size='large' color="primary">
-                ACTIES
+                AANMELDINGEN BEKIJKEN
               </Button>
             </CardActions>
           </CardContent>
@@ -97,6 +95,4 @@ const ModeratorRapportageCard = ({titel, categorie, naam, aantalRapportages, pro
   )
 };
 
-const styles = {};
-
-export default ModeratorRapportageCard;
+export default PostsTabCard;
