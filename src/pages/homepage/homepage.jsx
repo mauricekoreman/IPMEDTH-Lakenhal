@@ -27,10 +27,15 @@ const useStyles = makeStyles((theme) => ({
     left: "auto",
     position: "fixed",
   },
+  container: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(7),
+  },
 }));
 
 const Homepage = () => {
   const classes = useStyles();
+  const [maakActiviteitOpen, setMaakActiviteitOpen] = useState(false)
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
   const { currentUser } = useAuth();
@@ -55,15 +60,19 @@ const Homepage = () => {
     Activiteit()
   }, []);
 
+  const maakActiviteitClick = () =>{
+    setMaakActiviteitOpen(!maakActiviteitOpen)
+  }
+  console.log(maakActiviteitOpen)
+
   return (
     <div>
-      <Grid container spacing={3}>
+      <Grid container className={classes.container} spacing={3}>
         <Grid item xs={1}>
          
         </Grid>
 
         <Grid item xs={10}>
-          <CreatePost/>
           <PostList/>
           
         </Grid>
@@ -82,7 +91,9 @@ const Homepage = () => {
           color={"primary"}
           ariaLabel="schrijf post"
           size="medium"
+          maakActiviteitClick={maakActiviteitClick}
         />
+        <CreatePost open={maakActiviteitOpen} closeScreen={maakActiviteitClick}/>
     </div>
   );
 };

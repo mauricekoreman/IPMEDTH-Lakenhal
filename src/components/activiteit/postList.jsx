@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: "60px",
         // overflow: "auto",
     },
+    appBar: {
+      position: 'relative',
+    },
   }));
 
 const TEST_URL = "http://127.0.0.1:8000/api/";
@@ -76,7 +79,7 @@ const PostList = () => {
                 />
                 <CardMedia
                     className={classes.media}
-                    image={value.afbeelding}
+                    image={`data:image/png;base64, ${value.afbeelding}`}
                     title=""
                 />
                 <CardContent>
