@@ -17,23 +17,24 @@ const ChatPanel = () => {
     });
 
     const channel = pusher.subscribe("chat");
-    channel.bind("message", function (data) {
+    channel.bind('App\\Events\\Message', function (data) {
       allMessages.push(data);
       setMessages(allMessages);
     });
+
   }, []);
 
+  console.log(allMessages);
   const submit = async (e) => {
     e.preventDefault();
     console.log(username);
     console.log(message);
-
     await fetch("http://localhost:8000/api/messages", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        username,
         message,
+        username,
       }),
     });
 
