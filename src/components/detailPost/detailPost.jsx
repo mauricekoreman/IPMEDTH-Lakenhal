@@ -130,7 +130,6 @@ const DetailPost = ({open, closeScreen, activiteit}) => {
                             </Box>
                         </Box>
                     </Box>
-
                     <AanmeldingenList activiteit_ID={activiteit.activiteit_ID}/>
                 </div>
             }

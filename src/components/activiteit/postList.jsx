@@ -52,7 +52,7 @@ const PostList = () => {
     const [detailActiviteit, setDetailActiviteit] = useState([])
 
     useEffect(() => {
-        axios.get(TEST_URL+'activiteit')
+        axios.get(TEST_URL+'activiteitenUsers')
                 .then(response => {
                     console.log(response.data)
                     setValues(response.data)             
