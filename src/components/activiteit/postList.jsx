@@ -18,13 +18,14 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import axios from "axios";
 import isJson from '../../contexts/isJson'
 import FlatList from 'flatlist-react';
+import { Button } from '@material-ui/core/';
 
 const useStyles = makeStyles((theme) => ({
     root: {
       maxWidth: 1000,
     },
     media: {
-      height: 0,
+      height: 140,
       paddingTop: '56.25%', // 16:9
     },
     avatar: {
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         // height: "500px",
-        paddingTop: "50px",
+        paddingTop: "60px",
         // overflow: "auto",
     },
   }));
@@ -83,11 +84,10 @@ const PostList = () => {
                         {value.beschrijving}
                     </Typography>
                 </CardContent>
-
-                <CardActions disableSpacing>
-                    <IconButton aria-label="share">
-                    <ShareIcon />
-                    </IconButton>   
+                <CardActions>
+                  <Button size="small" color="primary">
+                    Meer informatie
+                  </Button>
                 </CardActions>
               </Card>
             </div>

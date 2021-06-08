@@ -1,6 +1,6 @@
 import React, {forwardRef, useState, useEffect} from 'react'
 import CloseIcon from '@material-ui/icons/Close';
-import Image from 'material-ui-image';
+// import Image from 'material-ui-image';
 import lakenhal_sw from "../../assets/img/lakenhal_sw.png";
 import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
 import detailPost_img_placeholder from "../../assets/img/placeholders/detailPost_placeholder.png";

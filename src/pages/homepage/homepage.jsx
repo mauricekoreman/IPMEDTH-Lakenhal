@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 
 import Typography from "@material-ui/core/Typography";
 import CreatePost from "../../components/activiteit/createpost";
-import ShowPost from "../../components/activiteit/showpost"
+import PostList from "../../components/activiteit/postList"
 
 import InschrijvenActiviteit from "../../components/activiteit/inschrijvenActiviteit"
 import { useAuth } from '../../contexts/authContext'
@@ -10,7 +10,7 @@ import isJson from '../../contexts/isJson'
 import axios from "axios";
 
 import Fab from "../../components/fab/fab";
-import { Box, makeStyles, useTheme } from "@material-ui/core";
+import {Grid, Box, makeStyles, useTheme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -58,16 +58,17 @@ const Homepage = () => {
   return (
     <div>
       <Grid container spacing={3}>
-        <Grid item xs={2}>
+        <Grid item xs={1}>
          
         </Grid>
 
-        <Grid item xs={8}>
-          <PostList/>
+        <Grid item xs={10}>
           <CreatePost/>
+          <PostList/>
+          
         </Grid>
 
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           
         </Grid>
  

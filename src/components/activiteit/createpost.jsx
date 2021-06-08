@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { makeStyles, Typography, FormControl} from "@material-ui/core/";
 import { useForm, Controller } from "react-hook-form";
 import { useAuth } from '../../contexts/authContext'
-import { TextField, Button, Container, Grid, FormControlLabel, Checkbox, Select, MenuItem   } from '@material-ui/core';
+import { InputLabel, FormHelperText, TextField, Button, Container, Grid, FormControlLabel, Checkbox, Select, MenuItem   } from '@material-ui/core';
 import axios from "axios";
 import isJson from '../../contexts/isJson'
 
@@ -16,19 +16,20 @@ const useStyles = makeStyles((theme) => ({
         
         // overflow: "auto",
     },
+    titelVeld: {
+        paddingBottom: "10px",
+        
+        
+        // overflow: "auto",
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+      },
+    // selectEmpty: {
+    //     marginTop: theme.spacing(2),
+    //   },  
 }));
-
-const initialValues ={
-    titel :'',
-    beschrijving :'',
-    afbeelding :' ',
-    max_aantal_deelnemers : 4,
-    lakenhal_activiteit : false,
-    zichtbaar :true,
-    aantalGerapporteerd : 0,
-    categorie :' ',
-    user_ID :0, 
-}
 
 const CreatePost = () => {
     const classes = useStyles();
@@ -49,12 +50,12 @@ const CreatePost = () => {
         zichtbaar :true,
         aantalGerapporteerd : 0,
         categorie :' ',
-        user_ID : user.user_ID, 
+        user_ID : 0, 
     }
     
     const[values, setValues] = useState(initialValues);
     const [lakenhal_activiteit, setLakenhalActiviteit] = useState(false);
-    const [max_aantal_deelnemers, setMax_aantal_deelnemers] = useState(0);
+    const [max_aantal_deelnemers, setMax_aantal_deelnemers] = useState(4);
 
     const handleInput = e => {
         const{ name, value} = e.target
@@ -90,19 +91,23 @@ const CreatePost = () => {
         <div className={classes.container}>
             <form>
                 <Grid container direction="column">
-                    <TextField
+                    <TextField className={classes.titelVeld}
                         label='Titel'
                         name='titel'
                         value={values.titel}
                         onChange={handleInput}
+                        variant="outlined"
+                        defaultValue="Titel"
                     />
                     <TextField
-                        label='beschrijving'
+                        label='Beschrijving'
                         name='beschrijving'
                         multiline
-                        rowsMax={8}
+                        rows={8}
                         value={values.beschrijving}
                         onChange={handleInput}
+                        variant="outlined"
+                        defaultValue="Beschrijving"
                     />
                     <FormControlLabel
                         control={
@@ -115,18 +120,25 @@ const CreatePost = () => {
                         }
                         label="Lakenhal activiteit?"
                     />
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={max_aantal_deelnemers}
-                        onChange={handleChangeSelect}
-                    >
-                        <MenuItem value={1}>1</MenuItem>
-                        <MenuItem value={2}>2</MenuItem>
-                        <MenuItem value={3}>3</MenuItem>
-                        <MenuItem value={4}>4</MenuItem>
-                        <MenuItem value={5}>5</MenuItem>
-                    </Select>
+                    <FormControl variant="outlined" className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-helper-label">Aantal mensen?</InputLabel>
+                        <Select
+                            labelId="aantalDeelnemersLabel"
+                            id="aantalDeelnemers"
+                            label="AantalDeelnemer"
+                            value={max_aantal_deelnemers}
+                            onChange={handleChangeSelect}
+                            className={classes.selectEmpty}   
+                        >
+                            <MenuItem value={1}>1</MenuItem>
+                            <MenuItem value={2}>2</MenuItem>
+                            <MenuItem value={3}>3</MenuItem>
+                            <MenuItem value={4}>4</MenuItem>
+                            <MenuItem value={5}>5</MenuItem>
+                        </Select>
+                        <FormHelperText>Hoeveel mensen kunnen zich inschijven?</FormHelperText>
+                    </FormControl>
+
 
                 </Grid>
                 <Button onClick={onSubmit} variant="contained" color="primary"> 
