@@ -10,7 +10,12 @@ import CheckIcon from '@material-ui/icons/Check';
 
 
 const useStyles = makeStyles((theme) => ({
-
+    container: {
+        paddingBottom: "80px",
+        paddingTop: "50px",
+        
+        // overflow: "auto",
+    },
 }));
 
 const initialValues ={
@@ -70,51 +75,53 @@ const CreatePost = () => {
     }
 
     return (
-        <form style={{paddingBottom: "80px"}}>
-            <Grid container direction="column">
-                <TextField
-                    label='Titel'
-                    name='titel'
-                    value={values.titel}
-                    onChange={handleInput}
-                />
-                <TextField
-                    label='beschrijving'
-                    name='beschrijving'
-                    multiline
-                    rowsMax={8}
-                    value={values.beschrijving}
-                    onChange={handleInput}
-                />
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                        checked={lakenhal_activiteit}
-                        onChange={handleChangeControl}
-                        name="checkedB"
-                        color="primary"
-                        />
-                    }
-                    label="Lakenhal activiteit?"
-                 />
-                 <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={max_aantal_deelnemers}
-                    onChange={handleChangeSelect}
-                >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
-                    <MenuItem value={5}>5</MenuItem>
-                </Select>
+        <div className={classes.container}>
+            <form>
+                <Grid container direction="column">
+                    <TextField
+                        label='Titel'
+                        name='titel'
+                        value={values.titel}
+                        onChange={handleInput}
+                    />
+                    <TextField
+                        label='beschrijving'
+                        name='beschrijving'
+                        multiline
+                        rowsMax={8}
+                        value={values.beschrijving}
+                        onChange={handleInput}
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                            checked={lakenhal_activiteit}
+                            onChange={handleChangeControl}
+                            name="checkedB"
+                            color="primary"
+                            />
+                        }
+                        label="Lakenhal activiteit?"
+                    />
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={max_aantal_deelnemers}
+                        onChange={handleChangeSelect}
+                    >
+                        <MenuItem value={1}>1</MenuItem>
+                        <MenuItem value={2}>2</MenuItem>
+                        <MenuItem value={3}>3</MenuItem>
+                        <MenuItem value={4}>4</MenuItem>
+                        <MenuItem value={5}>5</MenuItem>
+                    </Select>
 
-            </Grid>
-            <Button onClick={onSubmit} variant="contained" color="primary"> 
-                Maak Post 
-            </Button>
-        </form>
+                </Grid>
+                <Button onClick={onSubmit} variant="contained" color="primary"> 
+                    Maak Post 
+                </Button>
+            </form>
+        </div>
     );
 };
 

@@ -75,7 +75,7 @@ const PostList = () => {
                 />
                 <CardMedia
                     className={classes.media}
-                    image=""
+                    image={value.afbeelding}
                     title=""
                 />
                 <CardContent>
