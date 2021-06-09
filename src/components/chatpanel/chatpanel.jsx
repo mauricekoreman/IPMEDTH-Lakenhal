@@ -1,10 +1,10 @@
-import { Box, Container } from "@material-ui/core";
+import { Box, Container, TextField } from "@material-ui/core";
 import axios from "axios";
 import Pusher from "pusher-js";
 import React, { useEffect, useState } from "react";
 
-const ChatPanel = () => {
-  const [username, setUsername] = useState("username");
+const ChatPanel = ({user}) => {
+  const [username, setUsername] = useState(user.naam);
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   let allMessages = [];
@@ -38,15 +38,13 @@ const ChatPanel = () => {
       }),
     });
 
-    // setMessage("");
+    setMessage("");
   };
 
   return (
     <Container>
-      <input
+      <TextField
         value={username}
-        type="text"
-        onChange={(e) => setUsername(e.target.value)}
       />
 
       <form onSubmit={(e) => submit(e)}>
