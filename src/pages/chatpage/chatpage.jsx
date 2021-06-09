@@ -1,5 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import React from "react";
+import ChatPanel from "../../components/chatpanel/chatpanel";
+import ChatPanel2 from "../../components/chatpanel/chatpanel_2";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -13,7 +15,8 @@ const Chatpage = () => {
 
   return (
     <div className={classes.pageContainer}>
-      <h1>chatpage</h1>
+      {/* <ChatPanel2 /> */}
+      <ChatPanel />
     </div>
   );
 };
