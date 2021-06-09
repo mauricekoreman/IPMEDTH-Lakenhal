@@ -116,6 +116,8 @@ const ProfileTab = ({selectedTab, user}) => {
 
   if(user && isJson([user.interesses])){
     Interesses = Object.assign({}, JSON.parse([user.interesses]));
+  }
+  if(user && isJson([user.eigenschappen])){
     Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
   }
 
@@ -169,7 +171,7 @@ const ProfileTab = ({selectedTab, user}) => {
           Kenmerkende eigenschappen
         </Typography>
         <Box className={classes.chips}>
-          {user.interesses ? 
+          {user.eigenschappen ? 
             Object.entries(Eigenschappen).map(([key, value]) => {
                 return(<Chip
                     key={key}

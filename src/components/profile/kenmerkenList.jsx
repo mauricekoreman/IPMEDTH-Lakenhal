@@ -17,7 +17,10 @@ const useStyles = makeStyles((theme) => ({
 const KenmerkenList = ({user, kenmerk, onReload}) => {
     const classes = useStyles();
     let objectKenmerken = Object.assign({kenmerk}, [user[kenmerk]]);
-    if(isJson([user.interesses])){
+    if(kenmerk === "interesses" && isJson([user.interesses])){
+        objectKenmerken = Object.assign({kenmerk}, JSON.parse([user[kenmerk]]));
+    }
+    if(kenmerk === "eigenschappen" && isJson([user.eigenschappen])){
         objectKenmerken = Object.assign({kenmerk}, JSON.parse([user[kenmerk]]));
     }
 
