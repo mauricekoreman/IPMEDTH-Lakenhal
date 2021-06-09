@@ -134,9 +134,8 @@ const DetailPost = ({open, closeScreen, activiteit}) => {
                             </Box>
                         </Box>
                     </Box>
-                    
-                    <InschrijvenActiviteit user={activiteit} activiteit={activiteit.activiteit_ID}/>
-                    <AanmeldingenList activiteit_ID={activiteit.activiteit_ID}/>
+                    {window.location.href === "http://localhost:3000/" && <InschrijvenActiviteit user={activiteit} activiteit={activiteit.activiteit_ID}/>}
+                    {window.location.href === "http://localhost:3000/profiel" && <AanmeldingenList activiteit_ID={activiteit.activiteit_ID}/>}
                 </div>
             }
         </Dialog>
