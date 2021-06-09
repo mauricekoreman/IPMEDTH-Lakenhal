@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Fab as FloatingBtn } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 
-const Fab = ({ position, color, ariaLabel, size }) => {
+const Fab = ({ position, color, ariaLabel, size, maakActiviteitClick }) => {
   return (
     <FloatingBtn
       size={size ?? "small"}
@@ -11,7 +11,7 @@ const Fab = ({ position, color, ariaLabel, size }) => {
       aria-label={ariaLabel}
       className={position}
     >
-      <EditIcon />
+      <EditIcon onClick={()=> maakActiviteitClick()}/>
     </FloatingBtn>
   );
 };
