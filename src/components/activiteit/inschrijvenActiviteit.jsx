@@ -1,9 +1,16 @@
 import React, {useState} from "react";
-import { TextField, Button, Box } from '@material-ui/core';
+import { TextField, Button, Box, makeStyles } from '@material-ui/core';
 import axios from "axios";
+
+const useStyles = makeStyles((theme) => ({
+    button: {
+        margin: theme.spacing(6),
+    },
+})); 
 
 const InschrijvenActiviteit = ({user, activiteit}) => {
     const TEST_URL = "http://127.0.0.1:8000/api/";
+    const classes = useStyles();
 
     const [show, setShow] = useState(false);
 
@@ -39,7 +46,7 @@ const InschrijvenActiviteit = ({user, activiteit}) => {
     }
 
     return (
-        <Box>
+        <Box display="flex" justifyContent="center" className={classes.button}>
             {show === false ?
                 <Button variant="contained" color="primary" onClick={() => setShow(prev => !prev)}> 
                     Doe Mee!
