@@ -34,10 +34,8 @@ const RegistreerForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    watch,
-  } = useForm();
-  const password = useRef({});
-  password.current = watch("password", "");
+    getValues,
+  } = useForm({});
 
   const onSubmit = async (registerData) => {
     console.log(registerData);
@@ -139,15 +137,19 @@ const RegistreerForm = () => {
                 label="Bevestig wachtwoord"
                 variant="standard"
                 type="password"
-                helperText={errors.password ? errors.password.message : ""}
-                error={!!errors.password}
+                helperText={errors.password_confirmation ? errors.password_confirmation.message : ""}
+                error={!!errors.password_confirmation}
               />
             )}
             rules={{
               required: "Verplicht",
-              validate: (value) =>
-                value === password.current ||
-                "De wachtwoorden komen niet overeen",
+              validate: value => {
+                if (value === getValues()["password"]) {
+                  return true;
+                } else {
+                  return "The passwords do not match";
+                }
+              }
             }}
           />
         </FormControl>
