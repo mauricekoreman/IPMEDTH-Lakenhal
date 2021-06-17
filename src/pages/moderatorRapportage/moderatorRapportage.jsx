@@ -47,10 +47,13 @@ const ModeratorRapportage = () => {
     console.log(rapportageList)
   }, [])
 
-  const detailRapportageClick = (rapportage) =>{
+  const detailRapportageClick = (rapportage, refresh = false) =>{
     setDetailRapportageOpen(!detailRapportageOpen)
     console.log(rapportage)
     setDetailRapportage(rapportage)
+    if(refresh){
+      window.location.reload();
+    }
   }
 
   return (
