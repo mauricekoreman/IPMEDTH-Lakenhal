@@ -1,5 +1,9 @@
 import { makeStyles } from "@material-ui/core";
 import React from "react";
+import ChatPanel from "../../components/chatpanel/chatpanel";
+import ChatPanel2 from "../../components/chatpanel/chatpanel_2";
+import { useAuth } from '../../contexts/authContext'
+import isJson from '../../contexts/isJson';
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -10,10 +14,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Chatpage = () => {
   const classes = useStyles();
-
+  const { currentUser } = useAuth();
+  let user = currentUser;
+  if(isJson(currentUser)){
+      user = JSON.parse(currentUser);
+  }
   return (
     <div className={classes.pageContainer}>
-      <h1>chatpage</h1>
+      <ChatPanel user={user}/>
     </div>
   );
 };

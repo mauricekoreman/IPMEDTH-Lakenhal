@@ -9,6 +9,7 @@ import AanmeldingenList from './aanmeldingenList.jsx';
 import { useAuth } from '../../contexts/authContext';
 import isJson from '../../contexts/isJson';
 import InschrijvenActiviteit from "../activiteit/inschrijvenActiviteit";
+import ActieButtons from './ActieButtons.jsx'
 
 import {
     Typography,
@@ -134,9 +135,9 @@ const DetailPost = ({open, closeScreen, activiteit}) => {
                             </Box>
                         </Box>
                     </Box>
-                    
-                    <InschrijvenActiviteit user={activiteit} activiteit={activiteit.activiteit_ID}/>
-                    <AanmeldingenList activiteit_ID={activiteit.activiteit_ID}/>
+                    {window.location.href === "http://localhost:3000/" && <InschrijvenActiviteit user={activiteit} activiteit={activiteit.activiteit_ID}/>}
+                    {window.location.href === "http://localhost:3000/profiel" && <AanmeldingenList activiteit_ID={activiteit.activiteit_ID}/>}
+                    {window.location.href === "http://localhost:3000/moderator" && <ActieButtons closed={closeScreen} user={activiteit.user_ID} activiteit={activiteit.activiteit_ID}/>}
                 </div>
             }
         </Dialog>
