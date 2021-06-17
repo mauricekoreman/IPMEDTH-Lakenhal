@@ -17,13 +17,13 @@ const AanmeldingenList = ({activiteit_ID}) => {
 
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
-    const [aangemeldeUsers, setAangemeldeUsers] = useState();
+    const [aangemeldeUsers, setAangemeldeUsers] = useState([]);
 
     const fetchAangemeldeUsers = () =>{
         axios.get(TEST_URL+'inschrijvingen/activiteitUser/' + activiteit_ID)
         .then(response => {
             console.log(response.data)
-            setAangemeldeUsers(response.data)
+            setAangemeldeUsers([...aangemeldeUsers, response.data])
         })
         .catch(error => {
             console.log(error.response)
@@ -34,13 +34,13 @@ const AanmeldingenList = ({activiteit_ID}) => {
         console.log(aangemeldeUsers);
         fetchAangemeldeUsers()
     }, []);
-
+    console.log(aangemeldeUsers);
     return (
         <List>
             {aangemeldeUsers && aangemeldeUsers.map((user =>
-                <AanmeldingenCard
-                    aangemeldeUser={user}
-                />
+                 <AanmeldingenCard
+                     aangemeldeUser={user}
+                 />
             ))}
         </List>
     );
