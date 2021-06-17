@@ -1,4 +1,4 @@
-import React, {forwardRef, useState, useEffect} from 'react'
+import React, {forwardRef, useState, useEffect } from 'react'
 import CloseIcon from '@material-ui/icons/Close';
 // import Image from 'material-ui-image';
 import lakenhal_sw from "../../assets/img/lakenhal_sw.png";
@@ -6,10 +6,10 @@ import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
 import detailPost_img_placeholder from "../../assets/img/placeholders/detailPost_placeholder.png";
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import AanmeldingenList from './aanmeldingenList.jsx';
-import { useAuth } from '../../contexts/authContext';
 import isJson from '../../contexts/isJson';
 import InschrijvenActiviteit from "../activiteit/inschrijvenActiviteit";
 import ActieButtons from './ActieButtons.jsx'
+import axios from "axios";
 
 import {
     Typography,
@@ -93,11 +93,29 @@ const Transition = forwardRef(function Transition(props, ref) {
 //geef ook het activiteit mee waarop is gedrukt en je krijgt de juiste detail post te zien
 const DetailPost = ({open, closeScreen, activiteit}) => {
     const classes = useStyles();
+
+    const [ingeschreven, setIngeschreven] = useState();
+    //pak de ingelogde user
     let user = localStorage.getItem("user");
     if(isJson(user)){
         user = JSON.parse(user);
     }
-    console.log( user.user_ID);
+
+    //kijk of de user al ingescgreven is
+    const fetchInschrijving = async () =>{
+        const TEST_URL = "http://127.0.0.1:8000/api/";
+        const res = await fetch(TEST_URL+"ingeschreven/activiteit/"+activiteit.activiteit_ID+"/"+user.user_ID)
+        const ingeschreven = await res.json();
+        setIngeschreven(ingeschreven)
+        console.log(ingeschreven);
+    }
+    
+    useEffect(() => {
+        if(activiteit !== undefined){
+            fetchInschrijving()
+        }
+    }, [activiteit]);
+    console.log(ingeschreven);
     return ( 
         <Dialog fullScreen open={open} onClose={()=> closeScreen()} TransitionComponent={Transition}>
             <AppBar className={classes.appBar}>
@@ -138,7 +156,7 @@ const DetailPost = ({open, closeScreen, activiteit}) => {
                             </Box>
                         </Box>
                     </Box>
-                    {window.location.href === "http://localhost:3000/" && user.user_ID !== activiteit.user_ID && <InschrijvenActiviteit user={activiteit} activiteit={activiteit.activiteit_ID}/>}
+                    {window.location.href === "http://localhost:3000/" && user.user_ID !== activiteit.user_ID && ingeschreven == false && <InschrijvenActiviteit user={user} activiteit={activiteit.activiteit_ID}/>}
                     {window.location.href === "http://localhost:3000/profiel" && <AanmeldingenList activiteit_ID={activiteit.activiteit_ID}/>}
                     {window.location.href === "http://localhost:3000/moderator" && <ActieButtons closed={closeScreen} user={activiteit.user_ID} activiteit={activiteit.activiteit_ID}/>}
                 </div>

@@ -16,8 +16,6 @@ const InschrijvenActiviteit = ({user, activiteit}) => {
     const [verstuur, setVerstuur] = useState(false);
 
     const initialValues ={
-        user_ID: user.user_ID, 
-        activiteit_ID: activiteit,
         bericht: ''
     }    
 
@@ -31,10 +29,11 @@ const InschrijvenActiviteit = ({user, activiteit}) => {
         })
     }
 
-    console.log(initialValues);
+    console.log(user.user_ID);
 
     const onSubmit = () => {
         console.log(inschrijving);
+        inschrijving.user_ID = user.user_ID
         inschrijving.activiteit_ID = activiteit;
         axios.post(TEST_URL+"inschrijvingen", inschrijving, {
             headers: { Accept: "application/json" },
@@ -50,30 +49,32 @@ const InschrijvenActiviteit = ({user, activiteit}) => {
 
     return (
         <div>
-            {verstuur && <FeedbackBlock success={true} text={"U bent aangemeld"} />}
-            <Box display="flex" justifyContent="center" className={classes.button}>
-                {show === false ?
-                    <Button variant="contained" color="primary" onClick={() => setShow(prev => !prev)}> 
-                        Doe Mee!
-                    </Button>
-                :
-                    <form>
-                        <TextField
-                            label='bericht'
-                            name='bericht'
-                            value={inschrijving.inschrijving}
-                            onChange={handleInput}
-                            helperText="optioneel* Vertel waarom je mee wilt doen."
-                        />
-                        <Button variant="contained" color="primary" onClick={onSubmit}> 
-                            Verstuur
+            {verstuur ? <FeedbackBlock success={true} text={"U bent aangemeld"} /> :
+                <Box display="flex" justifyContent="center" className={classes.button}>
+                    {show === false ?
+                        <Button variant="contained" color="primary" onClick={() => setShow(prev => !prev)}> 
+                            Doe Mee!
                         </Button>
-                        <Button onClick={() => setShow(prev => !prev)}> 
-                            Annuleer
-                        </Button>
-                    </form>
-                }
-            </Box>
+                    :
+                        <form>
+                            <TextField
+                                label='bericht'
+                                name='bericht'
+                                value={inschrijving.inschrijving}
+                                onChange={handleInput}
+                                helperText="optioneel* Vertel waarom je mee wilt doen."
+                            />
+                            <Button variant="contained" color="primary" onClick={onSubmit}> 
+                                Verstuur
+                            </Button>
+                            <Button onClick={() => setShow(prev => !prev)}> 
+                                Annuleer
+                            </Button>
+                        </form>
+                    }
+                </Box>
+            }
+
         </div>
     );
 };
