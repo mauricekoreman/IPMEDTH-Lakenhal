@@ -93,8 +93,11 @@ const Transition = forwardRef(function Transition(props, ref) {
 //geef ook het activiteit mee waarop is gedrukt en je krijgt de juiste detail post te zien
 const DetailPost = ({open, closeScreen, activiteit}) => {
     const classes = useStyles();
-
-    console.log(activiteit);
+    let user = localStorage.getItem("user");
+    if(isJson(user)){
+        user = JSON.parse(user);
+    }
+    console.log( user.user_ID);
     return ( 
         <Dialog fullScreen open={open} onClose={()=> closeScreen()} TransitionComponent={Transition}>
             <AppBar className={classes.appBar}>
@@ -135,7 +138,7 @@ const DetailPost = ({open, closeScreen, activiteit}) => {
                             </Box>
                         </Box>
                     </Box>
-                    {window.location.href === "http://localhost:3000/" && <InschrijvenActiviteit user={activiteit} activiteit={activiteit.activiteit_ID}/>}
+                    {window.location.href === "http://localhost:3000/" && user.user_ID !== activiteit.user_ID && <InschrijvenActiviteit user={activiteit} activiteit={activiteit.activiteit_ID}/>}
                     {window.location.href === "http://localhost:3000/profiel" && <AanmeldingenList activiteit_ID={activiteit.activiteit_ID}/>}
                     {window.location.href === "http://localhost:3000/moderator" && <ActieButtons closed={closeScreen} user={activiteit.user_ID} activiteit={activiteit.activiteit_ID}/>}
                 </div>
