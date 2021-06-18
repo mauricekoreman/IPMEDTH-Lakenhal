@@ -83,7 +83,9 @@ const PostList = () => {
     };
 
     const handleClick = (event) => {
+      console.log('hi')
       setAnchorEl(event.currentTarget);
+      console.log(anchorEl)
     };
   
 
@@ -112,7 +114,7 @@ const PostList = () => {
                       open={Boolean(anchorEl)}
                       onClose={handleClose}
                       >
-                        <MenuItem onClick={handleClose(true)}>Rapporteer</MenuItem>
+                        <MenuItem onClick={() => {handleClose(true)}}>Rapporteer</MenuItem>
                         <MenuItem onClick={handleClose}>sluit menu</MenuItem>
                       </Menu>
                     </div>
