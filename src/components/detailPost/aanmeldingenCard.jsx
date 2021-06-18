@@ -1,7 +1,9 @@
 import {makeStyles, Button, Accordion, AccordionSummary, AccordionDetails, AccordionActions, Typography, Divider } from "@material-ui/core";
+import React, {useState,} from "react";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import ProfileTab from "../../pages/profileTab/profileTab";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -9,7 +11,10 @@ const useStyles = makeStyles((theme) => ({
 
 const AanmeldingenCard = ({aangemeldeUser}) => {
     const classes = useStyles();
-    console.log(aangemeldeUser);  
+    console.log(aangemeldeUser); 
+
+    const [show, setShow] = useState(false);
+
     const TEST_URL = "http://127.0.0.1:8000/api/";
 
     const {handleSubmit} = useForm();
@@ -24,27 +29,35 @@ const AanmeldingenCard = ({aangemeldeUser}) => {
             console.log(error.response);
         });
     };
+
     return (
-        <Accordion>
-            <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-            >
-                <Typography>{aangemeldeUser.naam}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-                <Typography>
-                    {aangemeldeUser.bericht != null ? aangemeldeUser.bericht : "De aangemelde persoon heeft geen tekst ingestuurd"}
-                </Typography>
-            </AccordionDetails>
-            <Divider />
-            <AccordionActions>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Button type="submit" color="primary">
-                    Accepteer
+        <div>
+            <Accordion>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    >
+                    <Typography>{aangemeldeUser.naam}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Typography>
+                        {aangemeldeUser.bericht != null ? aangemeldeUser.bericht : "De aangemelde persoon heeft geen tekst ingestuurd"}
+                    </Typography>
+                </AccordionDetails>
+                <Divider />
+                <AccordionActions>
+                <Button onClick={() =>{setShow(prev => !prev)}} color="primary">
+                    Profiel Bekijken
                 </Button >
-            </form>
-            </AccordionActions>
-        </Accordion>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Button type="submit" color="primary">
+                        Accepteer
+                    </Button >
+                </form>
+                </AccordionActions>
+            </Accordion>
+
+            {show && <ProfileTab user={aangemeldeUser} />}
+        </div>
     );
 }
 
