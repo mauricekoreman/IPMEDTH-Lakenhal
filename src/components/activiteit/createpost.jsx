@@ -2,11 +2,12 @@ import React, {forwardRef, useState, useEffect} from "react";
 
 import { useForm, Controller } from "react-hook-form";
 import { useAuth } from '../../contexts/authContext'
-import { InputLabel, FormHelperText, TextField, Button, Container, Grid, FormControlLabel, Checkbox, Select, MenuItem   } from '@material-ui/core';
+import { InputLabel, FormHelperText, TextField, Button, Container, Grid, FormControlLabel, Checkbox, Select, MenuItem} from '@material-ui/core';
 import axios from "axios";
 import isJson from '../../contexts/isJson';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import { 
     makeStyles, 
@@ -56,6 +57,7 @@ const CreatePost = ({open, closeScreen}) => {
     const classes = useStyles();
     const { currentUser } = useAuth();
     const TEST_URL = "http://127.0.0.1:8000/api/";
+    const { control, handleSubmit, register } = useForm();
     
     let user = currentUser;
     if(isJson(currentUser)){
@@ -63,7 +65,7 @@ const CreatePost = ({open, closeScreen}) => {
     }
 
     const initialValues ={
-        titel :'',
+        titel :'yoo',
         beschrijving :'',
         afbeelding :' ',
         aantalDeelnemers : 4,
@@ -71,35 +73,27 @@ const CreatePost = ({open, closeScreen}) => {
         zichtbaar :true,
         aantalGerapporteerd : 0,
         categorie :' ',
-        user_ID : 0, 
+        user_ID : user.user_ID, 
     }
     
-    const[values, setValues] = useState(initialValues);
-    const [lakenhal_activiteit, setLakenhalActiviteit] = useState(false);
-    const [max_aantal_deelnemers, setMax_aantal_deelnemers] = useState(4);
+    const[categorien, setCategorien] = useState();
+    useEffect(() => {
+        axios.get(TEST_URL+'categorie')
+                .then(response => {
+                    console.log(response.data)
+                    setCategorien(response.data)         
+                })
+                .catch(error => {
+                    console.log(error.response)
+                })
+      }, []);
 
-    const handleInput = e => {
-        const{ name, value} = e.target
-        setValues({
-            ...values,
-            [name]:value
-        })
-    }
-
-    const handleChangeControl = (e) => {
-        setLakenhalActiviteit(e.target.checked)
-      }
-
-      const handleChangeSelect = (event) => {
-        setMax_aantal_deelnemers(event.target.value);
-      };
-    
-
-    const onSubmit = () =>{
-        values.user_ID = user.user_ID;
-        values.lakenhal_activiteit = lakenhal_activiteit;
-        values.max_aantal_deelnemers = max_aantal_deelnemers;
-        axios.post(TEST_URL+'activiteit', values)
+    const onSubmit = data =>{
+        data.user_ID = user.user_ID
+        data.lakenhal_activiteit = 1
+        data.categorie = 'Het thuis atelier'
+        console.log(data.max_aantal_deelnemers)
+        axios.post(TEST_URL+'activiteit', data)
             .then(response => {
                 console.log(response)
             })
@@ -108,65 +102,61 @@ const CreatePost = ({open, closeScreen}) => {
             })
     }
 
+    // const onSubmit = data => {
+    //     data.user_ID = user.user_ID
+    //     data.lakenhal_activiteit = 1
+    //     data.categorie = 'Het thuis atelier'
+    //     console.log(data);
+    //     console.log(data.titel);
+    // }
+
     const Transition = forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
     });
-    console.log(open)
+    console.log(categorien)
 
     return (
-            <div>
-                    {open &&
-                    <Dialog fullScreen open={open} onClose={()=> closeScreen()} TransitionComponent={Transition}> 
-                    <AppBar className={classes.appBar}>
-                    <Toolbar>
-                        <IconButton edge="start" color="inherit" onClick={()=> closeScreen()} aria-label="close">
-                            <CloseIcon />
-                        </IconButton>
-                        <Typography variant="h6" className={classes.title}>
-                            Detail Post
-                        </Typography>
-                    </Toolbar>
-                    </AppBar>
-                    <div className={classes.container} >
-                    <form>
-                        <Grid container direction="column">
-                            <FormControlLabel className={classes.lakenhalActiviteit}
-                                control={
-                                    <Checkbox
-                                    checked={lakenhal_activiteit}
-                                    onChange={handleChangeControl}
-                                    name="checkedB"
-                                    color="primary"
-                                    />
-                                }
-                                label="Lakenhal activiteit?"
-                            />
-                            <TextField className={classes.titelVeld}
-                                label='Titel'
-                                name='titel'
-                                value={values.titel}
-                                onChange={handleInput}
-                                variant="outlined"
-                                // defaultValue="Titel"
-                            />
-                            <TextField
-                                label='Beschrijving'
-                                name='beschrijving'
-                                multiline
-                                rows={8}
-                                value={values.beschrijving}
-                                onChange={handleInput}
-                                variant="outlined"
-                                // defaultValue="Beschrijving"
-                            />
-                            <FormControl variant="outlined" className={classes.formControl}>
+        <div>
+            {open &&
+            <Dialog fullScreen open={open} onClose={()=> closeScreen()} TransitionComponent={Transition}> 
+            <AppBar className={classes.appBar}>
+            <Toolbar>
+                <IconButton edge="start" color="inherit" onClick={()=> closeScreen()} aria-label="close">
+                    <CloseIcon />
+                </IconButton>
+                <Typography variant="h6" className={classes.title}>
+                    Begin een activiteit
+                </Typography>
+            </Toolbar>
+            </AppBar>
+            <div className={classes.container} >
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Grid container direction="column">
+                    <Controller
+                            name="titel"
+                            control={control}
+                            defaultValue=''
+                            render={({ field }) => 
+                            <TextField {...field} variant="outlined" label="Titel" fullWidth={true}/>}
+                        />
+                    <Controller
+                            name="beschrijving"
+                            control={control}
+                            defaultValue=''
+                            render={({ field }) => 
+                            <TextField {...field} multiline rows={8} variant="outlined" label="Beschrijving" fullWidth={true}/>}
+                        />
+                    <Controller
+                            name="max_aantal_deelnemers"
+                            control={control}
+                            defaultValue=''
+                            render={({ field }) => 
+                            <FormControl  variant="outlined" className={classes.formControl}>
                                 <InputLabel id="demo-simple-select-helper-label">Aantal mensen?</InputLabel>
-                                <Select
-                                    labelId="aantalDeelnemersLabel"
+                                <Select {...field}
+                                    name="aantalDeelnemersLabel"
                                     id="aantalDeelnemers"
                                     label="AantalDeelnemer"
-                                    value={max_aantal_deelnemers}
-                                    onChange={handleChangeSelect}
                                     className={classes.selectEmpty}   
                                 >
                                     <MenuItem value={1}>1</MenuItem>
@@ -176,19 +166,36 @@ const CreatePost = ({open, closeScreen}) => {
                                     <MenuItem value={5}>5</MenuItem>
                                 </Select>
                             </FormControl>
-    
-    
-                        </Grid>
-                        <Button className={classes.maakPostButton} onClick={onSubmit} variant="contained" color="primary"> 
-                            Maak Post 
-                        </Button>
-                    </form>
-                    </div>
-                </Dialog>
-                }
+                            }/>
+
+                    <Controller
+                            name="categorie"
+                            control={control}
+                            defaultValue='yo'
+                            render={({ field }) => 
+                            <Autocomplete 
+                                className={classes.formControl}
+                                id="combo-box-demo"
+                                options={categorien}
+                                getOptionLabel={(option) => option.categorie}
+                                style={{ width: 300 }}
+                                renderInput={(params) =>
+                                     <TextField {...params} {...field} label="Categorie" variant="outlined" />}
+                                />}
+                        />
+
+                </Grid>
+                <Button type="submit" className={classes.maakPostButton} variant="contained" color="primary"> 
+                    Maak Post 
+                </Button>
+            </form>
             </div>
+        </Dialog>
+        }
+    </div>
             
     );
 };
 
 export default CreatePost;
+
