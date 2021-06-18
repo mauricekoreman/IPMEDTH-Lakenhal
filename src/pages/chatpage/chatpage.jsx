@@ -1,5 +1,7 @@
-import { makeStyles } from "@material-ui/core";
-import React from "react";
+import { Box, makeStyles, Slide, Dialog, Button } from "@material-ui/core";
+import React, { forwardRef, useEffect, useState } from "react";
+import ChatItem from "../../components/chatItem/chatItem";
+import ChatContainer from "../../components/chatContainer/chatContainer";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -8,16 +10,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="left" ref={ref} {...props} />;
+});
+
 const Chatpage = () => {
   const classes = useStyles();
-  const { currentUser } = useAuth();
-  let user = currentUser;
-  if(isJson(currentUser)){
-      user = JSON.parse(currentUser);
+  const [open, setOpen] = useState(false);
+
+  function toggleChat() {
+    setOpen(!open);
   }
+
   return (
     <div className={classes.pageContainer}>
-      <h1>chatpage</h1>
+      <Box onClick={toggleChat}>
+        <ChatItem />
+      </Box>
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={toggleChat}
+        TransitionComponent={Transition}
+      >
+        <ChatContainer close={toggleChat} />
+      </Dialog>
     </div>
   );
 };
