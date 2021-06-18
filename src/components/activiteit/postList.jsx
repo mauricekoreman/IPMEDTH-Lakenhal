@@ -21,6 +21,11 @@ import FlatList from 'flatlist-react';
 import { Button } from '@material-ui/core/';
 import DetailPost from "../detailPost/detailPost";
 
+import {
+  Menu,
+  MenuItem
+} from '@material-ui/core'
+
 const useStyles = makeStyles((theme) => ({
     root: {
       maxWidth: 1000,
@@ -53,6 +58,7 @@ const PostList = () => {
     const [values, setValues] = useState(activiteitData);
     const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false)
     const [detailActiviteit, setDetailActiviteit] = useState([])
+    const [anchorEl, setAnchorEl] = useState(null);
 
     useEffect(() => {
         axios.get(TEST_URL+'activiteitenUsers')
@@ -69,6 +75,18 @@ const PostList = () => {
       setDetailActiviteit(activiteit)
     }
 
+    const handleClose = (gerapporteerd = false) => {
+      if(gerapporteerd){
+        
+      }
+      setAnchorEl(null);
+    };
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+
     const renderPost = (value, idx) => {
         return (  
             <div className={classes.container} key={idx}>
@@ -83,9 +101,21 @@ const PostList = () => {
                     </Avatar>
                     }
                     action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
+                    <div>
+                      <IconButton onClick={handleClick} aria-label="settings">
+                          <MoreVertIcon />
+                      </IconButton>
+                      <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                      >
+                        <MenuItem onClick={handleClose(true)}>Rapporteer</MenuItem>
+                        <MenuItem onClick={handleClose}>sluit menu</MenuItem>
+                      </Menu>
+                    </div>
                     }
                     title={value.titel}
                     subheader={value.categorie}
