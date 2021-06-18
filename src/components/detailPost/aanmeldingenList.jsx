@@ -23,7 +23,7 @@ const AanmeldingenList = ({activiteit_ID}) => {
         axios.get(TEST_URL+'inschrijvingen/activiteitUser/' + activiteit_ID)
         .then(response => {
             console.log(response.data)
-            setAangemeldeUsers([...aangemeldeUsers, response.data])
+            setAangemeldeUsers(response.data)
         })
         .catch(error => {
             console.log(error.response)
@@ -35,13 +35,16 @@ const AanmeldingenList = ({activiteit_ID}) => {
         fetchAangemeldeUsers()
     }, []);
     console.log(aangemeldeUsers);
+
     return (
         <List>
-            {aangemeldeUsers && aangemeldeUsers.map((user =>
-                 <AanmeldingenCard
-                     aangemeldeUser={user}
-                 />
-            ))}
+            {aangemeldeUsers && Object.entries(aangemeldeUsers).map(([key, value]) => {
+                return( 
+                    <AanmeldingenCard
+                        aangemeldeUser={value}
+                    />
+                )
+            })}
         </List>
     );
 }
