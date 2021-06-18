@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from '../../contexts/authContext'
 import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
 import lakenhal_sw from "../../assets/img/lakenhal_sw.png";
-import { useState, useEffect } from "react";
 import ModeratorRapportageCard from '../moderatorRapportage/moderatorRapportageCard';
 import DetailPost from "../../components/detailPost/detailPost";
 import isJson from '../../contexts/isJson'
@@ -39,8 +38,6 @@ const ModeratorRapportage = () => {
     return data
   }
 
-  
-
   useEffect(()=>{
     const getRapportages = async () => {
       const rapportageListServer = await fetchRapportages()
@@ -50,12 +47,15 @@ const ModeratorRapportage = () => {
     console.log(rapportageList)
   }, [])
 
-  const detailRapportageClick = (rapportage) =>{
+  const detailRapportageClick = (rapportage, refresh = false) =>{
     setDetailRapportageOpen(!detailRapportageOpen)
     console.log(rapportage)
     setDetailRapportage(rapportage)
+    if(refresh){
+      window.location.reload();
+    }
   }
-  console.log(rapportageList)
+
   return (
     <div>
       {user.admin ?  
@@ -77,7 +77,5 @@ const ModeratorRapportage = () => {
     </div>
   );
 };
-
-const styles = {};
 
 export default ModeratorRapportage;

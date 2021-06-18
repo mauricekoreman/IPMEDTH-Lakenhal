@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import Typography from "@material-ui/core/Typography";
+import CreatePost from "../../components/activiteit/createpost";
+import PostList from "../../components/activiteit/postList"
 
 import Fab from "../../components/fab/fab";
-import { Box, makeStyles, useTheme } from "@material-ui/core";
+import {Grid, Box, makeStyles, useTheme } from "@material-ui/core";
+
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
     position: "relative",
@@ -19,21 +22,49 @@ const useStyles = makeStyles((theme) => ({
     left: "auto",
     position: "fixed",
   },
+  container: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(7),
+  },
 }));
 
 const Homepage = () => {
   const classes = useStyles();
-
+  const [maakActiviteitOpen, setMaakActiviteitOpen] = useState(false)
+  const maakActiviteitClick = () => {
+    setMaakActiviteitOpen(!maakActiviteitOpen)
+  }
+  console.log(maakActiviteitOpen)
   return (
-    <Box className={classes.pageContainer}>
-      <Typography>Homepage</Typography>
+    <div>
+      <Grid container className={classes.container} spacing={3}>
+        <Grid item xs={1}>
+         
+        </Grid>
+
+        <Grid item xs={10}>
+          <PostList/>
+          
+        </Grid>
+
+        <Grid item xs={1}>
+          
+        </Grid>
+ 
+
+      </Grid>
+
+      
+
       <Fab
-        position={classes.fabPosition}
-        color={"primary"}
-        ariaLabel="schrijf post"
-        size="medium"
-      />
-    </Box>
+          position={classes.fabPosition}
+          color={"primary"}
+          ariaLabel="schrijf post"
+          size="medium"
+          maakActiviteitClick={maakActiviteitClick}
+        />
+        <CreatePost open={maakActiviteitOpen} closeScreen={maakActiviteitClick}/>
+    </div>
   );
 };
 

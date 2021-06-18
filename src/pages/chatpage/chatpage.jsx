@@ -10,7 +10,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Chatpage = () => {
   const classes = useStyles();
-
+  const { currentUser } = useAuth();
+  let user = currentUser;
+  if(isJson(currentUser)){
+      user = JSON.parse(currentUser);
+  }
   return (
     <div className={classes.pageContainer}>
       <h1>chatpage</h1>
