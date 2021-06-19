@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from "react";
 
-import Typography from "@material-ui/core/Typography";
 import CreatePost from "../../components/activiteit/createpost";
 import PostList from "../../components/activiteit/postList"
-
+import axios from "axios";
 import Fab from "../../components/fab/fab";
 import {Grid, Box, makeStyles, useTheme } from "@material-ui/core";
 
@@ -30,11 +29,29 @@ const useStyles = makeStyles((theme) => ({
 
 const Homepage = () => {
   const classes = useStyles();
+  const activiteitData = [];
   const [maakActiviteitOpen, setMaakActiviteitOpen] = useState(false)
+  const [values, setValues] = useState(activiteitData);
   const maakActiviteitClick = () => {
     setMaakActiviteitOpen(!maakActiviteitOpen)
   }
-  console.log(maakActiviteitOpen)
+  const TEST_URL = "http://127.0.0.1:8000/api/";
+
+  const activiteitenFetch = () => {
+    axios.get(TEST_URL+'activiteitenUsers')
+        .then(response => {
+            console.log(response.data)
+            setValues(response.data)             
+        })
+        .catch(error => {
+            console.log(error.response)
+        })
+  }
+
+  useEffect(() => {
+    activiteitenFetch()
+  }, []);
+
   return (
     <div>
       <Grid container className={classes.container} spacing={3}>
@@ -43,7 +60,7 @@ const Homepage = () => {
         </Grid>
 
         <Grid item xs={10}>
-          <PostList/>
+          <PostList values={values}/>
           
         </Grid>
 
@@ -63,7 +80,7 @@ const Homepage = () => {
           size="medium"
           maakActiviteitClick={maakActiviteitClick}
         />
-        <CreatePost open={maakActiviteitOpen} closeScreen={maakActiviteitClick}/>
+        <CreatePost open={maakActiviteitOpen} closeScreen={maakActiviteitClick} onReload={activiteitenFetch}/>
     </div>
   );
 };

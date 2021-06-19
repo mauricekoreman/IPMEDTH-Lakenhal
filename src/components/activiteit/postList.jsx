@@ -1,22 +1,15 @@
 import React, {useState, useEffect, Component} from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import axios from "axios";
-import isJson from '../../contexts/isJson'
 import FlatList from 'flatlist-react';
 import { Button } from '@material-ui/core/';
 import DetailPost from "../detailPost/detailPost";
@@ -62,26 +55,14 @@ const useStyles = makeStyles((theme) => ({
 const TEST_URL = "http://127.0.0.1:8000/api/";
 const activiteitData = [];
  
-const PostList = () => {
-    const TEST_URL = "http://127.0.0.1:8000/api/";
+const PostList = ({values}) => {
     const classes = useStyles();
-    const [values, setValues] = useState(activiteitData);
     const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false)
     const [detailActiviteit, setDetailActiviteit] = useState([])
     const [anchorEl, setAnchorEl] = useState(null);
     const [snackBarOpen, setSnackBarOpen] = useState(false);
     const [rapportageSuccesvol, setRapportageSuccesvol] = useState(false);
 
-    useEffect(() => {
-        axios.get(TEST_URL+'activiteitenUsers')
-                .then(response => {
-                    console.log(response.data)
-                    setValues(response.data)             
-                })
-                .catch(error => {
-                    console.log(error.response)
-                })
-      }, []);
     const activiteitClick = (activiteit) =>{
       setDetailActiviteitOpen(!detailActiviteitOpen)
       setDetailActiviteit(activiteit)
@@ -148,7 +129,8 @@ const PostList = () => {
                     <Avatar 
                       alt="Profiel foto"
                       className={classes.profilePicture}
-                      src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}>
+                      // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
+                      src={"http://localhost:8000/storage/profiel_foto/" + valuesOfList.profiel_foto}>
     
                     </Avatar>
                     }
@@ -173,7 +155,9 @@ const PostList = () => {
                 />
                 <CardMedia
                     className={classes.media}
-                    image={`data:image/png;base64, ${valuesOfList.afbeelding}`}
+                    // image={`data:image/png;base64, ${valuesOfList.afbeelding}`}
+                    image={"http://localhost:8000/storage/profiel_foto/" + valuesOfList.afbeelding}
+                    
                     title=""
                 />
                 <CardContent className={classes.content}>

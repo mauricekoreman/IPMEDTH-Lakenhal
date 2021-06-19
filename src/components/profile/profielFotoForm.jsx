@@ -10,6 +10,7 @@ const ProefielFotoForm = ({user, onReload}) => {
 
     const onSubmit = (profiel_foto) => {
         let fd = new FormData();
+        console.log(profiel_foto)
         fd.append("profiel_foto", profiel_foto.profiel_foto[0]);
         axios.post(TEST_URL+"users/profielFotoUpload/"+user.user_ID, fd, {
             headers: { 'content-type': 'multipart/form-data'}
