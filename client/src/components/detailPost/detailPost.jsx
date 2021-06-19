@@ -153,7 +153,10 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
         <div>
           <img
             className={classes.topImage}
-            src={`data:image/png;base64, ${activiteit.afbeelding}`}
+            src={
+              "http://localhost:8000/storage/profiel_foto/" +
+              activiteit.afbeelding
+            }
           />
           <Box className={classes.detailContainer}>
             {activiteit.lakenhal_activiteit ? (
@@ -162,11 +165,24 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
               <div></div>
             )}
             <Box className={classes.headerDetail}>
-              <Avatar
-                alt="Profiel foto"
-                className={classes.profilePicture}
-                src={`data:image/png;base64, ${activiteit.profiel_foto}`}
-              />
+              {activiteit.profiel_foto === null ? (
+                <Avatar
+                  alt="Profiel foto"
+                  className={classes.profilePicture}
+                  // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
+                  src={pf}
+                ></Avatar>
+              ) : (
+                <Avatar
+                  alt="Profiel foto"
+                  className={classes.profilePicture}
+                  // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
+                  src={
+                    "http://localhost:8000/storage/profiel_foto/" +
+                    activiteit.profiel_foto
+                  }
+                ></Avatar>
+              )}
               <Box className={classes.opdracht}>
                 <Typography
                   variant="h6"

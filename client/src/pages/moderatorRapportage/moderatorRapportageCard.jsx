@@ -78,7 +78,7 @@ const ModeratorRapportageCard = ({titel, categorie, naam, aantalRapportages, pro
               <Avatar
                 alt="Profiel foto"
                 className={classes.profilePicture}
-                src={`data:image/png;base64, ${profielfoto}`} 
+                src={"http://localhost:8000/storage/profiel_foto/" + profielfoto}
               />
               <Box className={classes.opdrachtCard}>
                 <Typography variant='h6' component='h3' className={classes.opdrachtCardTitle}>{titel}</Typography>
