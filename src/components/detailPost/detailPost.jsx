@@ -134,11 +134,23 @@ const DetailPost = ({open, closeScreen, activiteit}) => {
                     <Box className={classes.detailContainer}>
                         {activiteit.lakenhal_activiteit ? (<img src={lakenhal_sw} className={classes.lakenhalLogo}/>) : <div></div>}
                         <Box className={classes.headerDetail}>
-                            <Avatar
-                                alt="Profiel foto"
-                                className={classes.profilePicture}
-                                src={"http://localhost:8000/storage/profiel_foto/" + activiteit.profiel_foto}
-                            />
+                        {activiteit.profiel_foto === null ?
+                        <Avatar 
+                          alt="Profiel foto"
+                          className={classes.profilePicture}
+                          // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
+                          src={pf}
+                        >
+                        </Avatar>  
+                        :
+                        <Avatar 
+                          alt="Profiel foto"
+                          className={classes.profilePicture}
+                          // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
+                          src={"http://localhost:8000/storage/profiel_foto/" + activiteit.profiel_foto}
+                        >
+                        </Avatar>
+                      }
                             <Box className={classes.opdracht}>
                                 <Typography variant='h6' component='h3' className={classes.opdrachtTitle}>{activiteit.titel}</Typography>
                                 <Typography variant='caption' className={classes.opdrachtSubtitle}>{activiteit.categorie}</Typography>

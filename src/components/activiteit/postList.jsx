@@ -14,6 +14,7 @@ import FlatList from 'flatlist-react';
 import { Button } from '@material-ui/core/';
 import DetailPost from "../detailPost/detailPost";
 import MuiAlert from '@material-ui/lab/Alert';
+import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
 
 import {
   Menu,
@@ -124,16 +125,28 @@ const PostList = ({values}) => {
         return (  
             <div className={classes.container} key={idx}>
               <Card className={classes.root}>
+                {console.log(valuesOfList.profiel_foto)}
                 <CardHeader
-                    avatar={
-                    <Avatar 
-                      alt="Profiel foto"
-                      className={classes.profilePicture}
-                      // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
-                      src={"http://localhost:8000/storage/profiel_foto/" + valuesOfList.profiel_foto}>
-    
-                    </Avatar>
-                    }
+
+                    
+                    avatar=
+                      {valuesOfList.profiel_foto === null ?
+                        <Avatar 
+                          alt="Profiel foto"
+                          className={classes.profilePicture}
+                          // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
+                          src={pf}
+                        >
+                        </Avatar>  
+                        :
+                        <Avatar 
+                          alt="Profiel foto"
+                          className={classes.profilePicture}
+                          // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
+                          src={"http://localhost:8000/storage/profiel_foto/" + valuesOfList.profiel_foto}
+                        >
+                        </Avatar>
+                      }
                     action={
                     <div>
                       <IconButton onClick={handleClick} aria-label="settings">
