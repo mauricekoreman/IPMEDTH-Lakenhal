@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 
-import Typography from "@material-ui/core/Typography";
 import CreatePost from "../../components/activiteit/createpost";
 import PostList from "../../components/activiteit/postList"
 import axios from "axios";
