@@ -2,10 +2,10 @@ import React, {forwardRef, useState, useEffect} from "react";
 
 import { useForm, Controller } from "react-hook-form";
 import { useAuth } from '../../contexts/authContext'
-import { InputLabel, FormHelperText, TextField, Button, Container, Grid, FormControlLabel, Checkbox, Select, MenuItem} from '@material-ui/core';
+import { InputLabel, TextField, Button, Grid, Select, MenuItem} from '@material-ui/core';
 import axios from "axios";
 import isJson from '../../contexts/isJson';
-import CheckIcon from '@material-ui/icons/Check';
+
 import CloseIcon from '@material-ui/icons/Close';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
@@ -19,7 +19,7 @@ import {
     IconButton,
     Slide
 } from "@material-ui/core";
-import { findByTitle } from "@testing-library/react";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,12 +54,16 @@ const useStyles = makeStyles((theme) => ({
     //   },  
 }));
 
-const CreatePost = ({open, closeScreen}) => {
+const Transition = forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const CreatePost = ({open, closeScreen, onReload}) => {
     const classes = useStyles();
     const { currentUser } = useAuth();
     const TEST_URL = "http://127.0.0.1:8000/api/";
     const { control, handleSubmit, register } = useForm();
-    
+
     let user = currentUser;
     if(isJson(currentUser)){
         user = JSON.parse(currentUser);
@@ -96,15 +100,15 @@ const CreatePost = ({open, closeScreen}) => {
         }).catch(error => {
             console.log(error.response)
         })
+        onReload()
+        closeScreen()
     }
 
-    const Transition = forwardRef(function Transition(props, ref) {
-        return <Slide direction="up" ref={ref} {...props} />;
-    });
+    
 
     return (
         <div>
-            {open &&
+            
             <Dialog fullScreen open={open} onClose={()=> closeScreen()} TransitionComponent={Transition}> 
             <AppBar className={classes.appBar}>
             <Toolbar>
@@ -164,6 +168,7 @@ const CreatePost = ({open, closeScreen}) => {
                                 {...field} 
                                 className={classes.formControl}
                                 id="combo-box-demo"
+                                defaultValue='categorie'
                                 options={categorien}
                                 onChange={(_, data) => field.onChange(data)}
                                 getOptionLabel={(option) => option.categorie}
@@ -182,7 +187,7 @@ const CreatePost = ({open, closeScreen}) => {
             </form>
             </div>
         </Dialog>
-        }
+        
     </div>
             
     );

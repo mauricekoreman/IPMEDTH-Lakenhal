@@ -9,14 +9,12 @@ import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import { theme } from "./assets/theme";
 
 ReactDOM.render(
-  <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <App />
       </ThemeProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+    </BrowserRouter>,
   document.getElementById("root")
 );
 

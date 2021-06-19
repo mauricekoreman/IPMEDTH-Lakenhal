@@ -48,22 +48,23 @@ const useStyles = makeStyles((theme) => ({
 const TEST_URL = "http://127.0.0.1:8000/api/";
 const activiteitData = [];
  
-const PostList = () => {
+const PostList = ({values}) => {
     const classes = useStyles();
-    const [values, setValues] = useState(activiteitData);
+    // const [values, setValues] = useState(activiteitData);
     const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false)
     const [detailActiviteit, setDetailActiviteit] = useState([])
 
-    useEffect(() => {
-        axios.get(TEST_URL+'activiteitenUsers')
-                .then(response => {
-                    console.log(response.data)
-                    setValues(response.data)             
-                })
-                .catch(error => {
-                    console.log(error.response)
-                })
-      }, []);
+    // useEffect(() => {
+    //     axios.get(TEST_URL+'activiteitenUsers')
+    //             .then(response => {
+    //                 console.log(response.data)
+    //                 setValues(response.data)             
+    //             })
+    //             .catch(error => {
+    //                 console.log(error.response)
+    //             })
+    //   }, []);
+
     const activiteitClick = (activiteit) =>{
       setDetailActiviteitOpen(!detailActiviteitOpen)
       setDetailActiviteit(activiteit)
