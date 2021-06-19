@@ -37,7 +37,7 @@ const Homepage = () => {
   }
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
-  const activiteitenFetch = () => {
+  const activiteitenFetch = (refresh = false) => {
     axios.get(TEST_URL+'activiteitenUsers')
         .then(response => {
             console.log(response.data)
@@ -46,6 +46,9 @@ const Homepage = () => {
         .catch(error => {
             console.log(error.response)
         })
+    if(refresh){
+      window.location.reload()
+    }
   }
 
   useEffect(() => {
@@ -80,7 +83,7 @@ const Homepage = () => {
           size="medium"
           maakActiviteitClick={maakActiviteitClick}
         />
-        <CreatePost open={maakActiviteitOpen} closeScreen={maakActiviteitClick} onReload={activiteitenFetch}/>
+        <CreatePost open={maakActiviteitOpen} closeScreen={maakActiviteitClick} onReload={() => {activiteitenFetch(true)}}/>
     </div>
   );
 };
