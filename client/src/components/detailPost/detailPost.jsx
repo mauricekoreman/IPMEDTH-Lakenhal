@@ -3,13 +3,11 @@ import CloseIcon from "@material-ui/icons/Close";
 // import Image from 'material-ui-image';
 import lakenhal_sw from "../../assets/img/lakenhal_sw.png";
 import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
-import detailPost_img_placeholder from "../../assets/img/placeholders/detailPost_placeholder.png";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import AanmeldingenList from "./aanmeldingenList.jsx";
 import isJson from "../../contexts/isJson";
 import InschrijvenActiviteit from "../activiteit/inschrijvenActiviteit";
 import ActieButtons from "./ActieButtons.jsx";
-import axios from "axios";
 
 import {
   Typography,
@@ -21,7 +19,6 @@ import {
   IconButton,
   Slide,
   Dialog,
-  Button,
   Chip,
 } from "@material-ui/core";
 

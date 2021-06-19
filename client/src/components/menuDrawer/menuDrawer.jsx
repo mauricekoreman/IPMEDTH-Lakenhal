@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import {
-  Drawer as MUIDrawer,
   List,
   ListItem,
   ListItemText,
@@ -50,7 +49,6 @@ const MenuDrawer = ({ openDrawer, toggleDrawer }) => {
           );
         })}
       </List>
-
     </SwipeableDrawer>
   );
 };

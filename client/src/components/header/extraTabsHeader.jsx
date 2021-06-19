@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
   AppBar,
-  Container,
   Box,
   makeStyles,
-  Paper,
   Tab,
   Tabs,
   useTheme,
@@ -91,7 +89,7 @@ const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator }) => {
       {onProfile && selectedTab === 2 && (
         <ProfileEditTab user={user} selectedTab={() => setSelectedTab(0)} />
       )}
-      {onProfile && selectedTab === 1 && <PostsTab user={user}/>}
+      {onProfile && selectedTab === 1 && <PostsTab user={user} />}
       {onModerator && selectedTab === 0 && <ModeratorRapportage />}
       {onModerator && selectedTab === 1 && <ModeratorCategorie />}
     </div>
