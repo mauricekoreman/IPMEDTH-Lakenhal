@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
-import isJson from '../../contexts/isJson';
+import isJson from "../../contexts/isJson";
 
 import {
   Box,
@@ -69,9 +69,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfileTab = ({selectedTab, user}) => {
+const ProfileTab = ({ selectedTab, user }) => {
   const classes = useStyles();
-  
+
   // TODO:
 
   // zodra database images traag loaden -> npm install material-ui-image
@@ -114,20 +114,31 @@ const ProfileTab = ({selectedTab, user}) => {
   let Interesses = user && Object.assign({}, [user.interesses]);
   let Eigenschappen = user && Object.assign({}, [user.eigenschappen]);
 
-  if(user && isJson([user.interesses])){
+  if (user && isJson([user.interesses])) {
     Interesses = Object.assign({}, JSON.parse([user.interesses]));
   }
-  if(user && isJson([user.eigenschappen])){
+  if (user && isJson([user.eigenschappen])) {
     Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
   }
 
   return (
     <Box className={classes.pageContainer}>
       <Box className={classes.avatarContainer}>
-        {user.profiel_foto != null? 
-          <Avatar alt="Profiel foto" className={classes.profilePicture} src={"http://localhost:8000/storage/profiel_foto/" + user.profiel_foto}/> : 
-          <Avatar alt="Profiel foto" className={classes.profilePicture} src={informatie.profielfoto} />
-        }
+        {user.profiel_foto != null ? (
+          <Avatar
+            alt="Profiel foto"
+            className={classes.profilePicture}
+            src={
+              "http://localhost:8000/storage/profiel_foto/" + user.profiel_foto
+            }
+          />
+        ) : (
+          <Avatar
+            alt="Profiel foto"
+            className={classes.profilePicture}
+            src={informatie.profielfoto}
+          />
+        )}
         <Box>
           <Typography variant="h4" className={classes.name}>
             {user.naam}
@@ -145,7 +156,9 @@ const ProfileTab = ({selectedTab, user}) => {
         <Typography variant="h6" component="h3" className={classes.title}>
           Over {user.naam}
         </Typography>
-        <Typography variant="body1">{user.biografie ? user.biografie : informatie.bio}</Typography>
+        <Typography variant="body1">
+          {user.biografie ? user.biografie : informatie.bio}
+        </Typography>
       </Box>
 
       <Box className={classes.subContainer}>
@@ -153,17 +166,13 @@ const ProfileTab = ({selectedTab, user}) => {
           Interesses
         </Typography>
         <Box className={classes.chips}>
-          {user.interesses ?           
-            Object.entries(Interesses).map(([key, value]) => {
-                return(<Chip
-                    key={key}
-                    label={value}
-                />)
-            }) :
-            interesses.items.map((interesse) => (
-              <Chip key={interesse} label={interesse} />
-            ))
-          }
+          {user.interesses
+            ? Object.entries(Interesses).map(([key, value]) => {
+                return <Chip key={key} label={value} />;
+              })
+            : interesses.items.map((interesse) => (
+                <Chip key={interesse} label={interesse} />
+              ))}
         </Box>
       </Box>
       <Box className={classes.subContainer}>
@@ -171,17 +180,13 @@ const ProfileTab = ({selectedTab, user}) => {
           Kenmerkende eigenschappen
         </Typography>
         <Box className={classes.chips}>
-          {user.eigenschappen ? 
-            Object.entries(Eigenschappen).map(([key, value]) => {
-                return(<Chip
-                    key={key}
-                    label={value}
-                />)
-            }) :
-            eigenschappen.items.map((eigenschap) => (
-              <Chip key={eigenschap} label={eigenschap} />
-            ))
-          }
+          {user.eigenschappen
+            ? Object.entries(Eigenschappen).map(([key, value]) => {
+                return <Chip key={key} label={value} />;
+              })
+            : eigenschappen.items.map((eigenschap) => (
+                <Chip key={eigenschap} label={eigenschap} />
+              ))}
         </Box>
       </Box>
 
