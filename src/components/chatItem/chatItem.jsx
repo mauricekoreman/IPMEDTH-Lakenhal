@@ -39,18 +39,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChatItem = () => {
+const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers }) => {
   const classes = useStyles();
   return (
     <div className={classes.chatContainer}>
       <div className={classes.chatImage}></div>
       <div className={classes.rows}>
         <div className={classes.chatRow}>
-          <Typography variant="h5">Titel chat</Typography>
-          <Typography variant="caption">15:13</Typography>
+          <Typography variant="h5">{chatTitel}</Typography>
+          <Typography variant="caption">{timeLastChatSent}</Typography>
         </div>
         <div className={classes.chatRow}>
-          <Typography variant="body1">3 deelnemers</Typography>
+          <Typography variant="body1">{`${aantalDeelnemers} deelnemers`}</Typography>
           <div className={classes.newMessage}>3</div>
         </div>
       </div>
