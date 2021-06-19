@@ -54,6 +54,7 @@ const TEST_URL = "http://127.0.0.1:8000/api/";
 const activiteitData = [];
  
 const PostList = () => {
+    const TEST_URL = "http://127.0.0.1:8000/api/";
     const classes = useStyles();
     const [values, setValues] = useState(activiteitData);
     const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false)
@@ -75,10 +76,34 @@ const PostList = () => {
       setDetailActiviteit(activiteit)
     }
 
-    const handleClose = (gerapporteerd = false) => {
-      if(gerapporteerd){
-        
-      }
+    const handleClose =  (gerapporteerd = false, valuesOfList=null) => {
+      if(gerapporteerd === true){
+        console.log(valuesOfList)
+        console.log('nani')
+        console.log(valuesOfList.user_ID)
+        console.log(valuesOfList.activiteit_ID)
+        let userActiviteit = {
+          user_ID: valuesOfList.user_ID,
+          activiteit_ID: valuesOfList.activiteit_ID
+        }
+        const setRapportage = async () => {
+          const res = await fetch(TEST_URL + 'activiteit/rapporteer', {
+            method: 'POST',
+            headers: {'Content-type': 'application/json', 'Accept': 'application/json'},
+            body: JSON.stringify(userActiviteit)
+          })
+          if(res.status == 201){
+            console.log('rapportage succesvol')
+          }
+          if(res.status == 200){
+            console.log('al gerapporteerd!')
+          }
+        }
+        setRapportage()
+        //rapporteer activiteit ophalen in back end checken of deze user dit activiteit al heeft gerapporteerd if true return
+
+        //else in de back end bij het activiteit +1 rapportage toevoegen
+      } 
       setAnchorEl(null);
     };
 
@@ -89,7 +114,7 @@ const PostList = () => {
     };
   
 
-    const renderPost = (value, idx) => {
+    const renderPost = (valuesOfList, idx) => {
         return (  
             <div className={classes.container} key={idx}>
               <Card className={classes.root}>
@@ -98,7 +123,7 @@ const PostList = () => {
                     <Avatar 
                       alt="Profiel foto"
                       className={classes.profilePicture}
-                      src={`data:image/png;base64, ${value.profiel_foto}`}>
+                      src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}>
     
                     </Avatar>
                     }
@@ -114,27 +139,29 @@ const PostList = () => {
                       open={Boolean(anchorEl)}
                       onClose={handleClose}
                       >
-                        <MenuItem onClick={() => {handleClose(true)}}>Rapporteer</MenuItem>
                         <MenuItem onClick={handleClose}>sluit menu</MenuItem>
                       </Menu>
                     </div>
                     }
-                    title={value.titel}
-                    subheader={value.categorie}
+                    title={valuesOfList.titel}
+                    subheader={valuesOfList.categorie}
                 />
                 <CardMedia
                     className={classes.media}
-                    image={`data:image/png;base64, ${value.afbeelding}`}
+                    image={`data:image/png;base64, ${valuesOfList.afbeelding}`}
                     title=""
                 />
                 <CardContent className={classes.content}>
                     <Typography className={classes.contentText} variant="body2" color="textSecondary" component="p" >
-                        {value.beschrijving.substring(0, 200) + "..."}
+                        {valuesOfList.beschrijving.substring(0, 200) + "..."}
                     </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button onClick={() =>{activiteitClick(value)}} size="small" color="primary">
+                  <Button onClick={() =>{activiteitClick(valuesOfList)}} size="small" color="primary">
                     Meer informatie
+                  </Button>
+                  <Button onClick={() =>{handleClose(true, valuesOfList)}} size="small" color="primary">
+                    Rapporteer
                   </Button>
                 </CardActions>
               </Card>
