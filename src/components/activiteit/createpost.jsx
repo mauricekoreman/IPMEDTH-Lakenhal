@@ -19,6 +19,7 @@ import {
     IconButton,
     Slide
 } from "@material-ui/core";
+import { findByTitle } from "@testing-library/react";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,24 +64,11 @@ const CreatePost = ({open, closeScreen}) => {
     if(isJson(currentUser)){
         user = JSON.parse(currentUser);
     }
-
-    const initialValues ={
-        titel :'yoo',
-        beschrijving :'',
-        afbeelding :' ',
-        aantalDeelnemers : 4,
-        lakenhalActiviteit : false,
-        zichtbaar :true,
-        aantalGerapporteerd : 0,
-        categorie :' ',
-        user_ID : user.user_ID, 
-    }
     
     const[categorien, setCategorien] = useState();
     useEffect(() => {
         axios.get(TEST_URL+'categorie')
                 .then(response => {
-                    console.log(response.data)
                     setCategorien(response.data)         
                 })
                 .catch(error => {
@@ -89,31 +77,30 @@ const CreatePost = ({open, closeScreen}) => {
       }, []);
 
     const onSubmit = data =>{
-        data.user_ID = user.user_ID
-        data.lakenhal_activiteit = 1
-        data.categorie = 'Het thuis atelier'
-        console.log(data.max_aantal_deelnemers)
-        axios.post(TEST_URL+'activiteit', data)
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error.response)
-            })
-    }
+        let fd = new FormData();
+        
+        console.log(data)
 
-    // const onSubmit = data => {
-    //     data.user_ID = user.user_ID
-    //     data.lakenhal_activiteit = 1
-    //     data.categorie = 'Het thuis atelier'
-    //     console.log(data);
-    //     console.log(data.titel);
-    // }
+        fd.append('user_ID', user.user_ID)
+        fd.append('titel', data.titel)
+        fd.append('beschrijving', data.beschrijving)
+        fd.append('afbeelding', data.afbeelding[0])
+        fd.append('max_aantal_deelnemers', data.max_aantal_deelnemers)
+        fd.append('lakenhal_activiteit', data.categorie.lakenhal_activiteit)
+        fd.append('categorie', data.categorie.categorie)
+        
+        axios.post(TEST_URL+'activiteit', fd, {
+            headers: { 'content-type': 'multipart/form-data'}
+        }).then(response => {
+            console.log(response)
+        }).catch(error => {
+            console.log(error.response)
+        })
+    }
 
     const Transition = forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
     });
-    console.log(categorien)
 
     return (
         <div>
@@ -169,21 +156,25 @@ const CreatePost = ({open, closeScreen}) => {
                             }/>
 
                     <Controller
-                            name="categorie"
-                            control={control}
-                            defaultValue='yo'
-                            render={({ field }) => 
+                        name="categorie"
+                        control={control}
+                        
+                        render={( {field} ) => (
                             <Autocomplete 
+                                {...field} 
                                 className={classes.formControl}
                                 id="combo-box-demo"
                                 options={categorien}
+                                onChange={(_, data) => field.onChange(data)}
                                 getOptionLabel={(option) => option.categorie}
                                 style={{ width: 300 }}
                                 renderInput={(params) =>
-                                     <TextField {...params} {...field} label="Categorie" variant="outlined" />}
-                                />}
-                        />
-
+                                    <TextField  {...params} label="Categorie" variant="outlined" />
+                                }
+                            />
+                        )}
+                    />
+                    <input type="file" {...register('afbeelding')} />
                 </Grid>
                 <Button type="submit" className={classes.maakPostButton} variant="contained" color="primary"> 
                     Maak Post 

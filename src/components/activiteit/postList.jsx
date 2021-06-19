@@ -78,7 +78,8 @@ const PostList = () => {
                     <Avatar 
                       alt="Profiel foto"
                       className={classes.profilePicture}
-                      src={`data:image/png;base64, ${value.profiel_foto}`}>
+                      // src={`data:image/png;base64, ${value.profiel_foto}`}
+                      src={"http://localhost:8000/storage/profiel_foto/" + value.profiel_foto}>
     
                     </Avatar>
                     }
@@ -92,7 +93,9 @@ const PostList = () => {
                 />
                 <CardMedia
                     className={classes.media}
-                    image={`data:image/png;base64, ${value.afbeelding}`}
+                    // image={`data:image/png;base64, ${value.afbeelding}`}
+                    image={"http://localhost:8000/storage/profiel_foto/" + value.afbeelding}
+                    
                     title=""
                 />
                 <CardContent className={classes.content}>

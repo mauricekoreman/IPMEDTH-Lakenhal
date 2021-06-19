@@ -130,14 +130,14 @@ const DetailPost = ({open, closeScreen, activiteit}) => {
             </AppBar>
             {open &&
                 <div>
-                    <img className={classes.topImage} src= {`data:image/png;base64, ${activiteit.afbeelding}`} />
+                    <img className={classes.topImage} src= {"http://localhost:8000/storage/profiel_foto/" + activiteit.afbeelding} />
                     <Box className={classes.detailContainer}>
                         {activiteit.lakenhal_activiteit ? (<img src={lakenhal_sw} className={classes.lakenhalLogo}/>) : <div></div>}
                         <Box className={classes.headerDetail}>
                             <Avatar
                                 alt="Profiel foto"
                                 className={classes.profilePicture}
-                                src={`data:image/png;base64, ${activiteit.profiel_foto}`}
+                                src={"http://localhost:8000/storage/profiel_foto/" + activiteit.profiel_foto}
                             />
                             <Box className={classes.opdracht}>
                                 <Typography variant='h6' component='h3' className={classes.opdrachtTitle}>{activiteit.titel}</Typography>
