@@ -20,11 +20,17 @@ import isJson from '../../contexts/isJson'
 import FlatList from 'flatlist-react';
 import { Button } from '@material-ui/core/';
 import DetailPost from "../detailPost/detailPost";
+import MuiAlert from '@material-ui/lab/Alert';
 
 import {
   Menu,
-  MenuItem
+  MenuItem,
+  Snackbar,
 } from '@material-ui/core'
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
     content: {
       marginBottom: theme.spacing(0),
     },
+    snackBar: {
+      marginBottom: theme.spacing(10)
+    }
   }));
 
 const TEST_URL = "http://127.0.0.1:8000/api/";
@@ -60,6 +69,8 @@ const PostList = () => {
     const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false)
     const [detailActiviteit, setDetailActiviteit] = useState([])
     const [anchorEl, setAnchorEl] = useState(null);
+    const [snackBarOpen, setSnackBarOpen] = useState(false);
+    const [rapportageSuccesvol, setRapportageSuccesvol] = useState(false);
 
     useEffect(() => {
         axios.get(TEST_URL+'activiteitenUsers')
@@ -93,9 +104,11 @@ const PostList = () => {
             body: JSON.stringify(userActiviteit)
           })
           if(res.status == 201){
+            openSnackBar(true)
             console.log('rapportage succesvol')
           }
           if(res.status == 200){
+            openSnackBar(false)
             console.log('al gerapporteerd!')
           }
         }
@@ -106,6 +119,18 @@ const PostList = () => {
       } 
       setAnchorEl(null);
     };
+
+    const openSnackBar = (succesVolRapportage) => {
+      setSnackBarOpen(true)
+      setRapportageSuccesvol(succesVolRapportage)
+    }
+
+    const closeSnackBar = (event , reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      setSnackBarOpen(false)
+    }
 
     const handleClick = (event) => {
       console.log('hi')
@@ -177,6 +202,17 @@ const PostList = () => {
             renderWhenEmpty={() => <div>List is empty!</div>}
             renderOnScroll
         />
+        <Snackbar className={classes.snackBar} open={snackBarOpen} autoHideDuration={3000} onClose={closeSnackBar}>
+            {rapportageSuccesvol ? 
+              <Alert onClose={closeSnackBar} severity="success">
+                Rapportage succesvol!
+              </Alert> 
+            :
+              <Alert onClose={closeSnackBar} severity="error">
+                Al gerapporteerd!
+              </Alert> 
+            } 
+        </Snackbar>
         <DetailPost open={detailActiviteitOpen} closeScreen={activiteitClick} activiteit={detailActiviteit}/>    
       </div>
     )
