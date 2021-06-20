@@ -1,8 +1,9 @@
-import React from "react";
+import React, { forwardRef, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
 import isJson from "../../contexts/isJson";
+import ProfileEditTab from "./profileEditTab";
 
 import {
   Box,
@@ -12,7 +13,9 @@ import {
   CardContent,
   CardMedia,
   Chip,
+  Dialog,
   Typography,
+  Slide,
 } from "@material-ui/core";
 
 // delete after making dynamic links
@@ -69,8 +72,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const ProfileTab = ({ selectedTab, user }) => {
   const classes = useStyles();
+  const [openDialog, setOpenDialog] = useState(false);
+
+  function toggleDialog() {
+    setOpenDialog(!openDialog);
+  }
 
   // TODO:
 
@@ -216,7 +228,17 @@ const ProfileTab = ({ selectedTab, user }) => {
           </Card>
         ))}
       </Box>
-      <Button onClick={selectedTab}>Bewerk Profiel</Button>
+      <Button variant="contained" color="primary" onClick={toggleDialog}>
+        Bewerk Profiel
+      </Button>
+      <Dialog
+        fullScreen
+        open={openDialog}
+        onClose={toggleDialog}
+        TransitionComponent={Transition}
+      >
+        <ProfileEditTab user={user} closeDialog={toggleDialog} />
+      </Dialog>
     </Box>
   );
 };

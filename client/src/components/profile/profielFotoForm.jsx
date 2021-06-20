@@ -27,7 +27,11 @@ const ProefielFotoForm = ({ user, onReload }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-      <input type="file" {...register("profiel_foto")} />
+      <Button component="label" color="primary" variant="contained">
+        <input hidden type="file" {...register("profiel_foto")} />
+        Kies foto
+      </Button>
+
       <Button color="primary" type="submit">
         Verander Profielfoto
       </Button>

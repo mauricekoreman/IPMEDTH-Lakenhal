@@ -1,11 +1,10 @@
 import React from "react";
 
 import { Chip } from "@material-ui/core";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
 import axios from "axios";
 
-const KenmerkenCard = ({ kenmerk, kenmerkValue, onReload, key }) => {
+const KenmerkenCard = ({ kenmerk, kenmerkValue, onReload }) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
@@ -35,9 +34,7 @@ const KenmerkenCard = ({ kenmerk, kenmerkValue, onReload, key }) => {
     <div>
       {kenmerkValue != null && (
         <Chip
-          key={key}
           name="checked"
-          icon={HighlightOffIcon}
           label={kenmerkValue}
           onDelete={handleDelete(kenmerkValue)}
         />
