@@ -1,4 +1,4 @@
-import { Box, makeStyles, Slide, Dialog, Button } from "@material-ui/core";
+import { Box, makeStyles, Slide, Dialog } from "@material-ui/core";
 import React, { forwardRef, useEffect, useState } from "react";
 import ChatItem from "../../components/chatItem/chatItem";
 import ChatContainer from "../../components/chatContainer/chatContainer";

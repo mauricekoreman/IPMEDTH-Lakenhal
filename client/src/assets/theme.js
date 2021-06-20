@@ -1,5 +1,4 @@
 import Brandon_reg from "./fonts/Brandon_reg.otf";
-import Brandon_bld from "./fonts/Brandon_bld.otf";
 import Brandon_light from "./fonts/Brandon_light.otf";
 
 import { createMuiTheme } from "@material-ui/core/styles";

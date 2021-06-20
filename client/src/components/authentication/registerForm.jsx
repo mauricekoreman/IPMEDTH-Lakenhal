@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   TextField,
   Button,
@@ -137,19 +137,23 @@ const RegistreerForm = () => {
                 label="Bevestig wachtwoord"
                 variant="standard"
                 type="password"
-                helperText={errors.password_confirmation ? errors.password_confirmation.message : ""}
+                helperText={
+                  errors.password_confirmation
+                    ? errors.password_confirmation.message
+                    : ""
+                }
                 error={!!errors.password_confirmation}
               />
             )}
             rules={{
               required: "Verplicht",
-              validate: value => {
+              validate: (value) => {
                 if (value === getValues()["password"]) {
                   return true;
                 } else {
                   return "The passwords do not match";
                 }
-              }
+              },
             }}
           />
         </FormControl>
