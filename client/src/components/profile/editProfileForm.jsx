@@ -71,6 +71,9 @@ const EditProfileForm = ({ user, onReload, closeDialog }) => {
 
   return (
     <Container maxWidth="xs">
+
+      <ProfielFotoForm user={user} onReload={onReload} />
+      
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.topButtons}>
           <Box className={classes.cancelButton}>
@@ -103,8 +106,8 @@ const EditProfileForm = ({ user, onReload, closeDialog }) => {
           className={classes.profilePicture}
           alt="Profiel foto"
         />
-        <ProfielFotoForm user={user} onReload={onReload} />
 
+        
         <Grid container direction="column">
           <Box className={classes.subContainer}>
             <Controller
