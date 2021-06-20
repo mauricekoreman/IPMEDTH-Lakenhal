@@ -44,7 +44,7 @@ const LoginForm = () => {
   } = useForm();
 
   const history = useHistory();
-  const { setCurrentUser } = useAuth();
+  const { setCurrentUser } = useAuth() || [];
 
   const onSubmit = async (loginData) => {
     console.log(loginData);
@@ -88,6 +88,7 @@ const LoginForm = () => {
                 variant="standard"
                 helperText={errors.email ? errors.email.message : ""}
                 error={!!errors.email}
+                data-testid="email"
               />
             )}
             rules={{
@@ -112,6 +113,7 @@ const LoginForm = () => {
                 type="password"
                 helperText={errors.password ? errors.password.message : ""}
                 error={!!errors.password}
+                data-testid="password"
               />
             )}
             rules={{
@@ -125,14 +127,15 @@ const LoginForm = () => {
             Wachtwoord of e-mailadres is verkeerd
           </Typography>
         )}
-        <Link className={classes.link} to="/forgotPassword">
+        {/* <Link className={classes.link} to="/forgotPassword">
           Wachtwoord vergeten?
-        </Link>
+        </Link> */}
         <Button
           className={classes.loginButton}
           variant="contained"
           color="primary"
           type="submit"
+          data-testid="button"
         >
           Ga verder
         </Button>

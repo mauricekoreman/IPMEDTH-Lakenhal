@@ -19,12 +19,12 @@ const Logout = () => {
             headers: { Authorization: `Bearer ${token}` },
         }).then(res => {
             console.log(res.data);
+            //ga naar loginpagina
+            history.push('/login');
             //useContext user
             setCurrentUser(null);
             //localstorage user en token
             localStorage.clear();
-            //ga naar loginpagina
-            history.push('/login');
         })
         .catch(error => {
             history.push('/login');
