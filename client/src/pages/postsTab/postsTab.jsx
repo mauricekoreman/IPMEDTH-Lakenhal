@@ -8,6 +8,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     paddingTop: theme.spacing(5),
     paddingBottom: theme.spacing(2),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3)
+  },
+  removeZero: {
+    marginTop: theme.spacing(80)
   }
 }));
 
@@ -41,7 +46,7 @@ const PostsTab = ({user}) => {
   console.log(detailPost);
 
   return (
-    <div>
+    <Box>
       {postList.length ? 
         <Typography className={classes.titlePosts} variant='h4'>Zie uw posts & aanmeldingen</Typography>
         :
@@ -59,7 +64,11 @@ const PostsTab = ({user}) => {
         </Grid>
       </Box> 
       <DetailPost open={detailPostOpen} closeScreen={detailPostClick} activiteit={detailPost}/>
-    </div>
+      
+      {/* dirty bug fix, blijft een random 0 staan, ik denk door de vergelijking die word gedaan bij extraTabsHeader.jsx, door deze div is de 0 niet te zien op de page. */}
+      <div className={classes.removeZero}>
+      </div>
+    </Box>
   );
 };
 export default PostsTab;
