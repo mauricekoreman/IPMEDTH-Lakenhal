@@ -2,11 +2,27 @@ import React, { useEffect, useState } from "react";
 import AanmeldingenCard from "./aanmeldingenCard";
 import axios from "axios";
 
-import { List } from "@material-ui/core";
+import { 
+  List, 
+  Typography,
+  makeStyles
+} from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  titleAanmelding: {
+    textAlign: 'center',
+    marginTop: theme.spacing(2)
+  },
+  listAanmelding: {
+    marginTop: theme.spacing(2),
+    width: '80%',
+    margin: '0 auto',
+  }
+}))
 
 const AanmeldingenList = ({ activiteit_ID }) => {
   console.log(activiteit_ID);
-
+  const classes = useStyles()
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
   const [aangemeldeUsers, setAangemeldeUsers] = useState([]);
@@ -30,12 +46,15 @@ const AanmeldingenList = ({ activiteit_ID }) => {
   console.log(aangemeldeUsers);
 
   return (
-    <List>
+    <div>
+    <Typography className={classes.titleAanmelding} variant="h5">Bekijk aanmeldingen hieronder</Typography>
+    <List className={classes.listAanmelding}>
       {aangemeldeUsers &&
         Object.entries(aangemeldeUsers).map(([key, value]) => {
           return <AanmeldingenCard aangemeldeUser={value} />;
         })}
     </List>
+    </div>
   );
 };
 

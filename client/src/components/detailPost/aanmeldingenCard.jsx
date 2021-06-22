@@ -5,20 +5,33 @@ import {
   AccordionDetails,
   AccordionActions,
   Typography,
-  Divider,
+  makeStyles
 } from "@material-ui/core";
 import React, { useState } from "react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import ProfileTab from "../../pages/profileTab/profileTab";
+import DetailProfileTab from "../profile/detailProfileTab";
+
+
+const useStyles = makeStyles((theme) => ({
+  aanmelding: {
+    display: 'block',
+    padding: theme.spacing(1)
+  }
+}))
 
 const AanmeldingenCard = ({ aangemeldeUser }) => {
   console.log(aangemeldeUser);
-
+  const classes = useStyles()
   const [show, setShow] = useState(false);
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
+  const [detailProfileOpen, setDetailProfileOpen] = useState(false);
+  const detailProfileClick = () => {
+    setDetailProfileOpen(!detailProfileOpen);
+  };
 
   const { handleSubmit } = useForm();
   const onSubmit = async () => {
@@ -42,7 +55,7 @@ const AanmeldingenCard = ({ aangemeldeUser }) => {
   };
 
   return (
-    <div>
+    <div className={classes.aanmelding}>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{aangemeldeUser.naam}</Typography>
@@ -54,13 +67,10 @@ const AanmeldingenCard = ({ aangemeldeUser }) => {
               : "De aangemelde persoon heeft geen tekst ingestuurd"}
           </Typography>
         </AccordionDetails>
-        <Divider />
         <AccordionActions>
           <Button
-            onClick={() => {
-              setShow((prev) => !prev);
-            }}
             color="primary"
+            onClick={detailProfileClick}
           >
             Profiel Bekijken
           </Button>
@@ -72,7 +82,7 @@ const AanmeldingenCard = ({ aangemeldeUser }) => {
         </AccordionActions>
       </Accordion>
 
-      {show && <ProfileTab user={aangemeldeUser} />}
+      <DetailProfileTab user={aangemeldeUser} closeScreen={detailProfileClick} open={detailProfileOpen}/>
     </div>
   );
 };

@@ -79,6 +79,10 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: theme.spacing(22),
   },
+  topImageAanmeldingPage: {
+    width: '100%',
+    height: theme.spacing(13)
+  }
 }));
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -143,6 +147,7 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
       </AppBar>
       {open && (
         <div>
+          {window.location.href !== "http://localhost:3000/profiel" ?
           <img
             className={classes.topImage}
             src={
@@ -150,6 +155,15 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
               activiteit.afbeelding
             }
           />
+          :
+          <img
+            className={classes.topImageAanmeldingPage}
+            src={
+              "http://localhost:8000/storage/profiel_foto/" +
+              activiteit.afbeelding
+            }
+          />
+          }
           <Box className={classes.detailContainer}>
             {activiteit.lakenhal_activiteit ? (
               <img src={lakenhal_sw} className={classes.lakenhalLogo} />

@@ -32,6 +32,7 @@ const Homepage = () => {
   const activiteitData = [];
   const [maakActiviteitOpen, setMaakActiviteitOpen] = useState(false);
   const [values, setValues] = useState(activiteitData);
+  
   const maakActiviteitClick = () => {
     setMaakActiviteitOpen(!maakActiviteitOpen);
   };

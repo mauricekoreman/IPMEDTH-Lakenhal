@@ -88,7 +88,7 @@ const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ProfileTab = ({ selectedTab, user }) => {
+const ProfileTab = ({ user, editProfile=true}) => {
   const classes = useStyles();
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -240,6 +240,9 @@ const ProfileTab = ({ selectedTab, user }) => {
           </Card>
         ))}
       </Box>
+      {editProfile &&
+      
+      <div>
       <Button className={classes.editButton} variant="contained" color="primary" onClick={toggleDialog}>
         Bewerk Profiel
       </Button>
@@ -251,6 +254,8 @@ const ProfileTab = ({ selectedTab, user }) => {
       >
         <ProfileEditTab user={user} closeDialog={toggleDialog} />
       </Dialog>
+      </div>
+      }
     </Box>
   );
 };
