@@ -1,13 +1,14 @@
-import { Box, makeStyles, Grid } from "@material-ui/core";
+import { Box, makeStyles, Grid, Typography } from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import DetailPost from "../../components/detailPost/detailPost";
 import PostsTabCard from "./postsTabCard";
 
 const useStyles = makeStyles((theme) => ({
-  pageContainer: {
+  titlePosts: {
+    textAlign: 'center',
     paddingTop: theme.spacing(5),
-    paddingBottom: theme.spacing(6),
-  },
+    paddingBottom: theme.spacing(2),
+  }
 }));
 
 const PostsTab = ({user}) => {
@@ -41,11 +42,12 @@ const PostsTab = ({user}) => {
 
   return (
     <div>
-      <Box className={classes.pageContainer}>
-        <h1>Posts tab</h1>
-      </Box>
-
-      <Box className={classes.pageContainer}>
+      {postList.length ? 
+        <Typography className={classes.titlePosts} variant='h4'>Zie uw posts & aanmeldingen</Typography>
+        :
+        <Typography className={classes.titlePosts} variant='h4'>U heeft nog geen activiteiten gepost!</Typography>
+      }
+      <Box >
         <Grid container spacing={2}>
           {Object.keys(postList).map((post, key) =>{
             return(
@@ -56,7 +58,6 @@ const PostsTab = ({user}) => {
           })}
         </Grid>
       </Box> 
-
       <DetailPost open={detailPostOpen} closeScreen={detailPostClick} activiteit={detailPost}/>
     </div>
   );
