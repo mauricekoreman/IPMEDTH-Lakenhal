@@ -35,9 +35,9 @@ const KenmerkenForm = ({ user, kenmerk, onReload }) => {
           <TextField {...field} label={kenmerk + ":"} fullWidth={true} />
         )}
       />
-      {/* <Button type="submit"> 
+      <Button type="submit"> 
                 <ArrowRightRoundedIcon />
-            </Button> */}
+            </Button>
     </form>
   );
 };
