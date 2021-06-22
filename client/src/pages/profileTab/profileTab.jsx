@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 345,
     marginBottom: theme.spacing(2),
     "&:last-child": {
-      marginBottom: theme.spacing(5)
+      marginBottom: theme.spacing(8)
     }
   },
   cardMedia: {
