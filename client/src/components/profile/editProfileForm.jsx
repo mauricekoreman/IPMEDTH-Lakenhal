@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   submitButton: {},
+  lastContainer: {
+    marginTop: theme.spacing(6)
+  },
 }));
 
 const EditProfileForm = ({ user, onReload, closeDialog }) => {
@@ -154,7 +157,7 @@ const EditProfileForm = ({ user, onReload, closeDialog }) => {
         <KenmerkenForm user={user} kenmerk="interesses" onReload={onReload} />
       </Box>
 
-      <Box className={classes.subContainer}>
+      <Box className={classes.lastContainer}>
         <KenmerkenList
           user={user}
           kenmerk="eigenschappen"
