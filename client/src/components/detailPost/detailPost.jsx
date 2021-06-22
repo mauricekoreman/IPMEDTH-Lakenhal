@@ -101,14 +101,9 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
   //kijk of de user al ingescgreven is
   const fetchInschrijving = async () => {
     const TEST_URL = "http://127.0.0.1:8000/api/";
-
     try {
       const res = await fetch(
-        TEST_URL +
-          "ingeschreven/activiteit/" +
-          activiteit.activiteit_ID +
-          "/" +
-          user.user_ID
+        TEST_URL + "ingeschreven/activiteit/" + activiteit.activiteit_ID + "/" + user.user_ID
       );
       const ingeschreven = await res.json();
       setIngeschreven(ingeschreven);
@@ -220,7 +215,7 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
           </Box>
           {window.location.href === "http://localhost:3000/" &&
             user.user_ID !== activiteit.user_ID &&
-            ingeschreven == false && (
+            ingeschreven === false && (
               <InschrijvenActiviteit
                 user={user}
                 activiteit={activiteit.activiteit_ID}

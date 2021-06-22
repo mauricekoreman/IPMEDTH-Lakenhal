@@ -104,8 +104,6 @@ const CreatePost = ({open, closeScreen, onReload}) => {
         closeScreen()
     }
 
-    
-
     return (
         <div>
             

@@ -88,7 +88,7 @@ const LoginForm = () => {
                 variant="standard"
                 helperText={errors.email ? errors.email.message : ""}
                 error={!!errors.email}
-                data-testid="email"
+                inputProps={{ "data-testid": "email" }}
               />
             )}
             rules={{
@@ -100,7 +100,7 @@ const LoginForm = () => {
             }}
           />
         </FormControl>
-        <FormControl className={classes.formControl}>
+        <FormControl className={classes.formControl} >
           <Controller
             name="password"
             control={control}
@@ -113,12 +113,11 @@ const LoginForm = () => {
                 type="password"
                 helperText={errors.password ? errors.password.message : ""}
                 error={!!errors.password}
-                data-testid="password"
+                inputProps={{ "data-testid": "password" }}
               />
             )}
             rules={{
               required: "Verplicht",
-              minLength: { value: 5, message: "wachtwoord is te kort" },
             }}
           />
         </FormControl>
@@ -127,9 +126,9 @@ const LoginForm = () => {
             Wachtwoord of e-mailadres is verkeerd
           </Typography>
         )}
-        {/* <Link className={classes.link} to="/forgotPassword">
+        <Link className={classes.link} to="/forgotPassword">
           Wachtwoord vergeten?
-        </Link> */}
+        </Link>
         <Button
           className={classes.loginButton}
           variant="contained"
