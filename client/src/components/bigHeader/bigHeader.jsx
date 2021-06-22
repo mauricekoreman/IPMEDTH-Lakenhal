@@ -41,6 +41,7 @@ const BigHeader = ({ text, inBlue }) => {
               className={`${classes.heading} ${classes.blue}`}
               component="h1"
               variant="h3"
+              data-testid="testBlauweTekst"
             >
               {woord}
             </Typography>
@@ -52,6 +53,7 @@ const BigHeader = ({ text, inBlue }) => {
               className={`${classes.heading} ${classes.normal}`}
               component="h1"
               variant="h3"
+              data-testid="testNormaleTekst"
             >
               {woord}
             </Typography>

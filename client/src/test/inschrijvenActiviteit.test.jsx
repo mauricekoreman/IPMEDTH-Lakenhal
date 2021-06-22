@@ -1,10 +1,4 @@
-import {
-  fireEvent,
-  getByTitle,
-  queryByTestId,
-  render,
-  screen,
-} from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 
 import InschrijvenActiviteit from "../components/activiteit/inschrijvenActiviteit";
 
