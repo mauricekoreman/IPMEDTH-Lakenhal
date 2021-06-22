@@ -66,9 +66,21 @@ const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 345,
     marginBottom: theme.spacing(2),
+    "&:last-child": {
+      marginBottom: theme.spacing(5)
+    }
   },
   cardMedia: {
     height: 140,
+  },
+  editButton: {
+    display: 'block',
+    position: 'fixed',
+    left: '0',
+    right: '0',
+    margin: '0 auto',
+    bottom: '56px',
+    width: '99%'
   },
 }));
 
@@ -228,7 +240,7 @@ const ProfileTab = ({ selectedTab, user }) => {
           </Card>
         ))}
       </Box>
-      <Button variant="contained" color="primary" onClick={toggleDialog}>
+      <Button className={classes.editButton} variant="contained" color="primary" onClick={toggleDialog}>
         Bewerk Profiel
       </Button>
       <Dialog
