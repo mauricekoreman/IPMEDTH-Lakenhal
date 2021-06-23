@@ -48,6 +48,7 @@ const CategorieForm = ({ addCategorie, categorieError }) => {
             onChange={handleChange}
             name="checkedB"
             color="primary"
+            inputProps={{ "data-testid": "testCheckbox" }}
           />
         }
         label="Lakenhal activiteit?"
@@ -65,12 +66,15 @@ const CategorieForm = ({ addCategorie, categorieError }) => {
         onChange={(e) => {
           setCategorie(e.target.value);
         }}
+        inputProps={{ "data-testid": "testCategorieInput" }}
+        FormHelperTextProps={{ "data-testid": "testHelperText"}}
       />
       <Button
         onClick={onSubmit}
         className={classes.maakCategorieButton}
         variant="contained"
         color="primary"
+        data-testid="buttonTestSubmit"
       >
         Maak Categorie
       </Button>

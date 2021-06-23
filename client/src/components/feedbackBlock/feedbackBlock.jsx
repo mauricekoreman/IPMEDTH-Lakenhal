@@ -19,6 +19,7 @@ const FeedbackBlock = ({ success, text }) => {
     <Box
       className={classes.sentBox}
       style={{ backgroundColor: success ? "#DAF9DA" : "#EE9090" }}
+      data-testid="feedbackTest"
     >
       <Typography variant="body2">{text}</Typography>
     </Box>
