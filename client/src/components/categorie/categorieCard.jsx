@@ -38,6 +38,7 @@ const CategorieCard = ({
           alt="Lakenhal logo"
           src={lakenhal_sw}
           title="Lakenhal logo"
+          data-testid="testLakenhalCategorie"
         />
       ) : (
         ""
