@@ -45,10 +45,10 @@ const AanmeldingenCard = ({ aangemeldeUser }) => {
     <div>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>{aangemeldeUser.naam}</Typography>
+          <Typography data-testid="testNaam">{aangemeldeUser.naam}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <Typography data-testid="testBericht">
             {aangemeldeUser.bericht != null
               ? aangemeldeUser.bericht
               : "De aangemelde persoon heeft geen tekst ingestuurd"}
@@ -61,6 +61,7 @@ const AanmeldingenCard = ({ aangemeldeUser }) => {
               setShow((prev) => !prev);
             }}
             color="primary"
+            data-testid="testButton"
           >
             Profiel Bekijken
           </Button>

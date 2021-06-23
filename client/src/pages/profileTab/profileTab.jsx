@@ -146,7 +146,7 @@ const ProfileTab = ({ selectedTab, user }) => {
   }
 
   return (
-    <Box className={classes.pageContainer}>
+    <Box className={classes.pageContainer} data-testid="testProfielTab">
       <Box className={classes.avatarContainer}>
         {user.profiel_foto != null ? (
           <Avatar
