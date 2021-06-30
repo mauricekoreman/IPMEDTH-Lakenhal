@@ -227,14 +227,18 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
               </Box>
             </Box>
           </Box>
-          {window.location.href === "http://localhost:3000/" &&
-            user.user_ID !== activiteit.user_ID &&
-            ingeschreven === false && (
-              <InschrijvenActiviteit
-                user={user}
-                activiteit={activiteit.activiteit_ID}
-              />
-            )}
+          {user !== null ? window.location.href === "http://localhost:3000/" &&
+              user.user_ID !== activiteit.user_ID &&
+              ingeschreven === false && (
+                <InschrijvenActiviteit
+                  user={user}
+                  activiteit={activiteit.activiteit_ID}
+                />
+              )
+             : (
+                <div></div>
+              )
+          }
           {window.location.href === "http://localhost:3000/profiel" && (
             <AanmeldingenList activiteit_ID={activiteit.activiteit_ID} />
           )}
