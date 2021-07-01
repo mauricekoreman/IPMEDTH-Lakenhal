@@ -27,6 +27,7 @@ const RegistreerForm = () => {
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
   const [generalLoginError, setGeneralLoginError] = useState();
+  const [passwordError, setPasswordError] = useState();
   const history = useHistory();
 
   const {
@@ -38,23 +39,31 @@ const RegistreerForm = () => {
   } = useForm({});
 
   const onSubmit = async (registerData) => {
-    console.log(registerData);
-    axios
-      .post(TEST_URL + "auth/register", registerData, {
-        headers: { Accept: "application/json" },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(res.data);
-          history.push("/login");
-        } else {
-          reset({ formState: true });
-        }
-      })
-      .catch((error) => {
-        setGeneralLoginError(true);
-        console.log(error.response);
-      });
+    
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*])(?=.*[^a-zA-Z0-9]).{8,}$/;
+    console.log(regex.test(registerData.password));
+    if (!regex.test(registerData.password)) {
+      console.log("yo");
+      setPasswordError(true);
+    } else{
+        console.log("yo2");
+        axios
+        .post(TEST_URL + "auth/register", registerData, {
+          headers: { Accept: "application/json" },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            console.log(res.data);
+            history.push("/login");
+          } else {
+            reset({ formState: true });
+          }
+        })
+        .catch((error) => {
+          setGeneralLoginError(true);
+          console.log(error.response);
+        });
+    }
   };
 
   return (
@@ -113,18 +122,19 @@ const RegistreerForm = () => {
                 label="Wachtwoord"
                 variant="standard"
                 type="password"
-                helperText={errors.password ? errors.password.message : ""}
+                helperText={errors.password ? errors.password.message : passwordError ? "" : "Wachtwoord moet minimaal 8 characters, een hoofletter, een cijfer en een speciale character hebben"}
                 error={!!errors.password}
               />
             )}
             rules={{
               required: "Verplicht",
-              minLength: {
-                value: 5,
-                message: "Wachtwoord moet minimaal 5 karakters bevatten",
-              },
             }}
           />
+          {passwordError && (
+            <Typography style={{ color: "red" }}>
+              Let op! Wachtwoord moet minimaal 8 characters, een hoofdletter, een cijfer en een speciale character hebben!
+            </Typography>
+          )}
         </FormControl>
         <FormControl className={classes.formControl}>
           <Controller
