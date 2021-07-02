@@ -31,7 +31,7 @@ const Chatpage = () => {
 
   useEffect(() => {
     axios
-      .get(TEST_URL + "userGroepschat/" + user.user_ID)
+      .get(TEST_URL + "userGroepschat/user/" + user.user_ID)
       .then((response) => {
         setConversations(response.data);
       })
