@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -11,10 +11,14 @@ import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FlatList from "flatlist-react";
-import { Button } from "@material-ui/core/";
+import { Box, Button } from "@material-ui/core/";
 import DetailPost from "../detailPost/detailPost";
 import MuiAlert from "@material-ui/lab/Alert";
 import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
+import GroupIcon from "@material-ui/icons/Group";
+import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
+import FlagRoundedIcon from "@material-ui/icons/FlagRounded";
+import ReportProblemRoundedIcon from "@material-ui/icons/ReportProblemRounded";
 
 import { Menu, MenuItem, Snackbar } from "@material-ui/core";
 
@@ -34,18 +38,38 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: red[500],
   },
   container: {
-    // maxHeight: "500px",
-    paddingTop: "60px",
-    // overflow: "auto",
+    paddingTop: "30px",
   },
   appBar: {
     position: "relative",
   },
   content: {
-    marginBottom: theme.spacing(0),
+    // marginBottom: theme.spacing(0),
   },
   snackBar: {
     marginBottom: theme.spacing(10),
+  },
+  cardActions: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  date: {
+    display: "flex",
+    marginRight: "13px",
+    opacity: 0.7,
+
+    "& p": {
+      marginLeft: theme.spacing(0.5),
+    },
+  },
+  aantalDeelnemers: {
+    display: "flex",
+    marginRight: theme.spacing(2),
+
+    "& p": {
+      marginLeft: theme.spacing(0.5),
+    },
   },
 }));
 
@@ -66,10 +90,6 @@ const PostList = ({ values }) => {
 
   const handleClose = (gerapporteerd = false, valuesOfList = null) => {
     if (gerapporteerd === true) {
-      console.log(valuesOfList);
-      console.log("nani");
-      console.log(valuesOfList.user_ID);
-      console.log(valuesOfList.activiteit_ID);
       let userActiviteit = {
         user_ID: valuesOfList.user_ID,
         activiteit_ID: valuesOfList.activiteit_ID,
@@ -112,6 +132,11 @@ const PostList = ({ values }) => {
     setSnackBarOpen(false);
   };
 
+  function getDate(date) {
+    const splitDate = date.split(/[-:.T]/);
+    return splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0];
+  }
+
   const handleClick = (event) => {
     console.log("hi");
     setAnchorEl(event.currentTarget);
@@ -145,20 +170,15 @@ const PostList = ({ values }) => {
               )
             }
             action={
-              <div>
-                <IconButton onClick={handleClick} aria-label="settings">
-                  <MoreVertIcon />
-                </IconButton>
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>sluit menu</MenuItem>
-                </Menu>
-              </div>
+              <IconButton
+                fontSize="small"
+                onClick={() => {
+                  handleClose(true, valuesOfList);
+                }}
+                aria-label="settings"
+              >
+                <ReportProblemRoundedIcon />
+              </IconButton>
             }
             title={valuesOfList.titel}
             subheader={valuesOfList.categorie}
@@ -182,7 +202,7 @@ const PostList = ({ values }) => {
               {valuesOfList.beschrijving.substring(0, 200) + "..."}
             </Typography>
           </CardContent>
-          <CardActions>
+          <CardActions className={classes.cardActions}>
             <Button
               onClick={() => {
                 activiteitClick(valuesOfList);
@@ -192,15 +212,23 @@ const PostList = ({ values }) => {
             >
               Meer informatie
             </Button>
-            <Button
-              onClick={() => {
-                handleClose(true, valuesOfList);
-              }}
-              size="small"
-              color="primary"
-            >
-              Rapporteer
-            </Button>
+
+            <Box className={classes.date}>
+              <Box className={classes.aantalDeelnemers}>
+                <GroupIcon fontSize="small" />
+                <Typography variant="body2">
+                  {valuesOfList.max_aantal_deelnemers}
+                </Typography>
+              </Box>
+
+              <QueryBuilderIcon
+                fontSize="small"
+                className={classes.detailsDatumIcon}
+              />
+              <Typography className={classes.detailsDatumText} variant="body2">
+                {getDate(valuesOfList.created_at)}
+              </Typography>
+            </Box>
           </CardActions>
         </Card>
       </div>

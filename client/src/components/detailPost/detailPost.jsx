@@ -32,42 +32,41 @@ const useStyles = makeStyles((theme) => ({
   },
   headerDetail: {
     display: "flex",
-    justifyContent: "flex-start",
-    marginTop: "10%",
+    justifyContent: "space-between",
+    padding: theme.spacing(2, 0),
+  },
+  left: {
+    display: "flex",
+    alignItems: "center",
+  },
+  lakenhalLogo: {
+    height: "50px",
+    width: "auto",
   },
   profilePicture: {
     width: theme.spacing(8),
     height: theme.spacing(8),
-  },
-  opdracht: {
-    marginLeft: theme.spacing(),
+    marginRight: theme.spacing(1),
   },
   opdrachtSubtitle: {
+    fontSize: "1rem",
     opacity: 0.6,
   },
   detailContainer: {
-    width: "87%",
-    margin: "0 auto",
+    padding: theme.spacing(0, 2),
   },
   detailsOpdracht: {
     opacity: 0.7,
-    fontSize: theme.spacing(1.7),
-    marginTop: "5%",
-  },
-  lakenhalLogo: {
-    width: theme.spacing(5),
-    height: theme.spacing(6),
-    right: "5%",
-    position: "absolute",
   },
   detailsOpdrachtBottom: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "5%",
+    marginTop: theme.spacing(4),
   },
   detailsDatumText: {
     opacity: 0.7,
-    fontSize: theme.spacing(1.7),
+    marginLeft: "5px",
+    marginRight: "20px",
   },
   detailsDatum: {
     display: "flex",
@@ -78,11 +77,15 @@ const useStyles = makeStyles((theme) => ({
   topImage: {
     width: "100%",
     height: theme.spacing(22),
+    padding: 0,
+    margin: 0,
   },
   topImageAanmeldingPage: {
-    width: '100%',
-    height: theme.spacing(13)
-  }
+    width: "100%",
+    height: theme.spacing(13),
+    padding: 0,
+    margin: 0,
+  },
 }));
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -94,7 +97,6 @@ const Transition = forwardRef(function Transition(props, ref) {
 //geef ook het activiteit mee waarop is gedrukt en je krijgt de juiste detail post te zien
 const DetailPost = ({ open, closeScreen, activiteit }) => {
   const classes = useStyles();
-
   const [ingeschreven, setIngeschreven] = useState();
   //pak de ingelogde user
   let user = localStorage.getItem("user");
@@ -107,7 +109,11 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
     const TEST_URL = "http://127.0.0.1:8000/api/";
     try {
       const res = await fetch(
-        TEST_URL + "ingeschreven/activiteit/" + activiteit.activiteit_ID + "/" + user.user_ID
+        TEST_URL +
+          "ingeschreven/activiteit/" +
+          activiteit.activiteit_ID +
+          "/" +
+          user.user_ID
       );
       const ingeschreven = await res.json();
       setIngeschreven(ingeschreven);
@@ -116,6 +122,11 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
       console.log("user niet ingeschreven");
     }
   };
+
+  function getDate(date) {
+    const splitDate = date.split(/[-:.T]/);
+    return splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0];
+  }
 
   useEffect(() => {
     if (activiteit !== undefined) {
@@ -145,84 +156,82 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
           </Typography>
         </Toolbar>
       </AppBar>
+
       {open && (
-        <div>
-          {window.location.href !== "http://localhost:3000/profiel" ?
-          <img
-            className={classes.topImage}
-            src={
-              "http://localhost:8000/storage/profiel_foto/" +
-              activiteit.afbeelding
-            }
-          />
-          :
-          <img
-            className={classes.topImageAanmeldingPage}
-            src={
-              "http://localhost:8000/storage/profiel_foto/" +
-              activiteit.afbeelding
-            }
-          />
-          }
+        <Box>
+          {window.location.href !== "http://localhost:3000/profiel" ? (
+            <img
+              className={classes.topImage}
+              src={
+                "http://localhost:8000/storage/profiel_foto/" +
+                activiteit.afbeelding
+              }
+            />
+          ) : (
+            <img
+              className={classes.topImageAanmeldingPage}
+              src={
+                "http://localhost:8000/storage/profiel_foto/" +
+                activiteit.afbeelding
+              }
+            />
+          )}
           <Box className={classes.detailContainer}>
-            {activiteit.lakenhal_activiteit ? (
-              <img src={lakenhal_sw} className={classes.lakenhalLogo} />
-            ) : (
-              <div></div>
-            )}
             <Box className={classes.headerDetail}>
-              {activiteit.profiel_foto === null ? (
-                <Avatar
-                  alt="Profiel foto"
-                  className={classes.profilePicture}
-                  // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
-                  src={pf}
-                ></Avatar>
-              ) : (
-                <Avatar
-                  alt="Profiel foto"
-                  className={classes.profilePicture}
-                  // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
-                  src={
-                    "http://localhost:8000/storage/profiel_foto/" +
-                    activiteit.profiel_foto
-                  }
-                ></Avatar>
-              )}
-              <Box className={classes.opdracht}>
-                <Typography
-                  variant="h6"
-                  component="h3"
-                  className={classes.opdrachtTitle}
-                >
-                  {activiteit.titel}
-                </Typography>
-                <Typography
-                  variant="caption"
-                  className={classes.opdrachtSubtitle}
-                >
-                  {activiteit.categorie}
-                </Typography>
+              <Box className={classes.left}>
+                {activiteit.profiel_foto === null ? (
+                  <Avatar
+                    alt="Profiel foto"
+                    className={classes.profilePicture}
+                    // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
+                    src={pf}
+                  ></Avatar>
+                ) : (
+                  <Avatar
+                    alt="Profiel foto"
+                    className={classes.profilePicture}
+                    // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
+                    src={
+                      "http://localhost:8000/storage/profiel_foto/" +
+                      activiteit.profiel_foto
+                    }
+                  ></Avatar>
+                )}
+                <Box className={classes.opdracht}>
+                  <Typography
+                    variant="h6"
+                    component="h3"
+                    className={classes.opdrachtTitle}
+                  >
+                    {activiteit.titel}
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    className={classes.opdrachtSubtitle}
+                  >
+                    {activiteit.categorie}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box className={classes.right}>
+                {activiteit.lakenhal_activiteit && (
+                  <img src={lakenhal_sw} className={classes.lakenhalLogo} />
+                )}
               </Box>
             </Box>
-            <Typography
-              variant="body1"
-              component="p"
-              className={classes.detailsOpdracht}
-            >
+
+            <Typography variant="body1" className={classes.detailsOpdracht}>
               {activiteit.beschrijving}
             </Typography>
             <Box className={classes.detailsOpdrachtBottom}>
               <Chip label={activiteit.categorie} />
               <Box className={classes.detailsDatum}>
                 <QueryBuilderIcon className={classes.detailsDatumIcon} />
-                {/* De datum is voor nu een placeholder, kan later worden aangepast wanneer activiteiten terplekke gemaakt worden. */}
                 <Typography
                   className={classes.detailsDatumText}
-                  variant="subtitle1"
-                  component="p"
+                  variant="body1"
                 >
-                  29 maart 2021
+                  {getDate(activiteit.created_at)}
                 </Typography>
               </Box>
             </Box>
@@ -245,7 +254,7 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
               activiteit={activiteit.activiteit_ID}
             />
           )}
-        </div>
+        </Box>
       )}
     </Dialog>
   );
