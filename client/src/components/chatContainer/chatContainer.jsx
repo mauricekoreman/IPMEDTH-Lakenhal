@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChatContainer = ({ close, chatTitle, roomId }) => {
+const ChatContainer = ({ close, chatTitle, roomId, naam }) => {
   const classes = useStyles();
   const [newMessage, setNewMessage] = useState("");
 
@@ -106,7 +106,7 @@ const ChatContainer = ({ close, chatTitle, roomId }) => {
           >
             <CloseIcon />
           </IconButton>
-          <Typography variant="h6">{roomId}</Typography>
+          <Typography variant="h6">{chatTitle}</Typography>
         </Toolbar>
       </AppBar>
 
@@ -125,7 +125,7 @@ const ChatContainer = ({ close, chatTitle, roomId }) => {
                 {message.body}
               </Typography>
               <Typography variant="caption" className={classes.sender}>
-                Sender name
+                {naam}
               </Typography>
             </div>
           );
@@ -134,6 +134,7 @@ const ChatContainer = ({ close, chatTitle, roomId }) => {
 
       <form onSubmit={handleSubmit} className={classes.form}>
         <input
+          sender={naam}
           value={newMessage}
           onChange={handleChange}
           className={classes.inputField}

@@ -29,13 +29,16 @@ const Chatpage = () => {
 
   const TEST_URL = "http://localhost:8000/api/";
 
+  const fetchChat = async () => {
+      return await fetch(TEST_URL + "userGroepschat/user/activiteit/" + user.user_ID).then(res1 => { return res1.json() });
+  };
+
   useEffect(() => {
-    axios
-      .get(TEST_URL + "userGroepschat/user/" + user.user_ID)
-      .then((response) => {
-        setConversations(response.data);
-      })
-      .catch((err) => console.log(err.response));
+    const getChat = async () => {
+      const chatList = await fetchChat();
+      setConversations([...conversations, chatList]);
+    };
+    getChat();
   }, []);
 
   const [open, setOpen] = useState(false);
@@ -44,19 +47,21 @@ const Chatpage = () => {
     setOpen(!open);
   }
 
+  console.log(conversations[0]);
+
   return (
     <div className={classes.pageContainer}>
-      {conversations.map((e) => (
+      {conversations[0] !== undefined && conversations[0].map((e) => (
         <Box
           key={e.groepschat_ID}
           onClick={() => {
             toggleChat();
-            setSelectedChat(e.groepschat_ID);
+            setSelectedChat(e.titel);
           }}
         >
           <ChatItem
-            aantalDeelnemers={3}
-            chatTitel={"title chat"}
+            aantalDeelnemers={e.groeps_aantal}
+            chatTitel={e.titel}
             timeLastChatSent={"13:14"}
           />
         </Box>
@@ -72,6 +77,7 @@ const Chatpage = () => {
           close={toggleChat}
           chatTitle={selectedChat}
           roomId={selectedChat}
+          naam={user.naam}
         />
       </Dialog>
     </div>
