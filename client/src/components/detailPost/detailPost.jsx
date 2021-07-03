@@ -110,7 +110,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 const DetailPost = ({ open, closeScreen, activiteit }) => {
   const classes = useStyles();
   const [ingeschreven, setIngeschreven] = useState();
-  const [aantalAanmeldingen, setAantalAanmeldingen] = useState();
+  const [aantalAanmeldingen, setAantalAanmeldingen] = useState(0);
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
@@ -270,18 +270,18 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
               </Typography>
             </Box>
           </Box>
-          {user !== null ? window.location.href === "http://localhost:3000/" &&
-              user.user_ID !== activiteit.user_ID &&
-              ingeschreven === false && (
-                <InschrijvenActiviteit
-                  user={user}
-                  activiteit={activiteit.activiteit_ID}
-                />
-              )
-             : (
-                <div></div>
-              )
-          }
+          {user !== null ? (
+            window.location.href === "http://localhost:3000/" &&
+            user.user_ID !== activiteit.user_ID &&
+            ingeschreven === false && (
+              <InschrijvenActiviteit
+                user={user}
+                activiteit={activiteit.activiteit_ID}
+              />
+            )
+          ) : (
+            <div></div>
+          )}
           {window.location.href === "http://localhost:3000/profiel" && (
             <AanmeldingenList activiteit_ID={activiteit.activiteit_ID} />
           )}

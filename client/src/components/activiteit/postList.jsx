@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -9,7 +9,6 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FlatList from "flatlist-react";
 import { Box, Button } from "@material-ui/core/";
 import DetailPost from "../detailPost/detailPost";
@@ -17,10 +16,9 @@ import MuiAlert from "@material-ui/lab/Alert";
 import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
 import GroupIcon from "@material-ui/icons/Group";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
-import FlagRoundedIcon from "@material-ui/icons/FlagRounded";
 import ReportProblemRoundedIcon from "@material-ui/icons/ReportProblemRounded";
 
-import { Menu, MenuItem, Snackbar } from "@material-ui/core";
+import { Snackbar } from "@material-ui/core";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -42,9 +40,6 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     position: "relative",
-  },
-  content: {
-    // marginBottom: theme.spacing(0),
   },
   snackBar: {
     marginBottom: theme.spacing(10),
