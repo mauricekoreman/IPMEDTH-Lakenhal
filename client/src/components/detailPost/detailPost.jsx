@@ -8,6 +8,7 @@ import AanmeldingenList from "./aanmeldingenList.jsx";
 import isJson from "../../contexts/isJson";
 import InschrijvenActiviteit from "../activiteit/inschrijvenActiviteit";
 import ActieButtons from "./ActieButtons.jsx";
+import GroupIcon from "@material-ui/icons/Group";
 
 import {
   Typography,
@@ -86,6 +87,21 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     margin: 0,
   },
+  aantalDeelnemersContainer: {
+    display: "flex",
+    alignItems: "center",
+    marginTop: theme.spacing(3),
+
+    "& p": {
+      fontSize: "1.2rem",
+      display: "flex",
+      marginLeft: theme.spacing(1),
+
+      "&:first-child": {
+        color: theme.palette.primary.main,
+      },
+    },
+  },
 }));
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -98,15 +114,41 @@ const Transition = forwardRef(function Transition(props, ref) {
 const DetailPost = ({ open, closeScreen, activiteit }) => {
   const classes = useStyles();
   const [ingeschreven, setIngeschreven] = useState();
+  const [aantalAanmeldingen, setAantalAanmeldingen] = useState();
+
+  const TEST_URL = "http://127.0.0.1:8000/api/";
+
   //pak de ingelogde user
   let user = localStorage.getItem("user");
   if (isJson(user)) {
     user = JSON.parse(user);
   }
 
+  const fetchAangemeldeUsers = async () => {
+    try {
+      const res = await fetch(
+        TEST_URL + "inschrijvingen/activiteitUser/" + activiteit.activiteit_ID
+      );
+      const aanmeldingen = await res.json();
+      setAantalAanmeldingen(aanmeldingen.length);
+    } catch (error) {
+      console.log(error.response);
+    }
+
+    // axios
+    //   .get(
+    //     TEST_URL + "inschrijvingen/activiteitUser/" + activiteit.activiteit_ID
+    //   )
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.response);
+    //   });
+  };
+
   //kijk of de user al ingescgreven is
   const fetchInschrijving = async () => {
-    const TEST_URL = "http://127.0.0.1:8000/api/";
     try {
       const res = await fetch(
         TEST_URL +
@@ -131,6 +173,7 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
   useEffect(() => {
     if (activiteit !== undefined) {
       fetchInschrijving();
+      fetchAangemeldeUsers();
     }
   }, [activiteit]);
   console.log(ingeschreven);
@@ -234,6 +277,16 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
                   {getDate(activiteit.created_at)}
                 </Typography>
               </Box>
+            </Box>
+
+            <Box className={classes.aantalDeelnemersContainer}>
+              <GroupIcon />
+              <Typography variant="body1">
+                Aantal deelnemers:{" "}
+                <Typography variant="body1">
+                  {aantalAanmeldingen} / {activiteit.max_aantal_deelnemers}
+                </Typography>
+              </Typography>
             </Box>
           </Box>
           {window.location.href === "http://localhost:3000/" &&
