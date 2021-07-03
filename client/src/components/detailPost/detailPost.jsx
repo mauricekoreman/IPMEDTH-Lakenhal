@@ -1,6 +1,5 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import CloseIcon from "@material-ui/icons/Close";
-// import Image from 'material-ui-image';
 import lakenhal_sw from "../../assets/img/lakenhal_sw.png";
 import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
@@ -108,9 +107,6 @@ const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-//zie detailrapportageclick functie van moderatorRapportage hoe je open en close
-//screen moet implementeren als parent variabelen
-//geef ook het activiteit mee waarop is gedrukt en je krijgt de juiste detail post te zien
 const DetailPost = ({ open, closeScreen, activiteit }) => {
   const classes = useStyles();
   const [ingeschreven, setIngeschreven] = useState();
@@ -134,17 +130,6 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
     } catch (error) {
       console.log(error.response);
     }
-
-    // axios
-    //   .get(
-    //     TEST_URL + "inschrijvingen/activiteitUser/" + activiteit.activiteit_ID
-    //   )
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
   };
 
   //kijk of de user al ingescgreven is
@@ -159,7 +144,6 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
       );
       const ingeschreven = await res.json();
       setIngeschreven(ingeschreven);
-      console.log(ingeschreven);
     } catch (error) {
       console.log("user niet ingeschreven");
     }
@@ -176,7 +160,6 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
       fetchAangemeldeUsers();
     }
   }, [activiteit]);
-  console.log(ingeschreven);
   return (
     <Dialog
       fullScreen
@@ -226,14 +209,12 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
                   <Avatar
                     alt="Profiel foto"
                     className={classes.profilePicture}
-                    // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
                     src={pf}
                   ></Avatar>
                 ) : (
                   <Avatar
                     alt="Profiel foto"
                     className={classes.profilePicture}
-                    // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
                     src={
                       "http://localhost:8000/storage/profiel_foto/" +
                       activiteit.profiel_foto
