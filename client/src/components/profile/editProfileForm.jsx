@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submitButton: {},
   lastContainer: {
-    marginTop: theme.spacing(6)
+    marginTop: theme.spacing(6),
   },
 }));
 
@@ -74,9 +74,8 @@ const EditProfileForm = ({ user, onReload, closeDialog }) => {
 
   return (
     <Container maxWidth="xs">
-
       <ProfielFotoForm user={user} onReload={onReload} />
-      
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.topButtons}>
           <Box className={classes.cancelButton}>
@@ -107,10 +106,9 @@ const EditProfileForm = ({ user, onReload, closeDialog }) => {
             "http://localhost:8000/storage/profiel_foto/" + user.profiel_foto
           }
           className={classes.profilePicture}
-          alt="Profiel foto"
+          alt={user.naam[0]}
         />
 
-        
         <Grid container direction="column">
           <Box className={classes.subContainer}>
             <Controller
