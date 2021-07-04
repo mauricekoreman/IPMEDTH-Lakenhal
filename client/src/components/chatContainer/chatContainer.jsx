@@ -90,7 +90,7 @@ const ChatContainer = ({ close, chatTitle, roomId, naam }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    sendMessage(newMessage);
+    sendMessage(newMessage, naam);
     setNewMessage("");
   }
 
@@ -134,7 +134,6 @@ const ChatContainer = ({ close, chatTitle, roomId, naam }) => {
 
       <form onSubmit={handleSubmit} className={classes.form}>
         <input
-          sender={naam}
           value={newMessage}
           onChange={handleChange}
           className={classes.inputField}
