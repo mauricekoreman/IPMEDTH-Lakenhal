@@ -10,6 +10,14 @@ const useChat = (roomId) => {
   const socketRef = useRef();
 
   useEffect(() => {
+    if(Object.keys(localStorage).includes(roomId)){
+      let storedMesagge = localStorage.getItem(roomId);
+      if(isJson(storedMesagge)){
+        storedMesagge = JSON.parse(storedMesagge);
+      }
+      storedMesagge.map((message) => setMessages((messages) => [...messages, message]));
+    }
+    
     // create websocket connection
     socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
       query: { roomId },
@@ -24,13 +32,6 @@ const useChat = (roomId) => {
       setMessages((messages) => [...messages, incomingMessage]);
     });
   
-    if(Object.keys(localStorage).includes(roomId)){
-      let storedMesagge = localStorage.getItem(roomId);
-      if(isJson(storedMesagge)){
-        storedMesagge = JSON.parse(storedMesagge);
-      }
-      storedMesagge.map((message) => setMessages((messages) => [...messages, message]));
-    }
     // Destroys the socket reference
     // when the connection is closed
     return () => {    
@@ -40,22 +41,19 @@ const useChat = (roomId) => {
   
   // sends message to the server chat
   // forwards it to all users in the same room
-  const sendMessage = (messageBody, naam) => {
+  const sendMessage = (messageBody, naam, time) => {
     console.log(messageBody)
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
       body: messageBody,
       senderId: socketRef.current.id,
       naam: naam,
+      time: time,
     });
-    // storeMessage();
   };
 
-  // const storeMessage = () => {
-    useEffect(() => {
-      localStorage.setItem(roomId, JSON.stringify(messages));
-    }, [roomId, messages]);
-
-  // }
+  useEffect(() => {
+    localStorage.setItem(roomId, JSON.stringify(messages));
+  }, [roomId, messages]);
 
   return { messages, sendMessage };
 };

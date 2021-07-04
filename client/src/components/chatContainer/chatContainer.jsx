@@ -83,6 +83,9 @@ const ChatContainer = ({ close, chatTitle, roomId, naam }) => {
   const [newMessage, setNewMessage] = useState("");
 
   const { messages, sendMessage } = useChat(roomId);
+    
+  let today = new Date(),
+  time = today.getHours() + ':' + today.getMinutes();
 
   function handleChange(e) {
     setNewMessage(e.target.value);
@@ -90,7 +93,7 @@ const ChatContainer = ({ close, chatTitle, roomId, naam }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    sendMessage(newMessage, naam);
+    sendMessage(newMessage, naam, time);
     setNewMessage("");
   }
 
@@ -125,7 +128,7 @@ const ChatContainer = ({ close, chatTitle, roomId, naam }) => {
                 {message.body}
               </Typography>
               <Typography variant="caption" className={classes.sender}>
-                {naam}
+                {message.naam}
               </Typography>
             </div>
           );

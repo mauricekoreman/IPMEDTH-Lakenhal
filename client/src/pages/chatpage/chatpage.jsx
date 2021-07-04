@@ -23,6 +23,7 @@ const Chatpage = () => {
 
   const [conversations, setConversations] = useState([]);
   const [selectedChat, setSelectedChat] = useState();
+  const [time, setTime] = useState([]);
 
   let user = currentUser;
   if (isJson(currentUser)) user = JSON.parse(currentUser);
@@ -30,7 +31,22 @@ const Chatpage = () => {
   const TEST_URL = "http://localhost:8000/api/";
 
   const fetchChat = async () => {
-      return await fetch(TEST_URL + "userGroepschat/user/activiteit/" + user.user_ID).then(res1 => { return res1.json() });
+    return await fetch(TEST_URL + "userGroepschat/user/activiteit/" + user.user_ID).then(res1 => { return res1.json() });
+  };
+
+  const fetchTime = async () => {
+    if(await conversations[0] !== undefined){
+      let chatTime = {}
+      let chatTimes = []
+      conversations[0].forEach((conversation) => {
+        let times = JSON.parse(localStorage.getItem(conversation.titel));
+        let times2 = times.slice(-1)[0].time;
+        let titel = conversation.titel;
+        chatTime[titel] = times2;
+      });
+      chatTimes.push(chatTime);
+      return chatTimes;
+    } 
   };
 
   useEffect(() => {
@@ -41,17 +57,27 @@ const Chatpage = () => {
     getChat();
   }, []);
 
+  useEffect(() => {
+    const getTime = async () => {
+      const chatTimes = await fetchTime();
+      setTime(chatTimes);
+    };
+    if (conversations && conversations.length) {
+      getTime();
+    }
+  }, [conversations]);
+
   const [open, setOpen] = useState(false);
 
   function toggleChat() {
     setOpen(!open);
-  }
-
-  console.log(conversations[0]);
+  } 
 
   return (
     <div className={classes.pageContainer}>
+
       {conversations[0] !== undefined && conversations[0].map((e) => (
+              
         <Box
           key={e.groepschat_ID}
           onClick={() => {
@@ -62,7 +88,7 @@ const Chatpage = () => {
           <ChatItem
             aantalDeelnemers={e.groeps_aantal}
             chatTitel={e.titel}
-            timeLastChatSent={"13:14"}
+            timeLastChatSent={time[0][e.titel]}
           />
         </Box>
       ))}
