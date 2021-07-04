@@ -71,13 +71,15 @@ const Chatpage = () => {
 
   function toggleChat() {
     setOpen(!open);
+    if (open) {
+      window.location.reload();
+    }
   } 
 
   return (
     <div className={classes.pageContainer}>
 
-      {conversations[0] !== undefined && conversations[0].map((e) => (
-              
+      {conversations[0] !== undefined && time[0] !== undefined && conversations[0].map((e) => (
         <Box
           key={e.groepschat_ID}
           onClick={() => {
