@@ -17,7 +17,7 @@ import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
 import GroupIcon from "@material-ui/icons/Group";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import ReportProblemRoundedIcon from "@material-ui/icons/ReportProblemRounded";
-import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActionArea from "@material-ui/core/CardActionArea";
 
 import { Snackbar } from "@material-ui/core";
 
@@ -37,7 +37,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: red[500],
   },
   container: {
-    paddingTop: "30px",
+    "&:not(:last-child)": {
+      marginBottom: theme.spacing(3),
+    },
   },
   appBar: {
     position: "relative",
@@ -75,14 +77,14 @@ const PostList = ({ values }) => {
   const classes = useStyles();
   const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false);
   const [detailActiviteit, setDetailActiviteit] = useState([]);
-  const [detailActiviteitRapportage, setDetailActiviteitRapportage] = useState(false);
+  const [detailActiviteitRapportage, setDetailActiviteitRapportage] =
+    useState(false);
 
   const activiteitClick = (activiteit, rapportage = false) => {
-    if(rapportage){
-      setDetailActiviteitRapportage(true)
-    }
-    else{
-      setDetailActiviteitRapportage(false)
+    if (rapportage) {
+      setDetailActiviteitRapportage(true);
+    } else {
+      setDetailActiviteitRapportage(false);
     }
     setDetailActiviteitOpen(!detailActiviteitOpen);
     setDetailActiviteit(activiteit);
@@ -94,8 +96,8 @@ const PostList = ({ values }) => {
   }
 
   const renderPost = (valuesOfList, idx) => {
-    console.log(valuesOfList.created_at)
-    console.log(valuesOfList.titel)
+    console.log(valuesOfList.created_at);
+    console.log(valuesOfList.titel);
     return (
       <div className={classes.container} key={idx}>
         <Card className={classes.root}>
@@ -122,7 +124,7 @@ const PostList = ({ values }) => {
               <IconButton
                 fontSize="small"
                 onClick={() => {
-                  activiteitClick(valuesOfList, true)
+                  activiteitClick(valuesOfList, true);
                 }}
                 aria-label="settings"
               >
@@ -133,9 +135,10 @@ const PostList = ({ values }) => {
             subheader={valuesOfList.categorie}
           />
           <CardActionArea
-          onClick={() => {
-            activiteitClick(valuesOfList);
-          }}>
+            onClick={() => {
+              activiteitClick(valuesOfList);
+            }}
+          >
             <CardMedia
               className={classes.media}
               // image={`data:image/png;base64, ${valuesOfList.afbeelding}`}
