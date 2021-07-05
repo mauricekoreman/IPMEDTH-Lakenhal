@@ -8,6 +8,8 @@ import { Grid, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    width: '80%',
+    margin: '0 auto',
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(7),
   },
@@ -53,14 +55,10 @@ const Homepage = () => {
 
   return (
     <div>
-      <Grid container className={classes.container} spacing={3}>
-        <Grid item xs={1}></Grid>
-
-        <Grid item xs={10}>
+      <Grid container className={classes.container}> 
+        <Grid item xs={12}>
           <PostList values={values} />
         </Grid>
-
-        <Grid item xs={1}></Grid>
       </Grid>
 
       <Fab
