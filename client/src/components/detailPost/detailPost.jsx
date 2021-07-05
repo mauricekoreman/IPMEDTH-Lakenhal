@@ -8,6 +8,7 @@ import isJson from "../../contexts/isJson";
 import InschrijvenActiviteit from "../activiteit/inschrijvenActiviteit";
 import ActieButtons from "./ActieButtons.jsx";
 import GroupIcon from "@material-ui/icons/Group";
+import MuiAlert from "@material-ui/lab/Alert";
 
 import {
   Typography,
@@ -20,7 +21,12 @@ import {
   Slide,
   Dialog,
   Chip,
+  Snackbar
 } from "@material-ui/core";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -107,10 +113,12 @@ const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DetailPost = ({ open, closeScreen, activiteit }) => {
+const DetailPost = ({ open, closeScreen, activiteit, rapporteerPost = false }) => {
   const classes = useStyles();
   const [ingeschreven, setIngeschreven] = useState();
   const [aantalAanmeldingen, setAantalAanmeldingen] = useState(0);
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const [rapportageSuccesvol, setRapportageSuccesvol] = useState(false);
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
@@ -153,6 +161,18 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
     const splitDate = date.split(/[-:.T]/);
     return splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0];
   }
+
+  const openSnackBar = (succesVolRapportage) => {
+    setSnackBarOpen(true);
+    setRapportageSuccesvol(succesVolRapportage);
+  };
+
+  const closeSnackBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackBarOpen(false);
+  };
 
   useEffect(() => {
     if (activiteit !== undefined) {
@@ -276,13 +296,39 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
               </Typography>
             </Box>
           </Box>
+          <Snackbar
+            className={classes.snackBar}
+            open={snackBarOpen}
+            autoHideDuration={3000}
+            onClose={closeSnackBar}
+          >
+            {rapportageSuccesvol ? (
+              <Alert onClose={closeSnackBar} severity="success">
+                Rapportage succesvol!
+              </Alert>
+            ) : (
+              <Alert onClose={closeSnackBar} severity="error">
+                Al gerapporteerd!
+              </Alert>
+            )}
+          </Snackbar>
           {user !== null ? (
             window.location.href === "http://localhost:3000/" &&
             user.user_ID !== activiteit.user_ID &&
-            ingeschreven === false && (
+            ingeschreven === false && !rapporteerPost ? (
               <InschrijvenActiviteit
                 user={user}
                 activiteit={activiteit.activiteit_ID}
+              />
+            )
+            :
+            (
+              <ActieButtons
+                close={closeScreen}
+                user={activiteit.user_ID}
+                activiteit={activiteit.activiteit_ID}
+                rapporteerPost={rapporteerPost}
+                openSnackBar={openSnackBar}
               />
             )
           ) : (
