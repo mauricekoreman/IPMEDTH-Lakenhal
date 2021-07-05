@@ -39,12 +39,6 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
-  profilePicture: {
-    [theme.breakpoints.up('lg')]: {
-      width: '90px',
-      height: '90px'
-    },
-  },
   containerCard: {
     "&:not(:last-child)": {
       marginBottom: theme.spacing(3),
@@ -82,26 +76,52 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(15),
-    width: '90%'
+    width: '90%',
+    [theme.breakpoints.up('xl')]: {
+      width: '80%'
+    },
   },
   gridItem: {
     display: 'flex',
     margin: '0 auto'
   },
+  profilePicture: {
+    [theme.breakpoints.up('md')]: {
+      width: '90px',
+      height: '90px'
+    },
+  },
   titleCard: {
+    [theme.breakpoints.up('md')]: {
+      fontSize: '26px'
+    },
     [theme.breakpoints.up('lg')]: {
       fontSize: '34px'
     },
   },
   subheaderCard:{
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up('md')]: {
       fontSize: '24px'
     },
   },
   contentText: {
+    [theme.breakpoints.up('md')]: {
+      fontSize: '18px',
+      height: '100px'
+    },
     [theme.breakpoints.up('lg')]: {
       fontSize: '18px',
       height: '100px'
+    },
+  },
+  cardHeader: {
+    [theme.breakpoints.up('lg')]: {
+      height: '180px'
+    },
+  },
+  informatieButton: {
+    [theme.breakpoints.up('md')]: {
+      fontSize: '20px'
     },
   }
 }));
@@ -137,6 +157,7 @@ const PostList = ({ values }) => {
         <Grid item xs={12} sm={8} md={6} lg={4} className={classes.gridItem}>
         <Card className={classes.root}>
           <CardHeader
+            className={classes.cardHeader}
             avatar={
               valuesOfList.profiel_foto === null ? (
                 <Avatar
@@ -200,6 +221,7 @@ const PostList = ({ values }) => {
           </CardActionArea>
           <CardActions className={classes.cardActions}>
             <Button
+              className={classes.informatieButton}
               onClick={() => {
                 activiteitClick(valuesOfList);
               }}
@@ -211,7 +233,7 @@ const PostList = ({ values }) => {
 
             <Box className={classes.date}>
               <Box className={classes.aantalDeelnemers}>
-                <GroupIcon fontSize="small" />
+                <GroupIcon fontSize="small" className={classes.groepIcoon}/>
                 <Typography variant="body2">
                   {valuesOfList.max_aantal_deelnemers}
                 </Typography>
