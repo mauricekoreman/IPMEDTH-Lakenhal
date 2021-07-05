@@ -8,7 +8,7 @@ import { Grid, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(7),
     marginBottom: theme.spacing(7),
   },
   fabPosition: {
@@ -42,9 +42,9 @@ const Homepage = () => {
       .catch((error) => {
         console.log(error.response);
       });
-    if (refresh) {
-      window.location.reload();
-    }
+    // if (refresh) {
+    //   window.location.reload();
+    // }
   };
 
   useEffect(() => {

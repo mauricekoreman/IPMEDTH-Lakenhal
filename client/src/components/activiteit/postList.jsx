@@ -96,8 +96,6 @@ const PostList = ({ values }) => {
   }
 
   const renderPost = (valuesOfList, idx) => {
-    console.log(valuesOfList.created_at);
-    console.log(valuesOfList.titel);
     return (
       <div className={classes.container} key={idx}>
         <Card className={classes.root}>
@@ -139,15 +137,16 @@ const PostList = ({ values }) => {
               activiteitClick(valuesOfList);
             }}
           >
-            <CardMedia
-              className={classes.media}
-              // image={`data:image/png;base64, ${valuesOfList.afbeelding}`}
-              image={
-                "http://localhost:8000/storage/profiel_foto/" +
-                valuesOfList.afbeelding
-              }
-              title=""
-            />
+            {valuesOfList.afbeelding != null && (
+              <CardMedia
+                className={classes.media}
+                image={
+                  "http://localhost:8000/storage/profiel_foto/" +
+                  valuesOfList.afbeelding
+                }
+                title=""
+              />
+            )}
             <CardContent className={classes.content}>
               <Typography
                 className={classes.contentText}
@@ -197,7 +196,7 @@ const PostList = ({ values }) => {
       <FlatList
         list={values}
         renderItem={renderPost}
-        renderWhenEmpty={() => <div>List is empty!</div>}
+        renderWhenEmpty={() => <></>}
         renderOnScroll
         reversed
       />

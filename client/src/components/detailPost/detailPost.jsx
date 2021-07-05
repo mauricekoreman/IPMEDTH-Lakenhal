@@ -21,7 +21,7 @@ import {
   Slide,
   Dialog,
   Chip,
-  Snackbar
+  Snackbar,
 } from "@material-ui/core";
 
 function Alert(props) {
@@ -83,12 +83,14 @@ const useStyles = makeStyles((theme) => ({
   topImage: {
     width: "100%",
     height: theme.spacing(22),
+    objectFit: "cover",
     padding: 0,
     margin: 0,
   },
   topImageAanmeldingPage: {
     width: "100%",
     height: theme.spacing(13),
+    objectFit: "cover",
     padding: 0,
     margin: 0,
   },
@@ -113,8 +115,13 @@ const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DetailPost = ({ open, closeScreen, activiteit, rapporteerPost = false }) => {
-  console.log(rapporteerPost)
+const DetailPost = ({
+  open,
+  closeScreen,
+  activiteit,
+  rapporteerPost = false,
+}) => {
+  console.log(rapporteerPost);
   const classes = useStyles();
   const [ingeschreven, setIngeschreven] = useState();
   const [aantalAanmeldingen, setAantalAanmeldingen] = useState(0);
@@ -206,25 +213,26 @@ const DetailPost = ({ open, closeScreen, activiteit, rapporteerPost = false }) =
 
       {open && (
         <Box>
-          {window.location.href !== "http://localhost:3000/profiel" ? (
-            <img
-              className={classes.topImage}
-              src={
-                "http://localhost:8000/storage/profiel_foto/" +
-                activiteit.afbeelding
-              }
-              alt="activiteit afbeelding"
-            />
-          ) : (
-            <img
-              className={classes.topImageAanmeldingPage}
-              src={
-                "http://localhost:8000/storage/profiel_foto/" +
-                activiteit.afbeelding
-              }
-              alt="activiteit afbeelding"
-            />
-          )}
+          {activiteit.afbeelding != null &&
+            (window.location.href !== "http://localhost:3000/profiel" ? (
+              <img
+                className={classes.topImage}
+                src={
+                  "http://localhost:8000/storage/profiel_foto/" +
+                  activiteit.afbeelding
+                }
+                alt="activiteit afbeelding"
+              />
+            ) : (
+              <img
+                className={classes.topImageAanmeldingPage}
+                src={
+                  "http://localhost:8000/storage/profiel_foto/" +
+                  activiteit.afbeelding
+                }
+                alt="activiteit afbeelding"
+              />
+            ))}
           <Box className={classes.detailContainer}>
             <Box className={classes.headerDetail}>
               <Box className={classes.left}>
@@ -313,31 +321,33 @@ const DetailPost = ({ open, closeScreen, activiteit, rapporteerPost = false }) =
               </Alert>
             )}
           </Snackbar>
-          {user !== null ? window.location.href === "http://localhost:3000/" &&
-              user.user_ID !== activiteit.user_ID &&
-              ingeschreven === false && rapporteerPost === false && (
-                <InschrijvenActiviteit
-                  user={user}
-                  activiteit={activiteit.activiteit_ID}
-                />
-              )
-             : (
-                <div></div>
-              )
-          }
-           {user !== null ?
+          {user !== null ? (
             window.location.href === "http://localhost:3000/" &&
             user.user_ID !== activiteit.user_ID &&
-            ingeschreven === false && rapporteerPost === true && (
+            ingeschreven === false &&
+            rapporteerPost === false && (
+              <InschrijvenActiviteit
+                user={user}
+                activiteit={activiteit.activiteit_ID}
+              />
+            )
+          ) : (
+            <div></div>
+          )}
+          {user !== null ? (
+            window.location.href === "http://localhost:3000/" &&
+            user.user_ID !== activiteit.user_ID &&
+            ingeschreven === false &&
+            rapporteerPost === true && (
               <ActieButtons
-              close={closeScreen}
-              user={activiteit.user_ID}
-              activiteit={activiteit.activiteit_ID}
-              rapporteerPost={rapporteerPost}
-              openSnackBar={openSnackBar}
-            />
-            )    
-            : (
+                close={closeScreen}
+                user={activiteit.user_ID}
+                activiteit={activiteit.activiteit_ID}
+                rapporteerPost={rapporteerPost}
+                openSnackBar={openSnackBar}
+              />
+            )
+          ) : (
             <div></div>
           )}
           {window.location.href === "http://localhost:3000/profiel" && (
