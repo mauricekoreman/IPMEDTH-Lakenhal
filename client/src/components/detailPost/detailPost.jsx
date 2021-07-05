@@ -114,6 +114,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 });
 
 const DetailPost = ({ open, closeScreen, activiteit, rapporteerPost = false }) => {
+  console.log(rapporteerPost)
   const classes = useStyles();
   const [ingeschreven, setIngeschreven] = useState();
   const [aantalAanmeldingen, setAantalAanmeldingen] = useState(0);
@@ -312,26 +313,31 @@ const DetailPost = ({ open, closeScreen, activiteit, rapporteerPost = false }) =
               </Alert>
             )}
           </Snackbar>
-          {user !== null ? (
+          {user !== null ? window.location.href === "http://localhost:3000/" &&
+              user.user_ID !== activiteit.user_ID &&
+              ingeschreven === false && rapporteerPost === false && (
+                <InschrijvenActiviteit
+                  user={user}
+                  activiteit={activiteit.activiteit_ID}
+                />
+              )
+             : (
+                <div></div>
+              )
+          }
+           {user !== null ?
             window.location.href === "http://localhost:3000/" &&
             user.user_ID !== activiteit.user_ID &&
-            ingeschreven === false && !rapporteerPost ? (
-              <InschrijvenActiviteit
-                user={user}
-                activiteit={activiteit.activiteit_ID}
-              />
-            )
-            :
-            (
+            ingeschreven === false && rapporteerPost === true && (
               <ActieButtons
-                close={closeScreen}
-                user={activiteit.user_ID}
-                activiteit={activiteit.activiteit_ID}
-                rapporteerPost={rapporteerPost}
-                openSnackBar={openSnackBar}
-              />
-            )
-          ) : (
+              close={closeScreen}
+              user={activiteit.user_ID}
+              activiteit={activiteit.activiteit_ID}
+              rapporteerPost={rapporteerPost}
+              openSnackBar={openSnackBar}
+            />
+            )    
+            : (
             <div></div>
           )}
           {window.location.href === "http://localhost:3000/profiel" && (
