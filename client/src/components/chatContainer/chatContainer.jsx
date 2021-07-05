@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChatContainer = ({ close, chatTitle, roomId, naam }) => {
+const ChatContainer = ({ close, chatTitle, roomId, naam}) => {
   const classes = useStyles();
   const [newMessage, setNewMessage] = useState("");
 

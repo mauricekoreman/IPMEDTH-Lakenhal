@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles, Typography } from "@material-ui/core";
+import useChats from "../../hooks/useChats";
 
 const useStyles = makeStyles((theme) => ({
   chatContainer: {
@@ -40,6 +41,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers }) => {
+  const { messages } = useChats(chatTitel);
+  const newMessage = messages.reduce((counter, obj) => {
+    if (obj.chat === chatTitel) counter += 1
+    return counter;
+  }, 0); 
   const classes = useStyles();
   return (
     <div className={classes.chatContainer}>
@@ -51,7 +57,7 @@ const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers }) => {
         </div>
         <div className={classes.chatRow}>
           <Typography variant="body1">{`${aantalDeelnemers} deelnemers`}</Typography>
-          <div className={classes.newMessage}>3</div>
+          <div className={classes.newMessage}>{newMessage}</div>
         </div>
       </div>
     </div>
