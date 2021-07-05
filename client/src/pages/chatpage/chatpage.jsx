@@ -26,10 +26,6 @@ const Chatpage = () => {
   const [conversations, setConversations] = useState([]);
   const [selectedChat, setSelectedChat] = useState();
   const [time, setTime] = useState([]);
-  const [titels, setTitels] = useState([]);
-  
-  const { messages } = useChats(titels);
-  console.log(messages);
 
   let user = currentUser;
   if (isJson(currentUser)) user = JSON.parse(currentUser);
@@ -44,17 +40,14 @@ const Chatpage = () => {
     if(await conversations[0] !== undefined){
       let chatTime = {};
       let chatTimes = [];
-      let titels = [];
       conversations[0].forEach((conversation) => {
         if (localStorage.getItem(conversation.titel) !== "[]" && localStorage.getItem(conversation.titel) !==  null) {
           let times = JSON.parse(localStorage.getItem(conversation.titel));
           let times2 = times.slice(-1)[0].time;
           let titel = conversation.titel;
-          titels.push(titel)
           chatTime[titel] = times2;
         }
       });
-      setTitels(titels);
       chatTimes.push(chatTime);
       return chatTimes;
     } 

@@ -7,7 +7,7 @@ const SOCKET_SERVER_URL = "http://localhost:4000";
 const useChat = (roomIds) => {
   const [messages, setMessages] = useState([]);
   const socketRef = useRef();
-
+  
   useEffect(() => {
     // create websocket connection
     socketRef.current = socketIOClient(SOCKET_SERVER_URL, {

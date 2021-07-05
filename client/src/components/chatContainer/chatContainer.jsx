@@ -118,7 +118,7 @@ const ChatContainer = ({ close, chatTitle, roomId, naam}) => {
           return (
             <div
               className={`${classes.message} ${
-                message.ownedByCurrentUser
+                message.naam === naam
                   ? classes.myMessage
                   : classes.receivedMessage
               }`}

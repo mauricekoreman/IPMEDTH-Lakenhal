@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles, Typography } from "@material-ui/core";
 import useChats from "../../hooks/useChats";
+import isJson from '../../contexts/isJson';
 
 const useStyles = makeStyles((theme) => ({
   chatContainer: {
@@ -46,6 +47,20 @@ const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers }) => {
     if (obj.chat === chatTitel) counter += 1
     return counter;
   }, 0); 
+
+  let updateMessage = [];
+
+  if (messages.length !== 0) {
+    messages.forEach((obj) => {
+      console.log(obj.chat);
+      if (obj.chat === chatTitel){
+        updateMessage.push(messages);
+        localStorage.setItem(chatTitel, JSON.stringify(updateMessage[0]));
+      }
+    }); 
+  }
+
+  console.log(messages);
   const classes = useStyles();
   return (
     <div className={classes.chatContainer}>

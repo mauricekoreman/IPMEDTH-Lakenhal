@@ -14,13 +14,13 @@ io.on("connection", (socket) => {
   const { roomId } = socket.handshake.query;
   const { roomIds } = socket.handshake.query;
 
-  console.log([roomIds]);
-
   socket.join(roomId);
-  socket.join([roomId]);
+  socket.join(roomIds);
+  
   // listen for new messages
   socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
-    io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data);
+    console.log(data);
+    // io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data);
     io.in(roomIds).emit(NEW_CHAT_MESSAGE_EVENT, data);
   });
 
