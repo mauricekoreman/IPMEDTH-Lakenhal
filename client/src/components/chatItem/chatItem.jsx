@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Typography } from "@material-ui/core";
+import { makeStyles, Typography, Avatar } from "@material-ui/core";
 import useChats from "../../hooks/useChats";
 import isJson from '../../contexts/isJson';
 
@@ -41,17 +41,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers }) => {
+const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers, chatAfbeelding }) => {
   const { messages } = useChats(chatTitel);
   const newMessage = messages.reduce((counter, obj) => {
     if (obj.chat === chatTitel) counter += 1
     return counter;
   }, 0); 
-
-  window.addEventListener('storage', () => {
-    let storedMesagge = localStorage.getItem(chatTitel)
-    console.log(storedMesagge);
-  }, false);
 
   let updateMessage = [];
 
@@ -59,8 +54,6 @@ const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers }) => {
     messages.forEach((obj) => {
       console.log(obj.chat);
       if (obj.chat === chatTitel){
-        // updateMessage.push(JSON.parse(storedMesagge));
-        // console.log("update1" + JSON.stringify(updateMessage));
         updateMessage.push(messages);
         console.log("update2" + JSON.stringify(updateMessage));
         localStorage.setItem(chatTitel, JSON.stringify(updateMessage[0]));
@@ -68,11 +61,17 @@ const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers }) => {
     }); 
   }
 
-  console.log(messages);
+  console.log(chatAfbeelding);
   const classes = useStyles();
   return (
     <div className={classes.chatContainer}>
-      <div className={classes.chatImage}></div>
+      <div className={classes.chatImage}>          
+        <Avatar
+            className={classes.chatImage}
+            src={"http://localhost:8000/storage/profiel_foto/" + chatAfbeelding}
+            // alt="chat afbeelding"
+        />
+      </div>
       <div className={classes.rows}>
         <div className={classes.chatRow}>
           <Typography variant="h5">{chatTitel}</Typography>

@@ -22,6 +22,8 @@ const useChat = (roomIds) => {
       };
       setMessages((messages) => [...messages, incomingMessage]);
     });
+
+    console.log(localStorage.getItem(roomIds))
   
     // Destroys the socket reference
     // when the connection is closed

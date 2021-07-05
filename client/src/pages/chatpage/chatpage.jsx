@@ -94,6 +94,7 @@ const Chatpage = () => {
           <ChatItem
             aantalDeelnemers={e.groeps_aantal}
             chatTitel={e.titel}
+            chatAfbeelding={e.afbeelding}
             timeLastChatSent={time[0][e.titel]}
           />
         </Box>
