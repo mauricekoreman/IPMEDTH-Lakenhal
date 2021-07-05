@@ -79,7 +79,10 @@ const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers, chatAfbeeldin
         </div>
         <div className={classes.chatRow}>
           <Typography variant="body1">{`${aantalDeelnemers} deelnemers`}</Typography>
-          <div className={classes.newMessage}>{newMessage}</div>
+          {newMessage > 0 && (
+            <div className={classes.newMessage}>{newMessage}</div>
+          )}
+          
         </div>
       </div>
     </div>
