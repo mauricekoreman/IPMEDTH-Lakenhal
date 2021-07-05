@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logout from "../authentication/logout";
 
 import {
   List,
@@ -7,15 +8,25 @@ import {
   ListItemText,
   makeStyles,
   SwipeableDrawer,
+  Divider,
+  Button,
+  Box,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
   drawer: {
     width: 240,
+    display: "flex",
+    // justifyContent: "space-between",
+  },
+  buttonsContainer: {
+    width: "80%",
+    margin: "0 auto",
+    marginTop: "20px",
   },
 });
 
-const MenuDrawer = ({ openDrawer, toggleDrawer }) => {
+const MenuDrawer = ({ openDrawer, toggleDrawer, user }) => {
   const classes = useStyles();
   const itemList = [
     {
@@ -49,8 +60,37 @@ const MenuDrawer = ({ openDrawer, toggleDrawer }) => {
           );
         })}
       </List>
+      <Divider />
+      {user ? (
+        <Logout />
+      ) : (
+        <Box className={classes.buttonsContainer}>
+          <Button
+            component={Link}
+            to="/login"
+            variant="contained"
+            onClick={toggleDrawer}
+            color="primary"
+            fullWidth
+          >
+            Login
+          </Button>
+          <Button
+            component={Link}
+            to="/register"
+            onClick={toggleDrawer}
+            variant="outlined"
+            color="primary"
+            fullWidth
+            style={{ marginTop: "10px" }}
+          >
+            Registreer
+          </Button>
+        </Box>
+      )}
     </SwipeableDrawer>
   );
 };
+// style={{ width: "80%", margin: "0 auto", marginTop: "20px" }}
 
 export default MenuDrawer;
