@@ -81,6 +81,9 @@ const PostList = ({ values }) => {
     if(rapportage){
       setDetailActiviteitRapportage(true)
     }
+    else{
+      setDetailActiviteitRapportage(false)
+    }
     setDetailActiviteitOpen(!detailActiviteitOpen);
     setDetailActiviteit(activiteit);
   };
