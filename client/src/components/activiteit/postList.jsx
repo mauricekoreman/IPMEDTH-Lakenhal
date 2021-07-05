@@ -17,6 +17,7 @@ import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
 import GroupIcon from "@material-ui/icons/Group";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import ReportProblemRoundedIcon from "@material-ui/icons/ReportProblemRounded";
+import CardActionArea from '@material-ui/core/CardActionArea';
 
 import { Snackbar } from "@material-ui/core";
 
@@ -139,10 +140,11 @@ const PostList = ({ values }) => {
   };
 
   const renderPost = (valuesOfList, idx) => {
+    console.log(valuesOfList.created_at)
+    console.log(valuesOfList.titel)
     return (
       <div className={classes.container} key={idx}>
         <Card className={classes.root}>
-          {console.log(valuesOfList.profiel_foto)}
           <CardHeader
             avatar={
               valuesOfList.profiel_foto === null ? (
@@ -178,25 +180,30 @@ const PostList = ({ values }) => {
             title={valuesOfList.titel}
             subheader={valuesOfList.categorie}
           />
-          <CardMedia
-            className={classes.media}
-            // image={`data:image/png;base64, ${valuesOfList.afbeelding}`}
-            image={
-              "http://localhost:8000/storage/profiel_foto/" +
-              valuesOfList.afbeelding
-            }
-            title=""
-          />
-          <CardContent className={classes.content}>
-            <Typography
-              className={classes.contentText}
-              variant="body2"
-              color="textSecondary"
-              component="p"
-            >
-              {valuesOfList.beschrijving.substring(0, 200) + "..."}
-            </Typography>
-          </CardContent>
+          <CardActionArea
+          onClick={() => {
+            activiteitClick(valuesOfList);
+          }}>
+            <CardMedia
+              className={classes.media}
+              // image={`data:image/png;base64, ${valuesOfList.afbeelding}`}
+              image={
+                "http://localhost:8000/storage/profiel_foto/" +
+                valuesOfList.afbeelding
+              }
+              title=""
+            />
+            <CardContent className={classes.content}>
+              <Typography
+                className={classes.contentText}
+                variant="body2"
+                color="textSecondary"
+                component="p"
+              >
+                {valuesOfList.beschrijving.substring(0, 200) + "..."}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
           <CardActions className={classes.cardActions}>
             <Button
               onClick={() => {
@@ -237,6 +244,7 @@ const PostList = ({ values }) => {
         renderItem={renderPost}
         renderWhenEmpty={() => <div>List is empty!</div>}
         renderOnScroll
+        reversed
       />
       <Snackbar
         className={classes.snackBar}
