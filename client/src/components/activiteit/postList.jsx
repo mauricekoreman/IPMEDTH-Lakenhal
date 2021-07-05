@@ -75,57 +75,14 @@ const PostList = ({ values }) => {
   const classes = useStyles();
   const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false);
   const [detailActiviteit, setDetailActiviteit] = useState([]);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [snackBarOpen, setSnackBarOpen] = useState(false);
-  const [rapportageSuccesvol, setRapportageSuccesvol] = useState(false);
+  const [detailActiviteitRapportage, setDetailActiviteitRapportage] = useState(false);
 
-  const activiteitClick = (activiteit) => {
+  const activiteitClick = (activiteit, rapportage = false) => {
+    if(rapportage){
+      setDetailActiviteitRapportage(true)
+    }
     setDetailActiviteitOpen(!detailActiviteitOpen);
     setDetailActiviteit(activiteit);
-  };
-
-  const handleClose = (gerapporteerd = false, valuesOfList = null) => {
-    if (gerapporteerd === true) {
-      let userActiviteit = {
-        user_ID: valuesOfList.user_ID,
-        activiteit_ID: valuesOfList.activiteit_ID,
-      };
-      const setRapportage = async () => {
-        const res = await fetch(TEST_URL + "activiteit/rapporteer", {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(userActiviteit),
-        });
-        if (res.status === 201) {
-          openSnackBar(true);
-          console.log("rapportage succesvol");
-        }
-        if (res.status === 200) {
-          openSnackBar(false);
-          console.log("al gerapporteerd!");
-        }
-      };
-      setRapportage();
-      //rapporteer activiteit ophalen in back end checken of deze user dit activiteit al heeft gerapporteerd if true return
-
-      //else in de back end bij het activiteit +1 rapportage toevoegen
-    }
-    setAnchorEl(null);
-  };
-
-  const openSnackBar = (succesVolRapportage) => {
-    setSnackBarOpen(true);
-    setRapportageSuccesvol(succesVolRapportage);
-  };
-
-  const closeSnackBar = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setSnackBarOpen(false);
   };
 
   function getDate(date) {
@@ -162,7 +119,7 @@ const PostList = ({ values }) => {
               <IconButton
                 fontSize="small"
                 onClick={() => {
-                  handleClose(true, valuesOfList);
+                  activiteitClick(valuesOfList, true)
                 }}
                 aria-label="settings"
               >
@@ -238,26 +195,11 @@ const PostList = ({ values }) => {
         renderOnScroll
         reversed
       />
-      <Snackbar
-        className={classes.snackBar}
-        open={snackBarOpen}
-        autoHideDuration={3000}
-        onClose={closeSnackBar}
-      >
-        {rapportageSuccesvol ? (
-          <Alert onClose={closeSnackBar} severity="success">
-            Rapportage succesvol!
-          </Alert>
-        ) : (
-          <Alert onClose={closeSnackBar} severity="error">
-            Al gerapporteerd!
-          </Alert>
-        )}
-      </Snackbar>
       <DetailPost
         open={detailActiviteitOpen}
         closeScreen={activiteitClick}
         activiteit={detailActiviteit}
+        rapporteerPost={detailActiviteitRapportage}
       />
     </div>
   );
