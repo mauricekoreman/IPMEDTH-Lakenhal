@@ -15,6 +15,7 @@ const useChat = (roomId) => {
       if(isJson(storedMesagge)){
         storedMesagge = JSON.parse(storedMesagge);
       }
+      console.log(storedMesagge);
       storedMesagge.map((message) => setMessages((messages) => [...messages, message]));
     }
     

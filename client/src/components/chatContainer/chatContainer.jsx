@@ -115,23 +115,27 @@ const ChatContainer = ({ close, chatTitle, roomId, naam}) => {
 
       <Box className={classes.chatBox}>
         {messages.map((message, i) => {
-          return (
-            <div
+          if (message.chat === chatTitle) {
+            return (
+              <div
               className={`${classes.message} ${
                 message.naam === naam
-                  ? classes.myMessage
-                  : classes.receivedMessage
+                ? classes.myMessage
+                : classes.receivedMessage
               }`}
               key={i}
-            >
-              <Typography variant="body1" className={classes.text}>
-                {message.body}
-              </Typography>
-              <Typography variant="caption" className={classes.sender}>
-                {message.naam}
-              </Typography>
-            </div>
-          );
+              >
+                <div>              
+                  <Typography variant="body1" className={classes.text}>
+                    {message.body}
+                  </Typography>
+                  <Typography variant="caption" className={classes.sender}>
+                    {message.naam}
+                  </Typography>
+                </div>
+              </div>
+            );
+          }
         })}
       </Box>
 

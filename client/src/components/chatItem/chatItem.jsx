@@ -48,13 +48,21 @@ const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers }) => {
     return counter;
   }, 0); 
 
+  window.addEventListener('storage', () => {
+    let storedMesagge = localStorage.getItem(chatTitel)
+    console.log(storedMesagge);
+  }, false);
+
   let updateMessage = [];
 
-  if (messages.length !== 0) {
+  if (messages.length !== 0 ) {
     messages.forEach((obj) => {
       console.log(obj.chat);
       if (obj.chat === chatTitel){
+        // updateMessage.push(JSON.parse(storedMesagge));
+        // console.log("update1" + JSON.stringify(updateMessage));
         updateMessage.push(messages);
+        console.log("update2" + JSON.stringify(updateMessage));
         localStorage.setItem(chatTitel, JSON.stringify(updateMessage[0]));
       }
     }); 
