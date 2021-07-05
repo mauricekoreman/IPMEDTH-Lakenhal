@@ -34,7 +34,7 @@ const VerwijderActiviteit = ({ user, activiteit}) => {
         <Box display="flex" justifyContent="center" className={classes.button}>
             <Button
               variant="contained"
-              color="red"
+              color="primary"
               onClick={() => onSubmit((prev) => !prev)}
               data-testid="buttonTestInput"
             >
