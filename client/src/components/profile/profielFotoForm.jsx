@@ -1,16 +1,16 @@
-import React, {} from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Button, makeStyles } from "@material-ui/core";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
-  fotoForm:{
+  fotoForm: {
     position: "absolute",
     paddingTop: "170px",
   },
 }));
 
-const ProefielFotoForm = ({ user, onReload}) => {
+const ProefielFotoForm = ({ user, onReload }) => {
   const TEST_URL = "http://127.0.0.1:8000/api/";
   const classes = useStyles();
   const { handleSubmit, register } = useForm();
@@ -30,11 +30,14 @@ const ProefielFotoForm = ({ user, onReload}) => {
       .catch((error) => {
         console.log(error.response);
       });
-
   };
 
   return (
-    <form className={classes.fotoForm} onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+    <form
+      className={classes.fotoForm}
+      onSubmit={handleSubmit(onSubmit)}
+      encType="multipart/form-data"
+    >
       <Button component="label" color="primary" variant="contained">
         <input hidden type="file" {...register("profiel_foto")} />
         Kies foto

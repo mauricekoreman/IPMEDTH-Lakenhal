@@ -192,6 +192,7 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
                 "http://localhost:8000/storage/profiel_foto/" +
                 activiteit.afbeelding
               }
+              alt="activiteit afbeelding"
             />
           ) : (
             <img
@@ -200,6 +201,7 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
                 "http://localhost:8000/storage/profiel_foto/" +
                 activiteit.afbeelding
               }
+              alt="activiteit afbeelding"
             />
           )}
           <Box className={classes.detailContainer}>
@@ -239,7 +241,11 @@ const DetailPost = ({ open, closeScreen, activiteit }) => {
               </Box>
               <Box className={classes.right}>
                 {activiteit.lakenhal_activiteit && (
-                  <img src={lakenhal_sw} className={classes.lakenhalLogo} />
+                  <img
+                    src={lakenhal_sw}
+                    className={classes.lakenhalLogo}
+                    alt="Lakenhal logo"
+                  />
                 )}
               </Box>
             </Box>

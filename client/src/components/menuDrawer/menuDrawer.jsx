@@ -17,7 +17,6 @@ const useStyles = makeStyles({
   drawer: {
     width: 240,
     display: "flex",
-    // justifyContent: "space-between",
   },
   buttonsContainer: {
     width: "80%",
@@ -91,6 +90,5 @@ const MenuDrawer = ({ openDrawer, toggleDrawer, user }) => {
     </SwipeableDrawer>
   );
 };
-// style={{ width: "80%", margin: "0 auto", marginTop: "20px" }}
 
 export default MenuDrawer;

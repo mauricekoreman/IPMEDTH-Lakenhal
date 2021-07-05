@@ -203,7 +203,7 @@ const ProfileTab = ({ user, editProfile = true }) => {
           Interesses
         </Typography>
         <Box className={classes.chips}>
-          {user.interesses == "[]" || user.interesses == null
+          {user.interesses === "[]" || user.interesses == null
             ? interesses.items.map((interesse) => (
                 <Chip key={interesse} label={interesse} />
               ))
@@ -217,7 +217,7 @@ const ProfileTab = ({ user, editProfile = true }) => {
           Kenmerkende eigenschappen
         </Typography>
         <Box className={classes.chips}>
-          {user.eigenschappen == "[]" || user.eigenschappen == null
+          {user.eigenschappen === "[]" || user.eigenschappen == null
             ? eigenschappen.items.map((eigenschap) => (
                 <Chip key={eigenschap} label={eigenschap} />
               ))

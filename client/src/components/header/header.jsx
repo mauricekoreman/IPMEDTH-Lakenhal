@@ -5,13 +5,9 @@ import {
   makeStyles,
   Toolbar,
   Typography,
-  Box,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MenuDrawer from "../menuDrawer/menuDrawer";
-import Logout from "../authentication/logout";
 import { useAuth } from "../../contexts/authContext";
 import ExtraTabsHeader from "../header/extraTabsHeader";
 import { useLocation } from "react-router-dom";
@@ -61,14 +57,6 @@ const Header = ({ title }) => {
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
-          {/* {user ? (
-            <Logout />
-          ) : (
-            <Box>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Registreer</Link>
-            </Box>
-          )} */}
         </Toolbar>
       </AppBar>
 
