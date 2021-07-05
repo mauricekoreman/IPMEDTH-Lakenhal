@@ -346,7 +346,13 @@ const DetailPost = ({ open, closeScreen, activiteit, rapporteerPost = false }) =
           )}
 
           {window.location.href === "http://localhost:3000/profiel" && (
-            <AanmeldingenList activiteit_ID={activiteit.activiteit_ID} />
+            <div>
+              <AanmeldingenList activiteit_ID={activiteit.activiteit_ID} />
+              <VerwijderActiviteit
+                  user={user}
+                  activiteit={activiteit.activiteit_ID}
+                />
+            </div>
           )}
 
           {window.location.href === "http://localhost:3000/moderator" && (
