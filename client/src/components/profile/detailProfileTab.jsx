@@ -11,6 +11,7 @@ import {
   IconButton,
   Slide,
   Box,
+  Button
 } from "@material-ui/core";
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -21,9 +22,18 @@ const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(3),
   },
+  editButton: {
+    display: "block",
+    position: "fixed",
+    left: "0",
+    right: "0",
+    margin: "0 auto",
+    bottom: "1px",
+    width: "99%",
+  },
 }));
 
-const DetailProfileTab = ({ open, closeScreen, user }) => {
+const DetailProfileTab = ({ open, closeScreen, user, onSubmit }) => {
   const classes = useStyles();
   return (
     <Dialog
@@ -50,6 +60,14 @@ const DetailProfileTab = ({ open, closeScreen, user }) => {
       <Box className={classes.container}>
         <ProfileTab user={user} editProfile={false} />
       </Box>
+      <Button
+            className={classes.editButton}
+            variant="contained"
+            color="primary"
+            onClick={() =>  closeScreen(true)}
+          >
+            Accepteer aanmelding
+      </Button>
     </Dialog>
   );
 };
