@@ -74,9 +74,6 @@ const PostList = ({ values }) => {
   const classes = useStyles();
   const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false);
   const [detailActiviteit, setDetailActiviteit] = useState([]);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [snackBarOpen, setSnackBarOpen] = useState(false);
-  const [rapportageSuccesvol, setRapportageSuccesvol] = useState(false);
   const [detailActiviteitRapportage, setDetailActiviteitRapportage] = useState(false);
 
   const activiteitClick = (activiteit, rapportage = false) => {
@@ -85,18 +82,6 @@ const PostList = ({ values }) => {
     }
     setDetailActiviteitOpen(!detailActiviteitOpen);
     setDetailActiviteit(activiteit);
-  };
-
-  const openSnackBar = (succesVolRapportage) => {
-    setSnackBarOpen(true);
-    setRapportageSuccesvol(succesVolRapportage);
-  };
-
-  const closeSnackBar = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setSnackBarOpen(false);
   };
 
   function getDate(date) {
@@ -201,22 +186,6 @@ const PostList = ({ values }) => {
         renderWhenEmpty={() => <div>List is empty!</div>}
         renderOnScroll
       />
-      <Snackbar
-        className={classes.snackBar}
-        open={snackBarOpen}
-        autoHideDuration={3000}
-        onClose={closeSnackBar}
-      >
-        {rapportageSuccesvol ? (
-          <Alert onClose={closeSnackBar} severity="success">
-            Rapportage succesvol!
-          </Alert>
-        ) : (
-          <Alert onClose={closeSnackBar} severity="error">
-            Al gerapporteerd!
-          </Alert>
-        )}
-      </Snackbar>
       <DetailPost
         open={detailActiviteitOpen}
         closeScreen={activiteitClick}

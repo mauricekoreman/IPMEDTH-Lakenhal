@@ -299,7 +299,7 @@ const DetailPost = ({ open, closeScreen, activiteit, rapporteerPost = false }) =
           <Snackbar
             className={classes.snackBar}
             open={snackBarOpen}
-            autoHideDuration={3000}
+            autoHideDuration={1500}
             onClose={closeSnackBar}
           >
             {rapportageSuccesvol ? (
