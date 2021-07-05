@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Button, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { useAuth } from "../../contexts/authContext";
 import EditProfileForm from "../../components/profile/editProfileForm";
 import axios from "axios";

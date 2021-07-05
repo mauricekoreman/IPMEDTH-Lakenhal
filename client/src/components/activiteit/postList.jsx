@@ -133,12 +133,6 @@ const PostList = ({ values }) => {
     return splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0];
   }
 
-  const handleClick = (event) => {
-    console.log("hi");
-    setAnchorEl(event.currentTarget);
-    console.log(anchorEl);
-  };
-
   const renderPost = (valuesOfList, idx) => {
     console.log(valuesOfList.created_at)
     console.log(valuesOfList.titel)
@@ -151,14 +145,12 @@ const PostList = ({ values }) => {
                 <Avatar
                   alt="Profiel foto"
                   className={classes.profilePicture}
-                  // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
                   src={pf}
                 ></Avatar>
               ) : (
                 <Avatar
                   alt="Profiel foto"
                   className={classes.profilePicture}
-                  // src={`data:image/png;base64, ${valuesOfList.profiel_foto}`}
                   src={
                     "http://localhost:8000/storage/profiel_foto/" +
                     valuesOfList.profiel_foto
