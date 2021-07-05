@@ -10,7 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FlatList from "flatlist-react";
-import { Box, Button } from "@material-ui/core/";
+import { Box, Button, FormHelperText } from "@material-ui/core/";
 import DetailPost from "../detailPost/detailPost";
 import MuiAlert from "@material-ui/lab/Alert";
 import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
@@ -19,7 +19,10 @@ import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import ReportProblemRoundedIcon from "@material-ui/icons/ReportProblemRounded";
 import CardActionArea from "@material-ui/core/CardActionArea";
 
-import { Snackbar } from "@material-ui/core";
+import { 
+  Snackbar,
+  Grid
+} from "@material-ui/core";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -36,7 +39,13 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
-  container: {
+  profilePicture: {
+    [theme.breakpoints.up('lg')]: {
+      width: '90px',
+      height: '90px'
+    },
+  },
+  containerCard: {
     "&:not(:last-child)": {
       marginBottom: theme.spacing(3),
     },
@@ -69,6 +78,32 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(0.5),
     },
   },
+  container: {
+    margin: '0 auto',
+    marginTop: theme.spacing(10),
+    marginBottom: theme.spacing(15),
+    width: '90%'
+  },
+  gridItem: {
+    display: 'flex',
+    margin: '0 auto'
+  },
+  titleCard: {
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '34px'
+    },
+  },
+  subheaderCard:{
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '24px'
+    },
+  },
+  contentText: {
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '18px',
+      height: '100px'
+    },
+  }
 }));
 
 const TEST_URL = "http://127.0.0.1:8000/api/";
@@ -99,7 +134,7 @@ const PostList = ({ values }) => {
     console.log(valuesOfList.created_at);
     console.log(valuesOfList.titel);
     return (
-      <div className={classes.container} key={idx}>
+        <Grid item xs={12} sm={8} md={6} lg={4} className={classes.gridItem}>
         <Card className={classes.root}>
           <CardHeader
             avatar={
@@ -133,6 +168,10 @@ const PostList = ({ values }) => {
             }
             title={valuesOfList.titel}
             subheader={valuesOfList.categorie}
+            classes={{
+              title: classes.titleCard,
+              subheader: classes.subheaderCard
+            }}
           />
           <CardActionArea
             onClick={() => {
@@ -188,19 +227,21 @@ const PostList = ({ values }) => {
             </Box>
           </CardActions>
         </Card>
-      </div>
+        </Grid>
     );
   };
 
   return (
     <div>
-      <FlatList
-        list={values}
-        renderItem={renderPost}
-        renderWhenEmpty={() => <div>List is empty!</div>}
-        renderOnScroll
-        reversed
-      />
+      <Grid container spacing={3} className={classes.container}>
+          <FlatList
+            list={values}
+            renderItem={renderPost}
+            renderWhenEmpty={() => <div>List is empty!</div>}
+            renderOnScroll
+            reversed
+          />
+      </Grid>
       <DetailPost
         open={detailActiviteitOpen}
         closeScreen={activiteitClick}
