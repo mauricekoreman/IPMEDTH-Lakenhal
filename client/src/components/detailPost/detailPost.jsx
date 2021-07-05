@@ -6,6 +6,7 @@ import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import AanmeldingenList from "./aanmeldingenList.jsx";
 import isJson from "../../contexts/isJson";
 import InschrijvenActiviteit from "../activiteit/inschrijvenActiviteit";
+import VerwijderActiviteit from "../activiteit/verwijderActiviteit";
 import ActieButtons from "./ActieButtons.jsx";
 import GroupIcon from "@material-ui/icons/Group";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -188,6 +189,7 @@ const DetailPost = ({
       fetchAangemeldeUsers();
     }
   }, [activiteit]);
+
   return (
     <Dialog
       fullScreen
@@ -299,7 +301,7 @@ const DetailPost = ({
               <GroupIcon />
               <Typography variant="body1">
                 Aantal deelnemers:{" "}
-                <Typography variant="body1">
+                <Typography component={"span"} variant="body1">
                   {aantalAanmeldingen} / {activiteit.max_aantal_deelnemers}
                 </Typography>
               </Typography>
@@ -350,15 +352,35 @@ const DetailPost = ({
           ) : (
             <div></div>
           )}
+
           {window.location.href === "http://localhost:3000/profiel" && (
-            <AanmeldingenList activiteit_ID={activiteit.activiteit_ID} />
+            <div>
+              <AanmeldingenList activiteit_ID={activiteit.activiteit_ID} />
+              <VerwijderActiviteit
+                user={user}
+                activiteit={activiteit.activiteit_ID}
+              />
+            </div>
           )}
+
           {window.location.href === "http://localhost:3000/moderator" && (
             <ActieButtons
               closed={closeScreen}
               user={activiteit.user_ID}
               activiteit={activiteit.activiteit_ID}
             />
+          )}
+
+          {user !== null ? (
+            window.location.href === "http://localhost:3000/" &&
+            user.user_ID == activiteit.user_ID && (
+              <VerwijderActiviteit
+                user={user}
+                activiteit={activiteit.activiteit_ID}
+              />
+            )
+          ) : (
+            <div></div>
           )}
         </Box>
       )}

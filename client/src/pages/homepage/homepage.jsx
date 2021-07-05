@@ -4,12 +4,14 @@ import CreatePost from "../../components/activiteit/createpost";
 import PostList from "../../components/activiteit/postList";
 import axios from "axios";
 import Fab from "../../components/fab/fab";
-import { Grid, makeStyles } from "@material-ui/core";
+import { FormHelperText, Grid, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    margin: "0 auto",
     marginTop: theme.spacing(7),
     marginBottom: theme.spacing(7),
+    backgroundColor: "cyan",
   },
   fabPosition: {
     margin: 0,
@@ -53,16 +55,7 @@ const Homepage = () => {
 
   return (
     <div>
-      <Grid container className={classes.container} spacing={3}>
-        <Grid item xs={1}></Grid>
-
-        <Grid item xs={10}>
-          <PostList values={values} />
-        </Grid>
-
-        <Grid item xs={1}></Grid>
-      </Grid>
-
+      <PostList values={values} />
       <Fab
         position={classes.fabPosition}
         color={"primary"}
