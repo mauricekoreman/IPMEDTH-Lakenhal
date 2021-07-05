@@ -211,18 +211,9 @@ const CreatePost = ({ open, closeScreen, onReload }) => {
                   />
                 )}
               />
-              {/* <Button component="label" color="primary" variant="outlined"> */}
-              {/* <input
-                // hidden
-                type="file"
-                {...register("afbeelding")}
-                onChange={(e) => setFileName(e.target.files[0].name)}
-              /> */}
-
-              {/* </Button> */}
               <input
                 accept="image/*"
-                style={{ display: "none" }}
+                hidden
                 id="raised-button-file"
                 multiple
                 type="file"
