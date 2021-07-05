@@ -78,11 +78,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChatContainer = ({ close, chatTitle, roomId }) => {
+const ChatContainer = ({ close, chatTitle, roomId, naam}) => {
   const classes = useStyles();
   const [newMessage, setNewMessage] = useState("");
 
   const { messages, sendMessage } = useChat(roomId);
+    
+  let today = new Date(),
+  time = today.getHours() + ':' + today.getMinutes();
 
   function handleChange(e) {
     setNewMessage(e.target.value);
@@ -90,7 +93,7 @@ const ChatContainer = ({ close, chatTitle, roomId }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    sendMessage(newMessage);
+    sendMessage(newMessage, naam, time);
     setNewMessage("");
   }
 
@@ -106,29 +109,33 @@ const ChatContainer = ({ close, chatTitle, roomId }) => {
           >
             <CloseIcon />
           </IconButton>
-          <Typography variant="h6">{roomId}</Typography>
+          <Typography variant="h6">{chatTitle}</Typography>
         </Toolbar>
       </AppBar>
 
       <Box className={classes.chatBox}>
         {messages.map((message, i) => {
-          return (
-            <div
+          if (message.chat === chatTitle) {
+            return (
+              <div
               className={`${classes.message} ${
-                message.ownedByCurrentUser
-                  ? classes.myMessage
-                  : classes.receivedMessage
+                message.naam === naam
+                ? classes.myMessage
+                : classes.receivedMessage
               }`}
               key={i}
-            >
-              <Typography variant="body1" className={classes.text}>
-                {message.body}
-              </Typography>
-              <Typography variant="caption" className={classes.sender}>
-                Sender name
-              </Typography>
-            </div>
-          );
+              >
+                <div>              
+                  <Typography variant="body1" className={classes.text}>
+                    {message.body}
+                  </Typography>
+                  <Typography variant="caption" className={classes.sender}>
+                    {message.naam}
+                  </Typography>
+                </div>
+              </div>
+            );
+          }
         })}
       </Box>
 

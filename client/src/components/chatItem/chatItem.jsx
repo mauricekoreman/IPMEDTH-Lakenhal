@@ -1,5 +1,7 @@
 import React from "react";
-import { makeStyles, Typography } from "@material-ui/core";
+import { makeStyles, Typography, Avatar } from "@material-ui/core";
+import useChats from "../../hooks/useChats";
+import isJson from '../../contexts/isJson';
 
 const useStyles = makeStyles((theme) => ({
   chatContainer: {
@@ -39,11 +41,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers }) => {
+const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers, chatAfbeelding }) => {
+  const { messages } = useChats(chatTitel);
+  const newMessage = messages.reduce((counter, obj) => {
+    if (obj.chat === chatTitel) counter += 1
+    return counter;
+  }, 0); 
+
+  let updateMessage = [];
+
+  if (messages.length !== 0 ) {
+    messages.forEach((obj) => {
+      console.log(obj.chat);
+      if (obj.chat === chatTitel){
+        updateMessage.push(messages);
+        console.log("update2" + JSON.stringify(updateMessage));
+        localStorage.setItem(chatTitel, JSON.stringify(updateMessage[0]));
+      }
+    }); 
+  }
+
+  console.log(chatAfbeelding);
   const classes = useStyles();
   return (
     <div className={classes.chatContainer}>
-      <div className={classes.chatImage}></div>
+      <div className={classes.chatImage}>          
+        <Avatar
+            className={classes.chatImage}
+            src={"http://localhost:8000/storage/profiel_foto/" + chatAfbeelding}
+            // alt="chat afbeelding"
+        />
+      </div>
       <div className={classes.rows}>
         <div className={classes.chatRow}>
           <Typography variant="h5">{chatTitel}</Typography>
@@ -51,7 +79,10 @@ const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers }) => {
         </div>
         <div className={classes.chatRow}>
           <Typography variant="body1">{`${aantalDeelnemers} deelnemers`}</Typography>
-          <div className={classes.newMessage}>3</div>
+          {newMessage > 0 && (
+            <div className={classes.newMessage}>{newMessage}</div>
+          )}
+          
         </div>
       </div>
     </div>

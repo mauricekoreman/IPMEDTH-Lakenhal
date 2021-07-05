@@ -6,9 +6,11 @@ import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import AanmeldingenList from "./aanmeldingenList.jsx";
 import isJson from "../../contexts/isJson";
 import InschrijvenActiviteit from "../activiteit/inschrijvenActiviteit";
+import VerwijderActiviteit from "../activiteit/verwijderActiviteit";
 import ActieButtons from "./ActieButtons.jsx";
 import GroupIcon from "@material-ui/icons/Group";
 import MuiAlert from "@material-ui/lab/Alert";
+
 
 import {
   Typography,
@@ -181,6 +183,8 @@ const DetailPost = ({ open, closeScreen, activiteit, rapporteerPost = false }) =
       fetchAangemeldeUsers();
     }
   }, [activiteit]);
+
+  
   return (
     <Dialog
       fullScreen
@@ -340,9 +344,17 @@ const DetailPost = ({ open, closeScreen, activiteit, rapporteerPost = false }) =
             : (
             <div></div>
           )}
+
           {window.location.href === "http://localhost:3000/profiel" && (
-            <AanmeldingenList activiteit_ID={activiteit.activiteit_ID} />
+            <div>
+              <AanmeldingenList activiteit_ID={activiteit.activiteit_ID} />
+              <VerwijderActiviteit
+                  user={user}
+                  activiteit={activiteit.activiteit_ID}
+                />
+            </div>
           )}
+
           {window.location.href === "http://localhost:3000/moderator" && (
             <ActieButtons
               closed={closeScreen}
@@ -350,6 +362,20 @@ const DetailPost = ({ open, closeScreen, activiteit, rapporteerPost = false }) =
               activiteit={activiteit.activiteit_ID}
             />
           )}
+
+          {user !== null ? (
+            window.location.href === "http://localhost:3000/" &&
+            user.user_ID == activiteit.user_ID 
+            && (
+              <VerwijderActiviteit
+                user={user}
+                activiteit={activiteit.activiteit_ID}
+              />
+            )
+          ) : (
+            <div></div>
+          )}    
+
         </Box>
       )}
     </Dialog>
