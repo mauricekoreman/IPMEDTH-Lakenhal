@@ -231,7 +231,7 @@ const CreatePost = ({ open, closeScreen, onReload }) => {
                 <input
                   hidden
                   type="file"
-                  {...register("profiel_foto")}
+                  {...register("afbeelding")}
                   onChange={(e) => setFileName(e.target.files[0].name)}
                 />
                 {fileName == undefined ? "+ Kies foto" : fileName}
