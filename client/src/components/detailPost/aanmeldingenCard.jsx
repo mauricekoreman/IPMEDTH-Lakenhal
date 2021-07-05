@@ -35,8 +35,13 @@ const AanmeldingenCard = ({ aangemeldeUser }) => {
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
   const [detailProfileOpen, setDetailProfileOpen] = useState(false);
-  const detailProfileClick = () => {
+  
+  const detailProfileClick = (rapporteer = false) => {
     setDetailProfileOpen(!detailProfileOpen);
+    if(rapporteer){
+      handleSubmit(onSubmit)
+      openSnackBar()
+    }
   };
 
   const { handleSubmit } = useForm();
