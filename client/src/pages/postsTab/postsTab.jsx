@@ -44,7 +44,6 @@ const PostsTab = ({user}) => {
     setDetailPost(profielPost)
   }
   console.log(detailPost);
-  console.log(postList[0].profiel_foto);
   return (
     <Box>
       {postList.length ? 
