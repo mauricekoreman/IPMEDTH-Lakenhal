@@ -96,8 +96,6 @@ const PostList = ({ values }) => {
   }
 
   const renderPost = (valuesOfList, idx) => {
-    console.log(valuesOfList.created_at);
-    console.log(valuesOfList.titel);
     return (
       <div className={classes.container} key={idx}>
         <Card className={classes.root}>
