@@ -7,11 +7,9 @@ import Fab from "../../components/fab/fab";
 import { Grid, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  pageContainer: {
-    position: "relative",
-    display: "flex",
-    paddingTop: theme.spacing(10),
-    paddingBottom: theme.spacing(6),
+  container: {
+    marginTop: theme.spacing(10),
+    marginBottom: theme.spacing(7),
   },
   fabPosition: {
     margin: 0,
@@ -21,10 +19,6 @@ const useStyles = makeStyles((theme) => ({
     left: "auto",
     position: "fixed",
   },
-  container: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(7),
-  },
 }));
 
 const Homepage = () => {
@@ -32,7 +26,7 @@ const Homepage = () => {
   const activiteitData = [];
   const [maakActiviteitOpen, setMaakActiviteitOpen] = useState(false);
   const [values, setValues] = useState(activiteitData);
-  
+
   const maakActiviteitClick = () => {
     setMaakActiviteitOpen(!maakActiviteitOpen);
   };

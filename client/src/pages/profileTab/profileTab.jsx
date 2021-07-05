@@ -29,16 +29,28 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(2),
     paddingTop: theme.spacing(5),
   },
-  avatarContainer: {
+  topInfoContainer: {
     display: "flex",
     alignItems: "center",
     marginBottom: theme.spacing(4),
     marginTop: theme.spacing(2),
   },
-  profilePicture: {
+  avatarContainer: {
     width: theme.spacing(10),
     height: theme.spacing(10),
     marginRight: theme.spacing(2),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: theme.palette.grey[300],
+    borderRadius: "100%",
+  },
+  profilePicture: {
+    width: "100%",
+    height: "100%",
+  },
+  placeholderProfielPicture: {
+    fontSize: "1.5rem",
   },
   workContainer: {
     display: "flex",
@@ -64,23 +76,23 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   card: {
-    maxWidth: 345,
+    maxWidth: 400,
     marginBottom: theme.spacing(2),
     "&:last-child": {
-      marginBottom: theme.spacing(8)
-    }
+      marginBottom: theme.spacing(8),
+    },
   },
   cardMedia: {
     height: 140,
   },
   editButton: {
-    display: 'block',
-    position: 'fixed',
-    left: '0',
-    right: '0',
-    margin: '0 auto',
-    bottom: '56px',
-    width: '99%'
+    display: "block",
+    position: "fixed",
+    left: "0",
+    right: "0",
+    margin: "0 auto",
+    bottom: "56px",
+    width: "99%",
   },
 }));
 
@@ -88,7 +100,7 @@ const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ProfileTab = ({ user, editProfile=true}) => {
+const ProfileTab = ({ user, editProfile = true }) => {
   const classes = useStyles();
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -103,8 +115,8 @@ const ProfileTab = ({ user, editProfile=true}) => {
   const props = [
     {
       category: "Informatie",
-      bio: "voorbeeld biografie",
-      beroep: "voorbeeld beroep",
+      bio: "Bewerk je bio!",
+      beroep: "Welk beroep je doe?",
       profielfoto: pf,
     },
     {
@@ -122,11 +134,11 @@ const ProfileTab = ({ user, editProfile=true}) => {
     },
     {
       category: "interesses",
-      items: ["voorbeeld interesse"],
+      items: ["Welke interesses?"],
     },
     {
       category: "eigenschappen",
-      items: ["voorbeeld eigenschappen"],
+      items: ["Welke eigenschappen?"],
     },
   ];
 
@@ -147,22 +159,23 @@ const ProfileTab = ({ user, editProfile=true}) => {
 
   return (
     <Box className={classes.pageContainer} data-testid="testProfielTab">
-      <Box className={classes.avatarContainer}>
-        {user.profiel_foto != null ? (
-          <Avatar
-            alt="Profiel foto"
-            className={classes.profilePicture}
-            src={
-              "http://localhost:8000/storage/profiel_foto/" + user.profiel_foto
-            }
-          />
-        ) : (
-          <Avatar
-            alt="Profiel foto"
-            className={classes.profilePicture}
-            src={informatie.profielfoto}
-          />
-        )}
+      <Box className={classes.topInfoContainer}>
+        <Box className={classes.avatarContainer}>
+          {user.profiel_foto != null ? (
+            <Avatar
+              alt="Profiel foto"
+              className={classes.profilePicture}
+              src={
+                "http://localhost:8000/storage/profiel_foto/" +
+                user.profiel_foto
+              }
+            />
+          ) : (
+            <Typography className={classes.placeholderProfielPicture}>
+              {user.naam[0]}
+            </Typography>
+          )}
+        </Box>
         <Box>
           <Typography variant="h4" className={classes.name}>
             {user.naam}
@@ -190,13 +203,13 @@ const ProfileTab = ({ user, editProfile=true}) => {
           Interesses
         </Typography>
         <Box className={classes.chips}>
-          {user.interesses
-            ? Object.entries(Interesses).map(([key, value]) => {
-                return <Chip key={key} label={value} />;
-              })
-            : interesses.items.map((interesse) => (
+          {user.interesses === "[]" || user.interesses == null
+            ? interesses.items.map((interesse) => (
                 <Chip key={interesse} label={interesse} />
-              ))}
+              ))
+            : Object.entries(Interesses).map(([key, value]) => {
+                return <Chip key={key} label={value} />;
+              })}
         </Box>
       </Box>
       <Box className={classes.subContainer}>
@@ -204,13 +217,13 @@ const ProfileTab = ({ user, editProfile=true}) => {
           Kenmerkende eigenschappen
         </Typography>
         <Box className={classes.chips}>
-          {user.eigenschappen
-            ? Object.entries(Eigenschappen).map(([key, value]) => {
-                return <Chip key={key} label={value} />;
-              })
-            : eigenschappen.items.map((eigenschap) => (
+          {user.eigenschappen === "[]" || user.eigenschappen == null
+            ? eigenschappen.items.map((eigenschap) => (
                 <Chip key={eigenschap} label={eigenschap} />
-              ))}
+              ))
+            : Object.entries(Eigenschappen).map(([key, value]) => {
+                return <Chip key={key} label={value} />;
+              })}
         </Box>
       </Box>
 
@@ -240,22 +253,26 @@ const ProfileTab = ({ user, editProfile=true}) => {
           </Card>
         ))}
       </Box>
-      {editProfile &&
-      
-      <div>
-      <Button className={classes.editButton} variant="contained" color="primary" onClick={toggleDialog}>
-        Bewerk Profiel
-      </Button>
-      <Dialog
-        fullScreen
-        open={openDialog}
-        onClose={toggleDialog}
-        TransitionComponent={Transition}
-      >
-        <ProfileEditTab user={user} closeDialog={toggleDialog} />
-      </Dialog>
-      </div>
-      }
+      {editProfile && (
+        <div>
+          <Button
+            className={classes.editButton}
+            variant="contained"
+            color="primary"
+            onClick={toggleDialog}
+          >
+            Bewerk Profiel
+          </Button>
+          <Dialog
+            fullScreen
+            open={openDialog}
+            onClose={toggleDialog}
+            TransitionComponent={Transition}
+          >
+            <ProfileEditTab user={user} closeDialog={toggleDialog} />
+          </Dialog>
+        </div>
+      )}
     </Box>
   );
 };

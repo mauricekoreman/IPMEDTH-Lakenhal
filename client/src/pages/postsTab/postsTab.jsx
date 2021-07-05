@@ -43,8 +43,7 @@ const PostsTab = ({user}) => {
     console.log(profielPost)
     setDetailPost(profielPost)
   }
-  console.log(detailPost);
-
+  
   return (
     <Box>
       {postList.length ? 

@@ -81,7 +81,8 @@ const PostsTabCard = ({
           <Avatar
             alt="Profiel foto"
             className={classes.profilePicture}
-            src={`data:image/png;base64, ${profielfoto}`}
+            src={"http://localhost:8000/storage/profiel_foto/" +
+            profielfoto}
           />
           <Box className={classes.opdrachtCard}>
             <Typography
