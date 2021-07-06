@@ -59,9 +59,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     [theme.breakpoints.up('md')]: {
-      width: "calc(100% - 550px)",
-      bottom: "60px",
+      width: "600px",
+      bottom: "80px",
       position: "fixed",
+      right: 0,
+      left: "450px",
+      marginRight: "auto",
+      marginLeft: "auto",
     },
   },
   inputField: {

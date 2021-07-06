@@ -10,7 +10,7 @@ import useChats from "../../hooks/useChats";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
-    paddingTop: "6vh",
+    paddingTop: "12vh",
     paddingBottom: theme.spacing(6),
     [theme.breakpoints.up('md')]: {
       display: "flex",
