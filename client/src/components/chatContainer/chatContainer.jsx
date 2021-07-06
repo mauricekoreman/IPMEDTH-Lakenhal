@@ -6,6 +6,7 @@ import {
   IconButton,
   Typography,
   makeStyles,
+  Container,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import SendIcon from "@material-ui/icons/Send";
@@ -29,7 +30,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(2),
     overflow: "auto",
+    [theme.breakpoints.up('md')]: {
+      flexGrow: 0.8,
+    },
   },
+  
   message: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
@@ -53,6 +58,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    [theme.breakpoints.up('md')]: {
+      width: "calc(100% - 550px)",
+      bottom: "60px",
+      position: "fixed",
+    },
   },
   inputField: {
     border: "none",
@@ -112,44 +122,43 @@ const ChatContainer = ({ close, chatTitle, roomId, naam}) => {
           <Typography variant="h6">{chatTitle}</Typography>
         </Toolbar>
       </AppBar>
-
-      <Box className={classes.chatBox}>
-        {messages.map((message, i) => {
-          if (message.chat === chatTitle) {
-            return (
-              <div
-              className={`${classes.message} ${
-                message.naam === naam
-                ? classes.myMessage
-                : classes.receivedMessage
-              }`}
-              key={i}
-              >
-                <div>              
-                  <Typography variant="body1" className={classes.text}>
-                    {message.body}
-                  </Typography>
-                  <Typography variant="caption" className={classes.sender}>
-                    {message.naam}
-                  </Typography>
+        <Box className={classes.chatBox}>
+          {messages.map((message, i) => {
+            if (message.chat === chatTitle) {
+              return (
+                <div
+                className={`${classes.message} ${
+                  message.naam === naam
+                  ? classes.myMessage
+                  : classes.receivedMessage
+                }`}
+                key={i}
+                >
+                  <div>              
+                    <Typography variant="body1" className={classes.text}>
+                      {message.body}
+                    </Typography>
+                    <Typography variant="caption" className={classes.sender}>
+                      {message.naam}
+                    </Typography>
+                  </div>
                 </div>
-              </div>
-            );
-          }
-        })}
-      </Box>
+              );
+            }
+          })}
+        </Box>
 
-      <form onSubmit={handleSubmit} className={classes.form}>
-        <input
-          value={newMessage}
-          onChange={handleChange}
-          className={classes.inputField}
-          placeholder="schrijf een bericht"
-        />
-        <button type="submit" className={classes.sendMessageBtn}>
-          <SendIcon fontSize="small" color="secondary" />
-        </button>
-      </form>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <input
+            value={newMessage}
+            onChange={handleChange}
+            className={classes.inputField}
+            placeholder="schrijf een bericht"
+            />
+          <button type="submit" className={classes.sendMessageBtn}>
+            <SendIcon fontSize="small" color="secondary" />
+          </button>
+        </form>
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import { Box, makeStyles, Slide, Dialog } from "@material-ui/core";
+import { Box, makeStyles, Slide, Dialog, Container } from "@material-ui/core";
 import React, { forwardRef, useEffect, useState } from "react";
 import ChatItem from "../../components/chatItem/chatItem";
 import ChatContainer from "../../components/chatContainer/chatContainer";
@@ -13,7 +13,19 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "6vh",
     paddingBottom: theme.spacing(6),
     [theme.breakpoints.up('md')]: {
-      paddingRight:'70vw',
+      display: "flex",
+    },
+  },
+  itemContainer: {
+    [theme.breakpoints.up('md')]: {
+      width: "600px",
+    },
+  },
+  textContainer: {
+    [theme.breakpoints.up('md')]: {
+      marginTop: "-6vh",
+      backgroundColor: "rgba(77, 204, 255, 0.1)",
+      // height: "100vh",
     },
   },
 }));
@@ -78,44 +90,60 @@ const Chatpage = () => {
 
   function toggleChat() {
     setOpen(!open);
-    if (open) {
+    if (window.innerWidth >= 960) {
+      setOpen(true);
+    }
+    if (open && window.innerWidth < 960) {
       window.location.reload();
     }
   } 
 
+  console.log(window.innerWidth);
+
   return (
     <div className={classes.pageContainer}>
+      <Container className={classes.itemContainer}>
+        {conversations[0] !== undefined && time[0] !== undefined && conversations[0].map((e) => (
+          <Box
+            key={e.groepschat_ID}
+            onClick={() => {
+              toggleChat();
+              setSelectedChat(e.titel);
+            }}
+          >
+            <ChatItem
+              aantalDeelnemers={e.groeps_aantal}
+              chatTitel={e.titel}
+              chatAfbeelding={e.afbeelding}
+              timeLastChatSent={time[0][e.titel]}
+            />
+          </Box>
+        ))}
+      </Container>
 
-      {conversations[0] !== undefined && time[0] !== undefined && conversations[0].map((e) => (
-        <Box
-          key={e.groepschat_ID}
-          onClick={() => {
-            toggleChat();
-            setSelectedChat(e.titel);
-          }}
-        >
-          <ChatItem
-            aantalDeelnemers={e.groeps_aantal}
-            chatTitel={e.titel}
-            chatAfbeelding={e.afbeelding}
-            timeLastChatSent={time[0][e.titel]}
+      {window.innerWidth < 960 ? 
+        <Dialog
+          fullScreen
+          open={open}
+          onClose={toggleChat}
+          TransitionComponent={Transition}
+        >       
+          <ChatContainer
+            close={toggleChat}
+            chatTitle={selectedChat}
+            roomId={selectedChat}
+            naam={user.naam}
           />
-        </Box>
-      ))}
-
-      <Dialog
-        fullScreen
-        open={open}
-        onClose={toggleChat}
-        TransitionComponent={Transition}
-      >
-        <ChatContainer
-          close={toggleChat}
-          chatTitle={selectedChat}
-          roomId={selectedChat}
-          naam={user.naam}
-        />
-      </Dialog>
+        </Dialog> : 
+        <Container className={classes.textContainer}>
+          <ChatContainer
+            close={toggleChat}
+            chatTitle={selectedChat}
+            roomId={selectedChat}
+            naam={user.naam}
+          />
+        </Container>
+      }
     </div>
   );
 };
