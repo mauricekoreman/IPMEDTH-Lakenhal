@@ -109,19 +109,21 @@ const ChatContainer = ({ close, chatTitle, roomId, naam}) => {
 
   return (
     <Box className={classes.container}>
-      <AppBar className={classes.appBar} elevation={1}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={close}
-            aria-label="close"
-          >
-            <CloseIcon />
-          </IconButton>
-          <Typography variant="h6">{chatTitle}</Typography>
-        </Toolbar>
-      </AppBar>
+      {window.innerWidth < 960 &&
+        <AppBar className={classes.appBar} elevation={1}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={close}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6">{chatTitle}</Typography>
+          </Toolbar>
+        </AppBar>
+      }
         <Box className={classes.chatBox}>
           {messages.map((message, i) => {
             if (message.chat === chatTitle) {
