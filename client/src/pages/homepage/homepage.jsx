@@ -4,12 +4,14 @@ import CreatePost from "../../components/activiteit/createpost";
 import PostList from "../../components/activiteit/postList";
 import axios from "axios";
 import Fab from "../../components/fab/fab";
-import { Grid, makeStyles } from "@material-ui/core";
+import { FormHelperText, Grid, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(10),
+    margin: "0 auto",
+    marginTop: theme.spacing(7),
     marginBottom: theme.spacing(7),
+    backgroundColor: "cyan",
   },
   fabPosition: {
     margin: 0,
@@ -18,6 +20,12 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(2) + 56, // 56 == root height of bottom bar
     left: "auto",
     position: "fixed",
+    [theme.breakpoints.up("md")]: {
+      bottom: theme.spacing(20),
+      right: theme.spacing(30),
+      width: '75px',
+      height: '75px'
+    },
   },
 }));
 
@@ -42,9 +50,9 @@ const Homepage = () => {
       .catch((error) => {
         console.log(error.response);
       });
-    if (refresh) {
-      window.location.reload();
-    }
+    // if (refresh) {
+    //   window.location.reload();
+    // }
   };
 
   useEffect(() => {
@@ -53,16 +61,7 @@ const Homepage = () => {
 
   return (
     <div>
-      <Grid container className={classes.container} spacing={3}>
-        <Grid item xs={1}></Grid>
-
-        <Grid item xs={10}>
-          <PostList values={values} />
-        </Grid>
-
-        <Grid item xs={1}></Grid>
-      </Grid>
-
+      <PostList values={values} />
       <Fab
         position={classes.fabPosition}
         color={"primary"}

@@ -1,5 +1,6 @@
 import React, { forwardRef, useState, useEffect } from "react";
 
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { useForm, Controller } from "react-hook-form";
 import { useAuth } from "../../contexts/authContext";
 import {
@@ -38,25 +39,6 @@ const useStyles = makeStyles((theme) => ({
   bottomMargin: {
     marginBottom: theme.spacing(3),
   },
-  titel: {
-    // marginBottom: theme.spacing(3),
-  },
-  beschrijving: {
-    // marginBottom: theme.spacing(3),
-  },
-  aantalMensen: {
-    //   marginBottom: theme.spacing(3),
-  },
-  categorie: {
-    //   marginBottom: theme.spacing(3),
-  },
-
-  formControl: {
-    // margin: theme.spacing(1),
-    // marginTop: theme.spacing(3),
-    // minWidth: 120,
-  },
-  fotoButton: {},
   maakPostButton: {
     width: "200px",
     margin: "0 auto",
@@ -73,9 +55,10 @@ const CreatePost = ({ open, closeScreen, onReload }) => {
   const classes = useStyles();
   const { currentUser } = useAuth();
   const TEST_URL = "http://127.0.0.1:8000/api/";
-  const { control, handleSubmit, register } = useForm();
+  const { control, handleSubmit, register, reset } = useForm();
   const [categorien, setCategorien] = useState();
   const [fileName, setFileName] = useState();
+  const [loading, setLoading] = useState(false);
 
   let user = currentUser;
   if (isJson(currentUser)) {
@@ -96,7 +79,7 @@ const CreatePost = ({ open, closeScreen, onReload }) => {
 
   const onSubmit = (data) => {
     let fd = new FormData();
-
+    setLoading(true);
     console.log(data);
 
     fd.append("user_ID", user.user_ID);
@@ -113,12 +96,14 @@ const CreatePost = ({ open, closeScreen, onReload }) => {
       })
       .then((response) => {
         console.log(response);
+        closeScreen();
+        setLoading(false);
+        reset();
+        onReload();
       })
       .catch((error) => {
         console.log(error.response);
       });
-    onReload();
-    closeScreen();
   };
 
   return (
@@ -227,24 +212,38 @@ const CreatePost = ({ open, closeScreen, onReload }) => {
                   />
                 )}
               />
-              <Button component="label" color="primary" variant="outlined">
-                <input
-                  hidden
-                  type="file"
-                  {...register("afbeelding")}
-                  onChange={(e) => setFileName(e.target.files[0].name)}
-                />
-                {fileName == undefined ? "+ Kies foto" : fileName}
-              </Button>
+              <input
+                accept="image/*"
+                hidden
+                id="raised-button-file"
+                multiple
+                type="file"
+                {...register("afbeelding")}
+              />
+              <label htmlFor="raised-button-file">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  component="span"
+                  className={classes.fotoButton}
+                  fullWidth
+                >
+                  {fileName == undefined ? "+ Kies foto" : fileName}
+                </Button>
+              </label>
             </Grid>
-            <Button
-              type="submit"
-              className={classes.maakPostButton}
-              variant="contained"
-              color="primary"
-            >
-              Maak Post
-            </Button>
+            {loading ? (
+              <CircularProgress className={classes.maakPostButton} />
+            ) : (
+              <Button
+                type="submit"
+                className={classes.maakPostButton}
+                variant="contained"
+                color="primary"
+              >
+                Maak Post
+              </Button>
+            )}
           </form>
         </Box>
       </Dialog>
