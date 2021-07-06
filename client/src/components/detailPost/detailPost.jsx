@@ -183,12 +183,13 @@ const DetailPost = ({
   const fetchAangemeldeUsers = async () => {
     try {
       const res = await fetch(
-        TEST_URL + "inschrijvingen/activiteitUser/" + activiteit.activiteit_ID
+        TEST_URL + "groepschat/" + activiteit.activiteit_ID
       );
       const aanmeldingen = await res.json();
-      setAantalAanmeldingen(aanmeldingen.length);
+      console.log(aanmeldingen);
+      setAantalAanmeldingen(aanmeldingen.groeps_aantal);
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
     }
   };
 
