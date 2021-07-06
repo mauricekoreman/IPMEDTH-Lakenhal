@@ -29,7 +29,6 @@ const KenmerkenCard = ({ kenmerk, kenmerkValue, onReload }) => {
   if (kenmerk === kenmerkValue) {
     kenmerkValue = null;
   }
-  console.log(kenmerkValue);
   return (
     <div>
       {kenmerkValue != null && (

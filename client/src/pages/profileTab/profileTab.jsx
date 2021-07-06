@@ -5,6 +5,8 @@ import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
 import isJson from "../../contexts/isJson";
 import ProfileEditTab from "./profileEditTab";
 
+import { kunstwerken } from "../../assets/kunstwerken";
+
 import {
   Box,
   Button,
@@ -108,6 +110,21 @@ const ProfileTab = ({ user, editProfile = true }) => {
     setOpenDialog(!openDialog);
   }
 
+  let Interesses = user && Object.assign({}, [user.interesses]);
+  let Eigenschappen = user && Object.assign({}, [user.eigenschappen]);
+  let Favoriete_kunst = user && Object.assign({}, [user.Favoriete_kunst]);
+
+  if (user && isJson([user.interesses])) {
+    Interesses = Object.assign({}, JSON.parse([user.interesses]));
+  }
+  if (user && isJson([user.eigenschappen])) {
+    Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
+  }
+  if (user && isJson([user.favoriete_kunst])) {
+    Favoriete_kunst = Object.assign({}, JSON.parse([user.favoriete_kunst]));
+    console.log(Favoriete_kunst);
+  }
+
   // TODO:
 
   // zodra database images traag loaden -> npm install material-ui-image
@@ -123,12 +140,24 @@ const ProfileTab = ({ user, editProfile = true }) => {
       category: "Favoriete kunst",
       items: [
         {
-          title: "Kunst title 1",
-          image: kunst1,
+          title:
+            user.favoriete_kunst == undefined
+              ? kunstwerken[0].titel
+              : kunstwerken[Favoriete_kunst[0].id].titel,
+          image:
+            user.favoriete_kunst == undefined
+              ? kunstwerken[0].image
+              : kunstwerken[Favoriete_kunst[0].id].image,
         },
         {
-          title: "Kunst title 2",
-          image: kunst2,
+          title:
+            user.favoriete_kunst == undefined
+              ? kunstwerken[1].titel
+              : kunstwerken[Favoriete_kunst[1].id].titel,
+          image:
+            user.favoriete_kunst == undefined
+              ? kunstwerken[1].image
+              : kunstwerken[Favoriete_kunst[1].id].image,
         },
       ],
     },
@@ -146,16 +175,6 @@ const ProfileTab = ({ user, editProfile = true }) => {
   const favoKunst = props[1];
   const interesses = props[2];
   const eigenschappen = props[3];
-
-  let Interesses = user && Object.assign({}, [user.interesses]);
-  let Eigenschappen = user && Object.assign({}, [user.eigenschappen]);
-
-  if (user && isJson([user.interesses])) {
-    Interesses = Object.assign({}, JSON.parse([user.interesses]));
-  }
-  if (user && isJson([user.eigenschappen])) {
-    Eigenschappen = Object.assign({}, JSON.parse([user.eigenschappen]));
-  }
 
   return (
     <Box className={classes.pageContainer} data-testid="testProfielTab">
