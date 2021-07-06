@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginLeft: theme.spacing(2),
     flex: 1,
+    [theme.breakpoints.up("md")]: {
+      fontSize: 28
+    },
   },
   headerDetail: {
     display: "flex",
@@ -54,32 +57,61 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(8),
     height: theme.spacing(8),
     marginRight: theme.spacing(1),
+    [theme.breakpoints.up("md")]: {
+      width: 85,
+      height: 85
+    },
+  },
+  opdrachtTitle: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: 28
+    },
   },
   opdrachtSubtitle: {
     fontSize: "1rem",
     opacity: 0.6,
+    [theme.breakpoints.up("md")]: {
+      fontSize: 20
+    },
   },
   detailContainer: {
     padding: theme.spacing(0, 2),
   },
   detailsOpdracht: {
     opacity: 0.7,
+    [theme.breakpoints.up("md")]: {
+      fontSize: 24
+    },
   },
   detailsOpdrachtBottom: {
     display: "flex",
     justifyContent: "space-between",
     marginTop: theme.spacing(4),
   },
+  categorieLabel: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: 18
+    },
+  },
   detailsDatumText: {
     opacity: 0.7,
     marginLeft: "5px",
     marginRight: "20px",
+    [theme.breakpoints.up("md")]: {
+      fontSize: 21
+    },
   },
   detailsDatum: {
     display: "flex",
   },
   detailsDatumIcon: {
     opacity: 0.7,
+    position: 'relative',
+    bottom: '0',
+    [theme.breakpoints.up("md")]: {
+      width: 30,
+      height: 30
+    },
   },
   topImage: {
     width: "100%",
@@ -87,13 +119,9 @@ const useStyles = makeStyles((theme) => ({
     objectFit: "cover",
     padding: 0,
     margin: 0,
-  },
-  topImageAanmeldingPage: {
-    width: "100%",
-    height: theme.spacing(13),
-    objectFit: "cover",
-    padding: 0,
-    margin: 0,
+    [theme.breakpoints.up("sm")]: {
+      height: 300
+    },
   },
   aantalDeelnemersContainer: {
     display: "flex",
@@ -108,6 +136,21 @@ const useStyles = makeStyles((theme) => ({
       "&:first-child": {
         color: theme.palette.primary.main,
       },
+    },
+  },
+  closeIcon: {
+    [theme.breakpoints.up("md")]: {
+      width: 50,
+      height: 50
+    },
+  },
+  container: {
+    [theme.breakpoints.up("md")]: {
+      width: '65%', 
+      margin: '0 auto'
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: '50%', 
     },
   },
 }));
@@ -205,18 +248,17 @@ const DetailPost = ({
             onClick={() => closeScreen()}
             aria-label="close"
           >
-            <CloseIcon />
+            <CloseIcon className={classes.closeIcon}/>
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Detail Post
           </Typography>
         </Toolbar>
       </AppBar>
-
+      <div className={classes.container}>
       {open && (
         <Box>
           {activiteit.afbeelding != null &&
-            (window.location.href !== "http://localhost:3000/profiel" ? (
               <img
                 className={classes.topImage}
                 src={
@@ -225,16 +267,7 @@ const DetailPost = ({
                 }
                 alt="activiteit afbeelding"
               />
-            ) : (
-              <img
-                className={classes.topImageAanmeldingPage}
-                src={
-                  "http://localhost:8000/storage/profiel_foto/" +
-                  activiteit.afbeelding
-                }
-                alt="activiteit afbeelding"
-              />
-            ))}
+          }
           <Box className={classes.detailContainer}>
             <Box className={classes.headerDetail}>
               <Box className={classes.left}>
@@ -285,7 +318,7 @@ const DetailPost = ({
               {activiteit.beschrijving}
             </Typography>
             <Box className={classes.detailsOpdrachtBottom}>
-              <Chip label={activiteit.categorie} />
+              <Chip label={activiteit.categorie} className={classes.categorieLabel}/>
               <Box className={classes.detailsDatum}>
                 <QueryBuilderIcon className={classes.detailsDatumIcon} />
                 <Typography
@@ -300,10 +333,7 @@ const DetailPost = ({
             <Box className={classes.aantalDeelnemersContainer}>
               <GroupIcon />
               <Typography variant="body1">
-                Aantal deelnemers:{" "}
-                <Typography component={"span"} variant="body1">
-                  {aantalAanmeldingen} / {activiteit.max_aantal_deelnemers}
-                </Typography>
+                Aantal deelnemers: {aantalAanmeldingen} / {activiteit.max_aantal_deelnemers}
               </Typography>
             </Box>
           </Box>
@@ -384,6 +414,7 @@ const DetailPost = ({
           )}
         </Box>
       )}
+      </div>
     </Dialog>
   );
 };

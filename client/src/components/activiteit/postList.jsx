@@ -185,7 +185,7 @@ const PostList = ({ values }) => {
   const renderPost = (valuesOfList, idx) => {
     const delay = (valuesLength / valuesOfList.activiteit_ID * 500).toString() +  'ms'
     return (
-      <Grid item xs={12} sm={8} md={6} lg={4} className={classes.gridItem}>
+      <Grid key={idx} item xs={12} sm={8} md={6} lg={4} className={classes.gridItem}>
         {}
         {/* <Grow
           in={checked}

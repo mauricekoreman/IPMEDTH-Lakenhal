@@ -20,8 +20,17 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(1),
   },
+  menuIcon: {
+    [theme.breakpoints.up("md")]: {
+      width: 50,
+      height: 50
+    },
+  },
   title: {
     flexGrow: 1,
+    [theme.breakpoints.up("md")]: {
+      fontSize: 28
+    },
   },
 }));
 
@@ -52,7 +61,7 @@ const Header = ({ title }) => {
             aria-label="open drawer"
             onClick={toggleDrawer}
           >
-            <AccountCircleIcon />
+            <AccountCircleIcon className={classes.menuIcon}/>
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             {title}

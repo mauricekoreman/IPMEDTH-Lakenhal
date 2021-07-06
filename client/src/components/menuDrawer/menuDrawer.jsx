@@ -13,17 +13,25 @@ import {
   Box,
 } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   drawer: {
     width: 240,
     display: "flex",
+    [theme.breakpoints.up("md")]: {
+      width: 300
+    },
   },
   buttonsContainer: {
     width: "80%",
     margin: "0 auto",
     marginTop: "20px",
   },
-});
+  textMenuDrawer: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: "35px"
+    },
+  }
+}));
 
 const MenuDrawer = ({ openDrawer, toggleDrawer, user }) => {
   const classes = useStyles();
@@ -54,7 +62,11 @@ const MenuDrawer = ({ openDrawer, toggleDrawer, user }) => {
           const { text, link } = item;
           return (
             <ListItem button key={text} component={Link} to={"/" + link}>
-              <ListItemText primary={text} />
+              <ListItemText 
+              primary={text}
+              classes={{
+                primary: classes.textMenuDrawer,
+              }} />
             </ListItem>
           );
         })}
