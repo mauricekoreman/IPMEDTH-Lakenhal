@@ -7,16 +7,38 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { TEST_URL } from "../../assets/globalVariables";
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
     buttonContainer: {
     margin: theme.spacing(6),
     },
    button: {
-    backgroundColor: '#ba000d',
+    backgroundColor: 'red',
+    width: '80%',
+    margin: '0 auto',
+    marginTop: '5%',
+    fontSize: 18,
+    display: 'block',
+    marginBottom: '10%',
     '&:focus' : {
-        backgroundColor: '#ba000d',
-   }
+      backgroundColor: 'red'
+    },
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 22,
+      width: '35%'
+    },
+    [theme.breakpoints.up("lg")]: {
+      marginTop: '2%'
+    },
+   dialogTitle: {
+    // [theme.breakpoints.up("lg")]: {
+    //   '& h6': '50px'
+    // },
+    '& h2': {
+      fontSize: 52
+    }
+   },
   },
 }));
 
@@ -69,9 +91,15 @@ const VerwijderActiviteit = ({ user, activiteit}) => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Verwijder post?"}</DialogTitle>
+                <DialogTitle
+                classes={{
+                  root: classes.dialogTitle
+                }}
+                id="responsive-dialog-title">
+                  {"Verwijder post?"} 
+                </DialogTitle>
                 <DialogContent>
-                <DialogContentText id="alert-dialog-description">
+                <DialogContentText className={classes.dialogContentTekst} id="alert-dialog-description">
                     Weet je zeker dat je de post wilt verwijderen?
                 </DialogContentText>
                 </DialogContent>
