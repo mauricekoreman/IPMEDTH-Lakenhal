@@ -22,14 +22,15 @@ import {
 
 // delete after making dynamic links
 import pf from "../../assets/img/placeholders/profile_picture_placeholder.jpg";
-import kunst1 from "../../assets/img/placeholders/kunst_placeholder_1.jpg";
-import kunst2 from "../../assets/img/placeholders/kunst_placeholder_2.jpg";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
     paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(4),
+    maxWidth: 600,
+    margin: "0 auto",
   },
   topInfoContainer: {
     display: "flex",
@@ -78,14 +79,17 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   card: {
-    maxWidth: 400,
+    maxWidth: 600,
     marginBottom: theme.spacing(2),
     "&:last-child": {
       marginBottom: theme.spacing(8),
     },
   },
   cardMedia: {
-    height: 140,
+    height: 210,
+    [theme.breakpoints.down(450)]: {
+      height: 140,
+    },
   },
   editButton: {
     display: "block",
@@ -93,8 +97,15 @@ const useStyles = makeStyles((theme) => ({
     left: "0",
     right: "0",
     margin: "0 auto",
-    bottom: "56px",
-    width: "99%",
+    bottom: "70px",
+    width: "70%",
+    [theme.breakpoints.up("sm")]: {
+      width: "350px",
+      height: "40px",
+    },
+    [theme.breakpoints.up("md")]: {
+      bottom: "90px",
+    },
   },
 }));
 
