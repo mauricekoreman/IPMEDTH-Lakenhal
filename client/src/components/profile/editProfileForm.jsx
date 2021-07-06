@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, forwardRef, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm, Controller } from "react-hook-form";
 import {
@@ -9,8 +9,17 @@ import {
   Avatar,
   Box,
   Typography,
+  Dialog,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Slide,
 } from "@material-ui/core";
 import axios from "axios";
+
+import KiesKunstwerken from "../kiesKunstwerken/kiesKunstwerken";
+import { kunstwerken } from "../../assets/kunstwerken";
 
 import CloseIcon from "@material-ui/icons/Close";
 import CheckIcon from "@material-ui/icons/Check";
@@ -18,6 +27,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import KenmerkenForm from "./kenmerkenForm";
 import KenmerkenList from "./kenmerkenList";
 import ProfielFotoForm from "./profielFotoForm";
+import isJson from "../../contexts/isJson";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,19 +56,60 @@ const useStyles = makeStyles((theme) => ({
   lastContainer: {
     marginTop: theme.spacing(6),
   },
+  cardContainer: {
+    marginTop: theme.spacing(7),
+  },
+  card: {
+    marginBottom: theme.spacing(2),
+  },
+  cardMedia: {
+    height: 140,
+  },
+  gridList: {
+    width: 500,
+    height: 450,
+  },
 }));
+
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const EditProfileForm = ({ user, onReload, closeDialog }) => {
   const classes = useStyles();
+  const [kunstKeuzes, setKunstKeuzes] = useState([{ id: 0 }, { id: 1 }]);
+  const [kiesFotoDialogOpen, setKiesFotoDialogOpen] = useState(false);
+  const [id, setId] = useState();
+  const { control, handleSubmit } = useForm();
+
+  useEffect(() => {
+    if (user.favoriete_kunst != undefined || user.favoriete_kunst !== null) {
+      let Favoriete_kunst = user && Object.assign({}, [user.Favoriete_kunst]);
+      if (user && isJson([user.favoriete_kunst])) {
+        Favoriete_kunst = Object.assign({}, JSON.parse([user.favoriete_kunst]));
+        console.log(Favoriete_kunst);
+      }
+      setKunstKeuzes(Favoriete_kunst);
+    }
+  }, [user]);
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
-  const { control, handleSubmit } = useForm();
+  function closeFotoDialog() {
+    setKiesFotoDialogOpen(false);
+  }
+
+  const settingKunstObj = (e, i) => {
+    let newObj = { ...kunstKeuzes };
+    newObj[i] = { id: e };
+    setKunstKeuzes(newObj);
+  };
 
   const onSubmit = (updateUserData) => {
-    console.log(updateUserData);
+    let newUserData = { ...updateUserData, favoriete_kunst: kunstKeuzes };
+    console.log(newUserData);
     axios
-      .put(TEST_URL + "users/update/" + user.user_ID, updateUserData, {
+      .put(TEST_URL + "users/update/" + user.user_ID, newUserData, {
         headers: { Accept: "application/json" },
       })
       .then((res) => {
@@ -70,7 +121,6 @@ const EditProfileForm = ({ user, onReload, closeDialog }) => {
         console.log(error.response);
       });
   };
-  console.log(user.profiel_foto);
 
   return (
     <Container maxWidth="xs">
@@ -167,6 +217,45 @@ const EditProfileForm = ({ user, onReload, closeDialog }) => {
           onReload={onReload}
         />
       </Box>
+
+      <Box className={classes.cardContainer}>
+        {[0, 1].map((item) => (
+          <Card
+            className={classes.card}
+            key={item}
+            onClick={() => {
+              setKiesFotoDialogOpen(true);
+              setId(item);
+            }}
+          >
+            <CardActionArea>
+              <CardMedia
+                className={classes.cardMedia}
+                image={kunstwerken[kunstKeuzes[item].id].image}
+                title={kunstwerken[kunstKeuzes[item].id].titel}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {kunstwerken[kunstKeuzes[item].id].titel}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        ))}
+      </Box>
+
+      <Dialog
+        fullScreen
+        open={kiesFotoDialogOpen}
+        onClose={closeFotoDialog}
+        TransitionComponent={Transition}
+      >
+        <KiesKunstwerken
+          closeScreen={closeFotoDialog}
+          setKunstwerk={settingKunstObj}
+          index={id}
+        />
+      </Dialog>
     </Container>
   );
 };
