@@ -56,7 +56,6 @@ const Transition = forwardRef(function Transition(props, ref) {
 const CreatePost = ({ open, closeScreen, onReload }) => {
   const classes = useStyles();
   const { currentUser } = useAuth();
-  const TEST_URL = "http://127.0.0.1:8000/api/";
   const { control, handleSubmit, register, reset } = useForm();
   const [categorien, setCategorien] = useState();
   const [fileName, setFileName] = useState();

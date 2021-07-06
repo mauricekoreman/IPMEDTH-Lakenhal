@@ -94,7 +94,7 @@ const EditProfileForm = ({ user, onReload, closeDialog }) => {
     }
   }, [user]);
 
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   function closeFotoDialog() {
     setKiesFotoDialogOpen(false);

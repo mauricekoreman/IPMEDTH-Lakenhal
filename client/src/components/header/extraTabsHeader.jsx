@@ -39,7 +39,7 @@ const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator }) => {
     setSelectedTab(newValue);
   };
 
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const { currentUser, setCurrentUser } = useAuth();
   const updateUser = () => {
     axios

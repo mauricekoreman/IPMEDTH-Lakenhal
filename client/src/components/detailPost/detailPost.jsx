@@ -173,7 +173,7 @@ const DetailPost = ({
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [rapportageSuccesvol, setRapportageSuccesvol] = useState(false);
 
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   //pak de ingelogde user
   let user = localStorage.getItem("user");

@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const InschrijvenActiviteit = ({ user, activiteit }) => {
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const classes = useStyles();
   const [show, setShow] = useState(false);
   const [verstuur, setVerstuur] = useState(false);

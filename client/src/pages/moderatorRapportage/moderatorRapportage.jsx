@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ModeratorRapportage = () => {
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const [detailRapportageOpen, setDetailRapportageOpen] = useState(false);
   const [detailRapportage, setDetailRapportage] = useState([]);
   const [rapportageList, setRapportageList] = useState([]);

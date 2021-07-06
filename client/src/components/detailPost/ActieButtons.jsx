@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function ActieButtons({closed, activiteit, user, rapporteerPost = false, openSnackBar}) {
-    const TEST_URL = "http://127.0.0.1:8000/api/";
+     
     const verwijderPost = async (activiteit) =>{
         await fetch(TEST_URL + 'activiteit/' + activiteit, {
             method: 'DELETE'

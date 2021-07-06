@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PostsTab = ({ user }) => {
   const classes = useStyles();
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const [detailPostOpen, setDetailPostOpen] = useState(false);
   const [detailPost, setDetailPost] = useState([]);
   const [postList, setPostList] = useState([]);

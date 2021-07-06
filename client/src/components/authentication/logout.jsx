@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Logout = () => {
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const classes = useStyles();
   const history = useHistory();
   const { setCurrentUser } = useAuth();

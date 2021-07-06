@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 const KenmerkenForm = ({ user, kenmerk, onReload }) => {
   const classes = useStyles();
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   const { control, handleSubmit, reset } = useForm();
 

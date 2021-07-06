@@ -7,7 +7,7 @@ import { TEST_URL } from "../../assets/globalVariables";
 
 const KenmerkenCard = ({ kenmerk, kenmerkValue, onReload }) => {
   const user = JSON.parse(localStorage.getItem("user"));
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   const handleDelete = (kenmerkValue) => () => {
     onSubmit({ [kenmerk]: kenmerkValue });

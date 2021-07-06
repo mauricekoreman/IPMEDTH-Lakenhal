@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const VerwijderActiviteit = ({ user, activiteit}) => {
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const classes = useStyles();
   const [verstuur, setVerstuur] = useState(false);
   const [open, setOpen] = React.useState(false);

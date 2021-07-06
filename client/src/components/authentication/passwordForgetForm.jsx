@@ -28,7 +28,7 @@ const PasswordForgetForm = () => {
   const [mailSent, setMailSent] = useState(false);
   const [serverText, setServerText] = useState("");
 
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   const {
     control,

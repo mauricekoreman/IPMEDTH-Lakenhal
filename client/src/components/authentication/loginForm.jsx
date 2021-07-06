@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const LoginForm = () => {
   const classes = useStyles();
 
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   const [generalLoginError, setGeneralLoginError] = useState();
 

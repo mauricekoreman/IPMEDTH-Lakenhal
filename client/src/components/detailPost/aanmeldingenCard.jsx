@@ -34,7 +34,7 @@ const AanmeldingenCard = ({ aangemeldeUser }) => {
   const [aanmeldingCheck, setAanmelding] = useState();
   const [snackBarOpen, setSnackBarOpen] = useState(false);
 
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const [detailProfileOpen, setDetailProfileOpen] = useState(false);
   
   const detailProfileClick = (rapporteer = false) => {

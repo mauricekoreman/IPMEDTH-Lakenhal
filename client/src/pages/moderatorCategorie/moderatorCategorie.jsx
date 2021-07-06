@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ModeratorCategorie = () => {
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const classes = useStyles();
   const { currentUser } = useAuth();
   const [categorieList, setCategorie] = useState([]);

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProefielFotoForm = ({ user, onReload }) => {
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const classes = useStyles();
   const { handleSubmit, register } = useForm();
 
