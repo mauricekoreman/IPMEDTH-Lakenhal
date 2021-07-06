@@ -4,9 +4,6 @@ import axios from "axios";
 import FeedbackBlock from "../feedbackBlock/feedbackBlock";
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(6),
-  },
   buttonDoeMee: {
     fontSize: 22,
     width: '60%',
@@ -17,10 +14,13 @@ const useStyles = makeStyles((theme) => ({
   },
   formContainer: {
     width: '90%',
-    margin: '0 auto'
   },
   inschrijvingBericht: {
-    width: '100%'
+    width: '100%',
+    [theme.breakpoints.up("sm")]: {
+      width: '80%',
+      margin: '0 auto'
+    },
   },
   // buttonContainer: {
   //   display: 'flex',
@@ -82,7 +82,7 @@ const InschrijvenActiviteit = ({ user, activiteit }) => {
       {verstuur ? (
         <FeedbackBlock success={true} text={"U bent aangemeld"} />
       ) : (
-        <Box display="flex" justifyContent="center" className={classes.button}>
+        <div>
           {show === false ? (
             <Button className={classes.buttonDoeMee}
               variant="contained"
@@ -113,7 +113,7 @@ const InschrijvenActiviteit = ({ user, activiteit }) => {
               </Box>
             </form>
           )}
-        </Box>
+        </div>
       )}
     </div>
   );
