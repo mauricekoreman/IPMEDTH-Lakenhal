@@ -29,14 +29,61 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
     marginTop: '5%',
     fontSize: 18,
-    display: 'block'
+    display: 'block',
+    marginBottom: '10%',
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 22,
+      width: '35%'
+    },
+    [theme.breakpoints.up("lg")]: {
+      marginTop: '2%'
+    },
   },
   buttonVerstuur: {
     width: '80%',
     marginTop: '5%',
     fontSize: 18,
     margin: '0 auto',
-    display: 'block'
+    display: 'block',
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 22,
+      width: '35%'
+    },
+    [theme.breakpoints.up("lg")]: {
+      marginTop: '2%'
+    },
+  },  
+  inschrijvingTekst: {
+    width: '80%',
+    marginTop: '5%',
+    fontSize: 18,
+    margin: '0 auto',
+    display: 'block',
+    height: '100%',  
+  },
+  titleTekst: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: '26px',
+      lineHeight: 1.4
+    },
+  },
+  helperTekst: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: '26px',
+      lineHeight: 1.4
+    },
+  },
+  labelTekst: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: '26px',
+      lineHeight: 1.4
+    },
+  },
+  labelFocused: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: '16px',
+      lineHeight: 1.4
+    },
   }
 }));
 
@@ -104,8 +151,30 @@ const InschrijvenActiviteit = ({ user, activiteit }) => {
                 inputProps={{ "data-testid": "testMotivatieInput" }}
                 variant="outlined"
                 multiline
-                className={classes.buttonVerstuur}
+                className={classes.inschrijvingTekst}
                 fullWidth={true}
+                InputProps={{
+                  classes: {
+                    input: classes.titleTekst,
+                    label: classes.labelTekst
+                  }
+                }}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.labelTekst,
+                    focused: classes.labelFocused
+                  }
+                }}
+                FormHelperTextProps={{
+                  classes: {
+                    root: classes.helperTekst
+                  }
+                }}
+                // InputLabelProps={{
+                //   classes: {
+                //     input: classes.labelTekst
+                //   }
+                // }} 
               />
               <Box className={classes.buttonContainer}>
               <Button className={classes.buttonVerstuur} variant="contained" color="primary" onClick={onSubmit}>
