@@ -92,7 +92,7 @@ const PostsTabCard = ({
             <Avatar
               alt="Profiel foto"
               className={classes.profilePicture}
-              src={"http://localhost:8000/storage/profiel_foto/" +
+              src={"https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" +
               profielfoto}
             />
             <Box className={classes.opdrachtCard}>

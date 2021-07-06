@@ -46,7 +46,7 @@ const Chatpage = () => {
   let user = currentUser;
   if (isJson(currentUser)) user = JSON.parse(currentUser);
 
-  const TEST_URL = "http://localhost:8000/api/";
+  // const TEST_URL = "http://localhost:8000/api/";
 
   const fetchChat = async () => {
     return await fetch(TEST_URL + "userGroepschat/user/activiteit/" + user.user_ID).then(res1 => { return res1.json() });
