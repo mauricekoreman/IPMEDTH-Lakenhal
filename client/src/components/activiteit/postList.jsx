@@ -208,7 +208,7 @@ const PostList = ({ values }) => {
                   alt="Profiel foto"
                   className={classes.profilePicture}
                   src={
-                    "http://localhost:8000/storage/profiel_foto/" +
+                    "https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" +
                     valuesOfList.profiel_foto
                   }
                 ></Avatar>
@@ -242,7 +242,7 @@ const PostList = ({ values }) => {
               <CardMedia
                 className={classes.afbeeldingActiviteit}
                 image={
-                  "http://localhost:8000/storage/profiel_foto/" +
+                  "https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" +
                   valuesOfList.afbeelding
                 }
                 title=""
