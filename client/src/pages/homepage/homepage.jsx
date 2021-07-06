@@ -20,6 +20,12 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(2) + 56, // 56 == root height of bottom bar
     left: "auto",
     position: "fixed",
+    [theme.breakpoints.up("md")]: {
+      bottom: theme.spacing(20),
+      right: theme.spacing(30),
+      width: '75px',
+      height: '75px'
+    },
   },
 }));
 
