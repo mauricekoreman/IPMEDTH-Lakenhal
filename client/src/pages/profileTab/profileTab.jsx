@@ -196,7 +196,7 @@ const ProfileTab = ({ user, editProfile = true }) => {
               alt="Profiel foto"
               className={classes.profilePicture}
               src={
-                "http://localhost:8000/storage/profiel_foto/" +
+                "https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" +
                 user.profiel_foto
               }
             />
