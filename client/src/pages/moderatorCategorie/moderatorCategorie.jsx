@@ -12,6 +12,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(6),
     width: "80%",
     margin: "0 auto",
+    [theme.breakpoints.up("sm")]: {
+      width: '60%'
+    },
+    [theme.breakpoints.up("md")]: {
+      width: '40%'
+    },
   },
 }));
 

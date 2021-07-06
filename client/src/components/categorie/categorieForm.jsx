@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto",
     marginTop: theme.spacing(2),
     fontSize: theme.spacing(2),
+    [theme.breakpoints.up("lg")]: {
+      width: '40%',
+      fontSize: 28
+    },
   },
   categorieForm: {
     textAlign: "center",
