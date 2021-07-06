@@ -7,6 +7,36 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(6),
   },
+  buttonDoeMee: {
+    fontSize: 22,
+    width: '60%',
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 24,
+      width: '35%'
+    },
+  },
+  formContainer: {
+    width: '90%',
+    margin: '0 auto'
+  },
+  inschrijvingBericht: {
+    width: '100%'
+  },
+  // buttonContainer: {
+  //   display: 'flex',
+  //   justifyContent: 'space-between'
+  // },
+  buttonAnnuleer: {
+    backgroundColor: 'red',
+    width: '100%',
+    marginTop: '5%',
+    fontSize: 18
+  },
+  buttonVerstuur: {
+    width: '100%',
+    marginTop: '5%',
+    fontSize: 18
+  }
 }));
 
 const InschrijvenActiviteit = ({ user, activiteit }) => {
@@ -54,7 +84,7 @@ const InschrijvenActiviteit = ({ user, activiteit }) => {
       ) : (
         <Box display="flex" justifyContent="center" className={classes.button}>
           {show === false ? (
-            <Button
+            <Button className={classes.buttonDoeMee}
               variant="contained"
               color="primary"
               onClick={() => setShow((prev) => !prev)}
@@ -63,7 +93,7 @@ const InschrijvenActiviteit = ({ user, activiteit }) => {
               Doe Mee!
             </Button>
           ) : (
-            <form title="formTest">
+            <form title="formTest" className={classes.formContainer}>
               <TextField
                 label="bericht"
                 name="bericht"
@@ -71,11 +101,16 @@ const InschrijvenActiviteit = ({ user, activiteit }) => {
                 onChange={handleInput}
                 helperText="optioneel* Vertel waarom je mee wilt doen."
                 inputProps={{ "data-testid": "testMotivatieInput" }}
+                variant="outlined"
+                className={classes.inschrijvingBericht}
+                multiline
               />
-              <Button variant="contained" color="primary" onClick={onSubmit}>
+              <Box className={classes.buttonContainer}>
+              <Button className={classes.buttonVerstuur} variant="contained" color="primary" onClick={onSubmit}>
                 Verstuur
               </Button>
-              <Button onClick={() => setShow((prev) => !prev)}>Annuleer</Button>
+              <Button className={classes.buttonAnnuleer} color='primary' variant="contained" onClick={() => setShow((prev) => !prev)}>Annuleer</Button>
+              </Box>
             </form>
           )}
         </Box>
