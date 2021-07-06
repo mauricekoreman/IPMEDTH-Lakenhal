@@ -21,13 +21,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "primary",
     [theme.breakpoints.up("md")]: {
       display: 'flex',
-      justifyContent: 'space-around'
+      justifyContent: 'space-around',
+      height: '75px'
     },
   },
   navigationIcon: {
     [theme.breakpoints.up("md")]: {
-      width: '50px',
-      height: '50px'
+      width: '35px',
+      height: '35px'
     },
   },
   labelNav: {
