@@ -153,12 +153,6 @@ const InschrijvenActiviteit = ({ user, activiteit }) => {
                 multiline
                 className={classes.inschrijvingTekst}
                 fullWidth={true}
-                InputProps={{
-                  classes: {
-                    input: classes.titleTekst,
-                    label: classes.labelTekst
-                  }
-                }}
                 InputLabelProps={{
                   classes: {
                     root: classes.labelTekst,
