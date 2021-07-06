@@ -4,6 +4,7 @@ import { Box, makeStyles } from "@material-ui/core";
 import { useAuth } from "../../contexts/authContext";
 import CategorieForm from "../../components/categorie/categorieForm";
 import isJson from "../../contexts/isJson";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {

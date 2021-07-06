@@ -24,6 +24,7 @@ import {
   Chip,
   Snackbar,
 } from "@material-ui/core";
+import { TEST_URL } from "../../assets/globalVariables";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;

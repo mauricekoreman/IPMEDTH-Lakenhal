@@ -29,6 +29,8 @@ import {
   Slide,
 } from "@material-ui/core";
 
+import { TEST_URL } from "../../assets/globalVariables";
+
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(10),

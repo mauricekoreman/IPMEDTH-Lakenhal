@@ -5,6 +5,7 @@ import PostList from "../../components/activiteit/postList";
 import axios from "axios";
 import Fab from "../../components/fab/fab";
 import { FormHelperText, Grid, makeStyles } from "@material-ui/core";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   container: {

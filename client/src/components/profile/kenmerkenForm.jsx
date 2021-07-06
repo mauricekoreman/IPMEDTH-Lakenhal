@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { TextField, Button } from "@material-ui/core";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   voegToe: {

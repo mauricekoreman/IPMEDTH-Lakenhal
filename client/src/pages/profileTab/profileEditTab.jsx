@@ -4,6 +4,7 @@ import { Box } from "@material-ui/core";
 import { useAuth } from "../../contexts/authContext";
 import EditProfileForm from "../../components/profile/editProfileForm";
 import axios from "axios";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {

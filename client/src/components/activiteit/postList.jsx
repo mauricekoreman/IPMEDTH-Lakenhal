@@ -150,8 +150,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TEST_URL = "http://127.0.0.1:8000/api/";
-
 const PostList = ({ values }) => {
   const classes = useStyles();
   const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false);

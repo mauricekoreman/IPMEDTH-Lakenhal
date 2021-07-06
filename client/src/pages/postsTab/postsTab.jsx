@@ -2,6 +2,7 @@ import { Box, makeStyles, Grid, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import DetailPost from "../../components/detailPost/detailPost";
 import PostsTabCard from "./postsTabCard";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   root: {

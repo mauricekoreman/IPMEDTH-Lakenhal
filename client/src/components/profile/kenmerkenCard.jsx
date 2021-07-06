@@ -3,6 +3,7 @@ import React from "react";
 import { Chip } from "@material-ui/core";
 
 import axios from "axios";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const KenmerkenCard = ({ kenmerk, kenmerkValue, onReload }) => {
   const user = JSON.parse(localStorage.getItem("user"));

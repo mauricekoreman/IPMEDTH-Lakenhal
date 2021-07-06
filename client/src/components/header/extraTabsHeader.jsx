@@ -14,6 +14,7 @@ import ModeratorCategorie from "../../pages/moderatorCategorie/moderatorCategori
 import isJson from "../../contexts/isJson";
 import axios from "axios";
 import { useAuth } from "../../contexts/authContext";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {

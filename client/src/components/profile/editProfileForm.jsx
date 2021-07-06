@@ -28,6 +28,7 @@ import KenmerkenForm from "./kenmerkenForm";
 import KenmerkenList from "./kenmerkenList";
 import ProfielFotoForm from "./profielFotoForm";
 import isJson from "../../contexts/isJson";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   root: {

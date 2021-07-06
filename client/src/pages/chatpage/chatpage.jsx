@@ -7,6 +7,7 @@ import { useAuth } from "../../contexts/authContext";
 import isJson from "../../contexts/isJson";
 
 import useChats from "../../hooks/useChats";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {

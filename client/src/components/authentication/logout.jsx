@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAuth } from "../../contexts/authContext";
 import { useHistory } from "react-router-dom";
 import { Button, makeStyles } from "@material-ui/core";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   logOutButton: {
