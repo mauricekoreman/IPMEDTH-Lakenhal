@@ -78,20 +78,20 @@ const Transition = forwardRef(function Transition(props, ref) {
 const EditProfileForm = ({ user, onReload, closeDialog }) => {
   const classes = useStyles();
   const [kunstKeuzes, setKunstKeuzes] = useState([{ id: 0 }, { id: 1 }]);
-  const [testKunstKeuzes, setTestKunstKeuzes] = useState([]);
   const [kiesFotoDialogOpen, setKiesFotoDialogOpen] = useState(false);
   const [id, setId] = useState();
   const { control, handleSubmit } = useForm();
 
   useEffect(() => {
-    let Favoriete_kunst = user && Object.assign({}, [user.Favoriete_kunst]);
-    if (user && isJson([user.favoriete_kunst])) {
-      Favoriete_kunst = Object.assign({}, JSON.parse([user.favoriete_kunst]));
-      console.log(Favoriete_kunst);
+    if (user.favoriete_kunst != undefined || user.favoriete_kunst !== null) {
+      let Favoriete_kunst = user && Object.assign({}, [user.Favoriete_kunst]);
+      if (user && isJson([user.favoriete_kunst])) {
+        Favoriete_kunst = Object.assign({}, JSON.parse([user.favoriete_kunst]));
+        console.log(Favoriete_kunst);
+      }
+      setKunstKeuzes(Favoriete_kunst);
     }
-    setKunstKeuzes(Favoriete_kunst);
   }, [user]);
-  console.log(testKunstKeuzes[0]);
 
   const TEST_URL = "http://127.0.0.1:8000/api/";
 
