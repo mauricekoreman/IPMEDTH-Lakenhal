@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react"; 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -18,6 +18,8 @@ import GroupIcon from "@material-ui/icons/Group";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import ReportProblemRoundedIcon from "@material-ui/icons/ReportProblemRounded";
 import CardActionArea from "@material-ui/core/CardActionArea";
+import Zoom from '@material-ui/core/Zoom';
+import Grow from '@material-ui/core/Grow';
 
 import { Snackbar, Grid } from "@material-ui/core";
 
@@ -27,7 +29,7 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 1000,
+    width: '100%',
   },
   media: {
     height: 140,
@@ -71,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     margin: "0 auto",
-    marginTop: theme.spacing(7),
+    marginTop: theme.spacing(12),
     marginBottom: theme.spacing(7),
     width: "90%",
     [theme.breakpoints.up("xl")]: {
@@ -121,6 +123,17 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "20px",
     },
   },
+  afbeeldingActiviteit: {
+    [theme.breakpoints.up("md")]: {
+      height: "300px",
+    },
+    height: '20vh',
+    width: '100%',
+    objectFit: 'contain',
+  },
+  actionArea: {
+    width: '100%',
+  }
 }));
 
 const TEST_URL = "http://127.0.0.1:8000/api/";
@@ -129,6 +142,7 @@ const PostList = ({ values }) => {
   const classes = useStyles();
   const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false);
   const [detailActiviteit, setDetailActiviteit] = useState([]);
+  const [checked, setChecked] = useState(false)
   const [detailActiviteitRapportage, setDetailActiviteitRapportage] =
     useState(false);
 
@@ -140,7 +154,12 @@ const PostList = ({ values }) => {
     }
     setDetailActiviteitOpen(!detailActiviteitOpen);
     setDetailActiviteit(activiteit);
+    
   };
+
+  useEffect(() => {
+    setChecked(true)
+  });
 
   function getDate(date) {
     const splitDate = date.split(/[-:.T]/);
@@ -150,6 +169,12 @@ const PostList = ({ values }) => {
   const renderPost = (valuesOfList, idx) => {
     return (
       <Grid item xs={12} sm={8} md={6} lg={4} className={classes.gridItem}>
+        <Grow
+          in={checked}
+          style={{ transformOrigin: '0 0 0' }}
+          {...(checked ? { timeout: 5000 } : {})}
+        >
+        {/* <Zoom in={checked} style={{ transitionDelay: checked ? '550ms' : '0ms' }}> */}
         <Card className={classes.root}>
           <CardHeader
             className={classes.cardHeader}
@@ -190,13 +215,14 @@ const PostList = ({ values }) => {
             }}
           />
           <CardActionArea
+            className={classes.actionArea}
             onClick={() => {
               activiteitClick(valuesOfList);
             }}
           >
             {valuesOfList.afbeelding != null && (
               <CardMedia
-                className={classes.media}
+                className={classes.afbeeldingActiviteit}
                 image={
                   "http://localhost:8000/storage/profiel_foto/" +
                   valuesOfList.afbeelding
@@ -245,6 +271,8 @@ const PostList = ({ values }) => {
             </Box>
           </CardActions>
         </Card>
+        </Grow>
+        {/* </Zoom> */}
       </Grid>
     );
   };
@@ -259,6 +287,7 @@ const PostList = ({ values }) => {
           renderOnScroll
           reversed
         />
+      
       </Grid>
       <DetailPost
         open={detailActiviteitOpen}
