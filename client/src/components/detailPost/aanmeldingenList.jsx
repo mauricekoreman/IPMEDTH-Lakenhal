@@ -51,7 +51,9 @@ const AanmeldingenList = ({ activiteit_ID }) => {
     <List className={classes.listAanmelding}>
       {aangemeldeUsers &&
         Object.entries(aangemeldeUsers).map(([key, value]) => {
-          return <AanmeldingenCard aangemeldeUser={value} />;
+          if (value.geaccepteerd === 0) {
+            return <AanmeldingenCard aangemeldeUser={value} />
+          }
         })}
     </List>
     </div>
