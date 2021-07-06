@@ -10,6 +10,11 @@ const useStyles = makeStyles((theme) => ({
   pageContainer: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(6),
+    width: '90%',
+    margin: '0 auto',
+    [theme.breakpoints.up("md")]: {
+      width: '80%'
+    },
   },
 }));
 
@@ -53,13 +58,14 @@ const ModeratorRapportage = () => {
   return (
     <div>
       {user.admin ? (
-        <Box className={classes.pageContainer}>
-          <Grid container spacing={2}>
+          <Grid className={classes.pageContainer}container spacing={2}>
             {rapportageList.map((rapportage, key) => {
               return (
                 <Grid
                   item
                   xs={12}
+                  sm={6}
+                  lg={4}
                   key={key}
                   onClick={() => detailRapportageClick(rapportage)}
                 >
@@ -75,7 +81,6 @@ const ModeratorRapportage = () => {
               );
             })}
           </Grid>
-        </Box>
       ) : (
         <div>404</div>
       )}
