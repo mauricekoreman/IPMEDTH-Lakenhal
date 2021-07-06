@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     [theme.breakpoints.up("md")]: {
       bottom: theme.spacing(20),
-      right: theme.spacing(30),
+      right: theme.spacing(20),
       width: '75px',
       height: '75px'
     },

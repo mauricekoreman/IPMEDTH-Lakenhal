@@ -6,12 +6,21 @@ import isJson from '../../contexts/isJson';
 const useStyles = makeStyles((theme) => ({
   chatContainer: {
     display: "flex",
+    position: "relative",
     justifyContent: "center",
     alignItems: "center",
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
-    borderTop: "1px solid #eee",
-    borderBottom: "1px solid #eee",
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    '&:before':{
+      content: "''",
+      position: 'absolute',
+      right: '0',
+      bottom: 0,
+      width: '85vw',
+      borderBottom: "2px solid #eee",
+    }
   },
   chatImage: {
     height: "50px",
@@ -20,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 100,
   },
   rows: {
-    width: "85%",
+    width: "80%",
   },
   chatRow: {
     display: "flex",
