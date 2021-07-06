@@ -11,16 +11,13 @@ const useStyles = makeStyles((theme) => ({
       fontSize: 24,
       width: '35%'
     },
+    margin: '0 auto',
+    display: 'block',
+    marginTop: '10%'
   },
   formContainer: {
     width: '90%',
-  },
-  inschrijvingBericht: {
-    width: '100%',
-    [theme.breakpoints.up("sm")]: {
-      width: '80%',
-      margin: '0 auto'
-    },
+    margin: '0 auto'
   },
   // buttonContainer: {
   //   display: 'flex',
@@ -28,14 +25,18 @@ const useStyles = makeStyles((theme) => ({
   // },
   buttonAnnuleer: {
     backgroundColor: 'red',
-    width: '100%',
+    width: '80%',
+    margin: '0 auto',
     marginTop: '5%',
-    fontSize: 18
+    fontSize: 18,
+    display: 'block'
   },
   buttonVerstuur: {
-    width: '100%',
+    width: '80%',
     marginTop: '5%',
-    fontSize: 18
+    fontSize: 18,
+    margin: '0 auto',
+    display: 'block'
   }
 }));
 
@@ -93,7 +94,7 @@ const InschrijvenActiviteit = ({ user, activiteit }) => {
               Doe Mee!
             </Button>
           ) : (
-            <form title="formTest" className={classes.formContainer}>
+            <form title="formTest" >
               <TextField
                 label="bericht"
                 name="bericht"
@@ -102,8 +103,9 @@ const InschrijvenActiviteit = ({ user, activiteit }) => {
                 helperText="optioneel* Vertel waarom je mee wilt doen."
                 inputProps={{ "data-testid": "testMotivatieInput" }}
                 variant="outlined"
-                className={classes.inschrijvingBericht}
                 multiline
+                className={classes.buttonVerstuur}
+                fullWidth={true}
               />
               <Box className={classes.buttonContainer}>
               <Button className={classes.buttonVerstuur} variant="contained" color="primary" onClick={onSubmit}>
