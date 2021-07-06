@@ -83,6 +83,20 @@ const useStyles = makeStyles((theme) => ({
   gridItem: {
     display: "flex",
     margin: "0 auto",
+    transition: '0.5s linear',
+    '&:hover': {
+      transform: 'scale(1.05)',
+      animation: "$groeiEffect 0.5s linear",
+    },
+  },
+  "@keyframes groeiEffect": {
+    "from": {
+      transform: 'scale(1)'
+    },
+    "to": {
+      opacity: 1,
+      transform: 'scale(1.05)'
+    }
   },
   profilePicture: {
     [theme.breakpoints.up("md")]: {
@@ -143,6 +157,7 @@ const PostList = ({ values }) => {
   const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false);
   const [detailActiviteit, setDetailActiviteit] = useState([]);
   const [checked, setChecked] = useState(false)
+  const [valuesLength, setValuesLength] = useState(0)
   const [detailActiviteitRapportage, setDetailActiviteitRapportage] =
     useState(false);
 
@@ -159,6 +174,7 @@ const PostList = ({ values }) => {
 
   useEffect(() => {
     setChecked(true)
+    setValuesLength(values.length)
   });
 
   function getDate(date) {
@@ -167,14 +183,18 @@ const PostList = ({ values }) => {
   }
 
   const renderPost = (valuesOfList, idx) => {
+    const delay = (valuesLength / valuesOfList.activiteit_ID * 500).toString() +  'ms'
     return (
       <Grid item xs={12} sm={8} md={6} lg={4} className={classes.gridItem}>
-        <Grow
+        {}
+        {/* <Grow
           in={checked}
           style={{ transformOrigin: '0 0 0' }}
-          {...(checked ? { timeout: 5000 } : {})}
-        >
-        {/* <Zoom in={checked} style={{ transitionDelay: checked ? '550ms' : '0ms' }}> */}
+          //Bereken de animatie timeout tijd van iedere kaart.
+          //lengte van lijst / activiteit id omdat het op omgekeerde volgorde staat.
+          {...(checked ? { timeout: (valuesLength / valuesOfList.activiteit_ID * 1500) } : {})}
+        > */} 
+        <Zoom in={checked} style={{ transitionDelay: checked ? delay : '0ms' }}> 
         <Card className={classes.root}>
           <CardHeader
             className={classes.cardHeader}
@@ -271,8 +291,8 @@ const PostList = ({ values }) => {
             </Box>
           </CardActions>
         </Card>
-        </Grow>
-        {/* </Zoom> */}
+        {/* </Grow> */}
+        </Zoom>
       </Grid>
     );
   };
