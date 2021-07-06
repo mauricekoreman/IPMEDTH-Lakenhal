@@ -4,6 +4,9 @@ import DetailPost from "../../components/detailPost/detailPost";
 import PostsTabCard from "./postsTabCard";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%'
+  },
   titlePosts: {
     textAlign: "center",
     paddingTop: theme.spacing(5),
@@ -13,6 +16,25 @@ const useStyles = makeStyles((theme) => ({
   },
   removeZero: {
     marginTop: theme.spacing(80),
+  },
+  container: {
+    margin: "0 auto",
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(7),
+    width: "90%",
+    [theme.breakpoints.up("xl")]: {
+      width: "80%",
+    },
+  },
+  gridItem: {
+    display: "flex",
+    margin: "0 auto",
+    marginTop: '20px',
+    transition: '0.5s linear',
+    '&:hover': {
+      transform: 'scale(1.05)',
+      animation: "$groeiEffect 0.5s linear",
+    },
   },
 }));
 
@@ -47,7 +69,7 @@ const PostsTab = ({ user }) => {
   };
 
   return (
-    <Box>
+    <Box className={classes.root}>
       {postList.length ? (
         <Typography className={classes.titlePosts} variant="h4">
           Zie uw posts & aanmeldingen
@@ -58,16 +80,17 @@ const PostsTab = ({ user }) => {
         </Typography>
       )}
       <Box>
-        <Grid container spacing={2}>
+        <Grid container spacing={3} className={classes.container}>
           {Object.keys(postList).map((post, key) => {
             return (
               <Grid
                 item
-                xs={12}
+                xs={12} sm={8} md={6} lg={4} 
+                className={classes.gridItem}
                 key={key}
                 onClick={() => detailPostClick(postList[post])}
               >
-                <PostsTabCard
+                <PostsTabCard 
                   titel={postList[post].titel}
                   categorie={postList[post].categorie}
                   profielfoto={postList[post].profiel_foto}
