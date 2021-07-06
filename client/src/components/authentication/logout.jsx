@@ -3,11 +3,22 @@ import React from "react";
 import axios from "axios";
 import { useAuth } from "../../contexts/authContext";
 import { useHistory } from "react-router-dom";
-import { Button } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  logOutButton: {
+    width: "80%", 
+    margin: "0 auto", 
+    marginTop: "20px",
+    [theme.breakpoints.up("md")]: {
+      fontSize: "25px"
+    },
+  }
+}));
 
 const Logout = () => {
   const TEST_URL = "http://127.0.0.1:8000/api/";
-
+  const classes = useStyles();
   const history = useHistory();
   const { setCurrentUser } = useAuth();
 
@@ -38,7 +49,7 @@ const Logout = () => {
   return (
     <Button
       variant="outlined"
-      style={{ width: "80%", margin: "0 auto", marginTop: "20px" }}
+      className={classes.logOutButton}
       onClick={() => signOut()}
     >
       Uitloggen
