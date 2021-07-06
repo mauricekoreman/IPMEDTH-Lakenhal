@@ -7,31 +7,69 @@ import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
     rapporteerButton: {
-        display: 'block',
-        width: '80%',
-        margin: '0 auto',
-        marginTop: theme.spacing(2),
-        fontSize: theme.spacing(2),
+            width: '80%',
+            margin: '0 auto',
+            marginTop: '5%',
+            fontSize: 18,
+            display: 'block',
+            marginBottom: '10%',
+            [theme.breakpoints.up("sm")]: {
+              fontSize: 22,
+              width: '60%',
+              marginTop: '5%',
+              marginBottom: '2%'
+            },
+            [theme.breakpoints.up("md")]: {
+                marginTop: '1%',
+                "&:last-child": {
+                    marginBottom: '10%'
+                }
+              },
+            [theme.breakpoints.up("lg")]: {
+              marginTop: '1%',
+            },
+            [theme.breakpoints.up("xl")]: {
+                width: '40%'
+            },
     },
     rapporteerButtonImportant: {
-        display: 'block',
-        width: '80%',
-        margin: '0 auto',
-        marginTop: theme.spacing(2),
-        fontSize: theme.spacing(2),
-        '&:focus': {
-            backgroundColor: 'red'
+            backgroundColor: 'red',
+            width: '80%',
+            margin: '0 auto',
+            marginTop: '5%',
+            fontSize: 18,
+            display: 'block',
+            marginBottom: '8%',
+            '&:focus' : {
+              backgroundColor: 'red'
+            },
+            '&:hover' : {
+                backgroundColor: 'red'
+              },
+            [theme.breakpoints.up("sm")]: {
+              fontSize: 22,
+              width: '60%',
+              marginTop: '5%',
+              marginBottom: '2%'
+            },
+            [theme.breakpoints.up("md")]: {
+                marginTop: '1%',
+                "&:last-child": {
+                    marginBottom: '10%'
+                }
+              },
+            [theme.breakpoints.up("lg")]: {
+              marginTop: '1%',
+            },
+            [theme.breakpoints.up("xl")]: {
+                width: '40%'
+            },
         },
-        backgroundColor: 'red',
-        color: 'white',
-        '&:last-child' : {
-            marginBottom: theme.spacing(5)
-        }
-    },
     buttonContainers: {
         marginTop: theme.spacing(4)
     },
-}))
+    }
+)) 
 
 function ActieButtons({closed, activiteit, user, rapporteerPost = false, openSnackBar}) {
      
