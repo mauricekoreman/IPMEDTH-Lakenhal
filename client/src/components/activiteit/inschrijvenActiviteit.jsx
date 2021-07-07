@@ -85,6 +85,12 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '16px',
       lineHeight: 1.4
     },
+  },
+  resize: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: '30px',
+      lineHeight: 1.4
+    },
   }
 }));
 
@@ -154,6 +160,11 @@ const InschrijvenActiviteit = ({ user, activiteit }) => {
                 multiline
                 className={classes.inschrijvingTekst}
                 fullWidth={true}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
                 InputLabelProps={{
                   classes: {
                     root: classes.labelTekst,
