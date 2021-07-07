@@ -5,7 +5,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 const Fab = ({ position, color, ariaLabel, size, maakActiviteitClick }) => {
   return (
-    <FloatingBtn
+    <FloatingBtn onClick={()=> maakActiviteitClick()}
       size={size ?? "small"}
       color={color}
       aria-label={ariaLabel}

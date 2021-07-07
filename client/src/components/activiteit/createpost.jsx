@@ -37,6 +37,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(5),
     padding: theme.spacing(0, 2),
     maxWidth: "500px",
+    margin: '0 auto',
+    width: '100%',
+    [theme.breakpoints.up("md")]: {
+      marginTop: '8%',
+      margin: '0 auto'
+    },
   },
   bottomMargin: {
     marginBottom: theme.spacing(3),
@@ -46,7 +52,28 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto",
     display: "block",
     marginTop: theme.spacing(3),
+    [theme.breakpoints.up("md")]: {
+      fontSize: 30,
+      marginBottom: '10%'
+    },
   },
+  fotoButton: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: 30
+    },
+  },
+  resize: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: 30
+    },
+  },
+  resize2: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: 30,
+      lineHeight: 1.3
+    },
+  }
+  
 }));
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -144,6 +171,22 @@ const CreatePost = ({ open, closeScreen, onReload }) => {
                     variant="outlined"
                     label="Titel"
                     className={`${classes.titel} ${classes.bottomMargin}`}
+                    InputProps={{
+                      classes: {
+                        input: classes.resize,
+                      },
+                    }}
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.labelTekst,
+                        focused: classes.labelFocused
+                      }
+                    }}
+                    FormHelperTextProps={{
+                      classes: {
+                        root: classes.helperTekst
+                      }
+                    }}
                   />
                 )}
               />
@@ -156,6 +199,11 @@ const CreatePost = ({ open, closeScreen, onReload }) => {
                     {...field}
                     multiline
                     rows={8}
+                    InputProps={{
+                      classes: {
+                        input: classes.resize2,
+                      },
+                    }}
                     variant="outlined"
                     label="Beschrijving"
                     className={`${classes.beschrijving} ${classes.bottomMargin}`}

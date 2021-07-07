@@ -14,14 +14,28 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto",
     marginTop: theme.spacing(2),
     fontSize: theme.spacing(2),
+    [theme.breakpoints.up("lg")]: {
+      width: '60%',
+      fontSize: 28
+    },
   },
   categorieForm: {
     textAlign: "center",
-  },
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '0 auto',
+    alignItems: 'center'
+    },
   categorieFormTextField: {
+    [theme.breakpoints.up("lg")]: {
+      width: '60%',
+      fontSize: 28
+    },
     width: "100%",
-    marginLeft: theme.spacing(0),
   },
+  formControl: {
+    margin: '0 auto'
+  }
 }));
 
 const CategorieForm = ({ addCategorie, categorieError }) => {
@@ -41,7 +55,7 @@ const CategorieForm = ({ addCategorie, categorieError }) => {
 
   return (
     <form className={classes.categorieForm} noValidate autoComplete="off">
-      <FormControlLabel
+      <FormControlLabel className={classes.formControl}
         control={
           <Checkbox
             checked={lakenhal_activiteit}

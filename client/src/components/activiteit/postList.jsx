@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     margin: "0 auto",
     marginTop: theme.spacing(12),
-    marginBottom: theme.spacing(7),
+    marginBottom: theme.spacing(15),
     width: "90%",
     [theme.breakpoints.up("xl")]: {
       width: "80%",
