@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -18,8 +18,9 @@ import GroupIcon from "@material-ui/icons/Group";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import ReportProblemRoundedIcon from "@material-ui/icons/ReportProblemRounded";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import Zoom from '@material-ui/core/Zoom';
-import Grow from '@material-ui/core/Grow';
+import Zoom from "@material-ui/core/Zoom";
+
+import { categorien } from "../../assets/categorien";
 
 import { Snackbar, Grid } from "@material-ui/core";
 
@@ -29,7 +30,7 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
   },
   media: {
     height: 140,
@@ -83,20 +84,20 @@ const useStyles = makeStyles((theme) => ({
   gridItem: {
     display: "flex",
     margin: "0 auto",
-    transition: '0.5s linear',
-    '&:hover': {
-      transform: 'scale(1.05)',
+    transition: "0.5s linear",
+    "&:hover": {
+      transform: "scale(1.05)",
       animation: "$groeiEffect 0.5s linear",
     },
   },
   "@keyframes groeiEffect": {
-    "from": {
-      transform: 'scale(1)'
+    from: {
+      transform: "scale(1)",
     },
-    "to": {
+    to: {
       opacity: 1,
-      transform: 'scale(1.05)'
-    }
+      transform: "scale(1.05)",
+    },
   },
   profilePicture: {
     [theme.breakpoints.up("md")]: {
@@ -141,21 +142,21 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       height: "300px",
     },
-    height: '20vh',
-    width: '100%',
-    objectFit: 'contain',
+    height: "20vh",
+    width: "100%",
+    objectFit: "contain",
   },
   actionArea: {
-    width: '100%',
-  }
+    width: "100%",
+  },
 }));
 
 const PostList = ({ values }) => {
   const classes = useStyles();
   const [detailActiviteitOpen, setDetailActiviteitOpen] = useState(false);
   const [detailActiviteit, setDetailActiviteit] = useState([]);
-  const [checked, setChecked] = useState(false)
-  const [valuesLength, setValuesLength] = useState(0)
+  const [checked, setChecked] = useState(false);
+  const [valuesLength, setValuesLength] = useState(0);
   const [detailActiviteitRapportage, setDetailActiviteitRapportage] =
     useState(false);
 
@@ -167,12 +168,11 @@ const PostList = ({ values }) => {
     }
     setDetailActiviteitOpen(!detailActiviteitOpen);
     setDetailActiviteit(activiteit);
-    
   };
 
   useEffect(() => {
-    setChecked(true)
-    setValuesLength(values.length)
+    setChecked(true);
+    setValuesLength(values.length);
   });
 
   function getDate(date) {
@@ -181,9 +181,18 @@ const PostList = ({ values }) => {
   }
 
   const renderPost = (valuesOfList, idx) => {
-    const delay = (valuesLength / valuesOfList.activiteit_ID * 500).toString() +  'ms'
+    const delay =
+      ((valuesLength / valuesOfList.activiteit_ID) * 500).toString() + "ms";
     return (
-      <Grid key={idx} item xs={12} sm={8} md={6} lg={4} className={classes.gridItem}>
+      <Grid
+        key={idx}
+        item
+        xs={12}
+        sm={8}
+        md={6}
+        lg={4}
+        className={classes.gridItem}
+      >
         {}
         {/* <Grow
           in={checked}
@@ -191,105 +200,110 @@ const PostList = ({ values }) => {
           //Bereken de animatie timeout tijd van iedere kaart.
           //lengte van lijst / activiteit id omdat het op omgekeerde volgorde staat.
           {...(checked ? { timeout: (valuesLength / valuesOfList.activiteit_ID * 1500) } : {})}
-        > */} 
-        <Zoom in={checked} style={{ transitionDelay: checked ? delay : '0ms' }}> 
-        <Card className={classes.root}>
-          <CardHeader
-            className={classes.cardHeader}
-            avatar={
-              valuesOfList.profiel_foto === null ? (
-                <Avatar
-                  alt="Profiel foto"
-                  className={classes.profilePicture}
-                  src={pf}
-                ></Avatar>
-              ) : (
-                <Avatar
-                  alt="Profiel foto"
-                  className={classes.profilePicture}
-                  src={
-                    "http://localhost:8000/storage/profiel_foto/" +
-                    valuesOfList.profiel_foto
-                  }
-                ></Avatar>
-              )
-            }
-            action={
-              <IconButton
-                fontSize="small"
-                onClick={() => {
-                  activiteitClick(valuesOfList, true);
-                }}
-                aria-label="settings"
-              >
-                <ReportProblemRoundedIcon />
-              </IconButton>
-            }
-            title={valuesOfList.titel}
-            subheader={valuesOfList.categorie}
-            classes={{
-              title: classes.titleCard,
-              subheader: classes.subheaderCard,
-            }}
-          />
-          <CardActionArea
-            className={classes.actionArea}
-            onClick={() => {
-              activiteitClick(valuesOfList);
-            }}
-          >
-            {valuesOfList.afbeelding != null && (
-              <CardMedia
-                className={classes.afbeeldingActiviteit}
-                image={
-                  "http://localhost:8000/storage/profiel_foto/" +
-                  valuesOfList.afbeelding
-                }
-                title=""
-              />
-            )}
-            <CardContent className={classes.content}>
-              <Typography
-                className={classes.contentText}
-                variant="body2"
-                color="textSecondary"
-                component="p"
-              >
-                {valuesOfList.beschrijving.substring(0, 200) + "..."}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions className={classes.cardActions}>
-            <Button
-              className={classes.informatieButton}
+        > */}
+        <Zoom in={checked} style={{ transitionDelay: checked ? delay : "0ms" }}>
+          <Card className={classes.root}>
+            <CardHeader
+              className={classes.cardHeader}
+              avatar={
+                valuesOfList.profiel_foto === null ? (
+                  <Avatar
+                    alt="Profiel foto"
+                    className={classes.profilePicture}
+                    src={pf}
+                  ></Avatar>
+                ) : (
+                  <Avatar
+                    alt="Profiel foto"
+                    className={classes.profilePicture}
+                    src={
+                      "http://localhost:8000/storage/profiel_foto/" +
+                      valuesOfList.profiel_foto
+                    }
+                  ></Avatar>
+                )
+              }
+              action={
+                <IconButton
+                  fontSize="small"
+                  onClick={() => {
+                    activiteitClick(valuesOfList, true);
+                  }}
+                  aria-label="settings"
+                >
+                  <ReportProblemRoundedIcon />
+                </IconButton>
+              }
+              title={valuesOfList.titel}
+              subheader={valuesOfList.categorie}
+              classes={{
+                title: classes.titleCard,
+                subheader: classes.subheaderCard,
+              }}
+            />
+            <CardActionArea
+              className={classes.actionArea}
               onClick={() => {
                 activiteitClick(valuesOfList);
               }}
-              size="small"
-              color="primary"
             >
-              Meer informatie
-            </Button>
+              <CardMedia
+                className={classes.afbeeldingActiviteit}
+                image={
+                  valuesOfList.afbeelding != null
+                    ? "http://localhost:8000/storage/profiel_foto/" +
+                      valuesOfList.afbeelding
+                    : categorien[
+                        valuesOfList.categorie.toLowerCase().split(" ").join("")
+                      ]
+                }
+                title=""
+              />
+              <CardContent className={classes.content}>
+                <Typography
+                  className={classes.contentText}
+                  variant="body2"
+                  color="textSecondary"
+                  component="p"
+                >
+                  {valuesOfList.beschrijving.substring(0, 200) + "..."}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions className={classes.cardActions}>
+              <Button
+                className={classes.informatieButton}
+                onClick={() => {
+                  activiteitClick(valuesOfList);
+                }}
+                size="small"
+                color="primary"
+              >
+                Meer informatie
+              </Button>
 
-            <Box className={classes.date}>
-              <Box className={classes.aantalDeelnemers}>
-                <GroupIcon fontSize="small" className={classes.groepIcoon} />
-                <Typography variant="body2">
-                  {valuesOfList.max_aantal_deelnemers}
+              <Box className={classes.date}>
+                <Box className={classes.aantalDeelnemers}>
+                  <GroupIcon fontSize="small" className={classes.groepIcoon} />
+                  <Typography variant="body2">
+                    {valuesOfList.max_aantal_deelnemers}
+                  </Typography>
+                </Box>
+
+                <QueryBuilderIcon
+                  fontSize="small"
+                  className={classes.detailsDatumIcon}
+                />
+                <Typography
+                  className={classes.detailsDatumText}
+                  variant="body2"
+                >
+                  {getDate(valuesOfList.created_at)}
                 </Typography>
               </Box>
-
-              <QueryBuilderIcon
-                fontSize="small"
-                className={classes.detailsDatumIcon}
-              />
-              <Typography className={classes.detailsDatumText} variant="body2">
-                {getDate(valuesOfList.created_at)}
-              </Typography>
-            </Box>
-          </CardActions>
-        </Card>
-        {/* </Grow> */}
+            </CardActions>
+          </Card>
+          {/* </Grow> */}
         </Zoom>
       </Grid>
     );
@@ -305,7 +319,6 @@ const PostList = ({ values }) => {
           renderOnScroll
           reversed
         />
-      
       </Grid>
       <DetailPost
         open={detailActiviteitOpen}
