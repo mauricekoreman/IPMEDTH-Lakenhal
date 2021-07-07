@@ -120,7 +120,7 @@ const ModeratorRapportageCard = ({
           <Avatar
             alt="Profiel foto"
             className={classes.profilePicture}
-            src={"http://localhost:8000/storage/profiel_foto/" + profielfoto}
+            src={"https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" + profielfoto}
           />
           <Box className={classes.opdrachtCard}>
             <Typography

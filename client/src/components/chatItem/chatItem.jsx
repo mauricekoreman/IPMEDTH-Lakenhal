@@ -77,7 +77,7 @@ const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers, chatAfbeeldin
       <div className={classes.chatImage}>          
         <Avatar
             className={classes.chatImage}
-            src={"http://localhost:8000/storage/profiel_foto/" + chatAfbeelding}
+            src={"https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" + chatAfbeelding}
             // alt="chat afbeelding"
         />
       </div>

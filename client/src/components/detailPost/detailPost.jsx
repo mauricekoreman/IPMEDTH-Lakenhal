@@ -264,7 +264,7 @@ const DetailPost = ({
               <img
                 className={classes.topImage}
                 src={
-                  "http://localhost:8000/storage/profiel_foto/" +
+                  "https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" +
                   activiteit.afbeelding
                 }
                 alt="activiteit afbeelding"
@@ -284,7 +284,7 @@ const DetailPost = ({
                     alt="Profiel foto"
                     className={classes.profilePicture}
                     src={
-                      "http://localhost:8000/storage/profiel_foto/" +
+                      "https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" +
                       activiteit.profiel_foto
                     }
                   ></Avatar>

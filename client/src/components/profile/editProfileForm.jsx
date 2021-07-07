@@ -154,7 +154,7 @@ const EditProfileForm = ({ user, onReload, closeDialog }) => {
 
         <Avatar
           src={
-            "http://localhost:8000/storage/profiel_foto/" + user.profiel_foto
+            "https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" + user.profiel_foto
           }
           className={classes.profilePicture}
           alt={user.naam[0]}

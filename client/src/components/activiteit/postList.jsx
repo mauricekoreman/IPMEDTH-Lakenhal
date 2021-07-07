@@ -217,7 +217,7 @@ const PostList = ({ values }) => {
                     alt="Profiel foto"
                     className={classes.profilePicture}
                     src={
-                      "http://localhost:8000/storage/profiel_foto/" +
+                      "https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" +
                       valuesOfList.profiel_foto
                     }
                   ></Avatar>
@@ -251,7 +251,7 @@ const PostList = ({ values }) => {
                 className={classes.afbeeldingActiviteit}
                 image={
                   valuesOfList.afbeelding != null
-                    ? "http://localhost:8000/storage/profiel_foto/" +
+                    ? "https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" +
                       valuesOfList.afbeelding
                     : categorien[
                         valuesOfList.categorie.toLowerCase().split(" ").join("")
