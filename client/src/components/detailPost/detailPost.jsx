@@ -25,6 +25,7 @@ import {
   Snackbar,
 } from "@material-ui/core";
 import { TEST_URL } from "../../assets/globalVariables";
+import { useLocation } from "react-router-dom";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
     [theme.breakpoints.up("md")]: {
-      fontSize: 28
+      fontSize: 28,
     },
   },
   headerDetail: {
@@ -60,19 +61,19 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     [theme.breakpoints.up("md")]: {
       width: 85,
-      height: 85
+      height: 85,
     },
   },
   opdrachtTitle: {
     [theme.breakpoints.up("md")]: {
-      fontSize: 28
+      fontSize: 28,
     },
   },
   opdrachtSubtitle: {
     fontSize: "1rem",
     opacity: 0.6,
     [theme.breakpoints.up("md")]: {
-      fontSize: 20
+      fontSize: 20,
     },
   },
   detailContainer: {
@@ -81,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   detailsOpdracht: {
     opacity: 0.7,
     [theme.breakpoints.up("md")]: {
-      fontSize: 24
+      fontSize: 24,
     },
   },
   detailsOpdrachtBottom: {
@@ -91,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
   },
   categorieLabel: {
     [theme.breakpoints.up("md")]: {
-      fontSize: 18
+      fontSize: 18,
     },
   },
   detailsDatumText: {
@@ -99,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "5px",
     marginRight: "20px",
     [theme.breakpoints.up("md")]: {
-      fontSize: 21
+      fontSize: 21,
     },
   },
   detailsDatum: {
@@ -107,11 +108,11 @@ const useStyles = makeStyles((theme) => ({
   },
   detailsDatumIcon: {
     opacity: 0.7,
-    position: 'relative',
-    bottom: '0',
+    position: "relative",
+    bottom: "0",
     [theme.breakpoints.up("md")]: {
       width: 30,
-      height: 30
+      height: 30,
     },
   },
   topImage: {
@@ -121,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     margin: 0,
     [theme.breakpoints.up("sm")]: {
-      height: 300
+      height: 300,
     },
   },
   aantalDeelnemersContainer: {
@@ -142,16 +143,16 @@ const useStyles = makeStyles((theme) => ({
   closeIcon: {
     [theme.breakpoints.up("md")]: {
       width: 50,
-      height: 50
+      height: 50,
     },
   },
   container: {
     [theme.breakpoints.up("md")]: {
-      width: '65%', 
-      margin: '0 auto'
+      width: "65%",
+      margin: "0 auto",
     },
     [theme.breakpoints.up("lg")]: {
-      width: '50%', 
+      width: "50%",
     },
   },
 }));
@@ -167,13 +168,12 @@ const DetailPost = ({
   rapporteerPost = false,
 }) => {
   console.log(rapporteerPost);
+  let location = useLocation();
   const classes = useStyles();
   const [ingeschreven, setIngeschreven] = useState();
   const [aantalAanmeldingen, setAantalAanmeldingen] = useState(0);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [rapportageSuccesvol, setRapportageSuccesvol] = useState(false);
-
-   
 
   //pak de ingelogde user
   let user = localStorage.getItem("user");
@@ -250,7 +250,7 @@ const DetailPost = ({
             onClick={() => closeScreen()}
             aria-label="close"
           >
-            <CloseIcon className={classes.closeIcon}/>
+            <CloseIcon className={classes.closeIcon} />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Detail Post
@@ -258,9 +258,9 @@ const DetailPost = ({
         </Toolbar>
       </AppBar>
       <div className={classes.container}>
-      {open && (
-        <Box>
-          {activiteit.afbeelding != null &&
+        {open && (
+          <Box>
+            {activiteit.afbeelding != null && (
               <img
                 className={classes.topImage}
                 src={
@@ -269,153 +269,162 @@ const DetailPost = ({
                 }
                 alt="activiteit afbeelding"
               />
-          }
-          <Box className={classes.detailContainer}>
-            <Box className={classes.headerDetail}>
-              <Box className={classes.left}>
-                {activiteit.profiel_foto === null ? (
-                  <Avatar
-                    alt="Profiel foto"
-                    className={classes.profilePicture}
-                    src={pf}
-                  ></Avatar>
-                ) : (
-                  <Avatar
-                    alt="Profiel foto"
-                    className={classes.profilePicture}
-                    src={
-                      "https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" +
-                      activiteit.profiel_foto
-                    }
-                  ></Avatar>
-                )}
-                <Box className={classes.opdracht}>
+            )}
+            <Box className={classes.detailContainer}>
+              <Box className={classes.headerDetail}>
+                <Box className={classes.left}>
+                  {activiteit.profiel_foto === null ? (
+                    <Avatar
+                      alt="Profiel foto"
+                      className={classes.profilePicture}
+                      src={pf}
+                    ></Avatar>
+                  ) : (
+                    <Avatar
+                      alt="Profiel foto"
+                      className={classes.profilePicture}
+                      src={
+                        "https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" +
+                        activiteit.profiel_foto
+                      }
+                    ></Avatar>
+                  )}
+                  <Box className={classes.opdracht}>
+                    <Typography
+                      variant="h6"
+                      component="h3"
+                      className={classes.opdrachtTitle}
+                    >
+                      {activiteit.titel}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      className={classes.opdrachtSubtitle}
+                    >
+                      {activiteit.categorie}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box className={classes.right}>
+                  {activiteit.lakenhal_activiteit && (
+                    <img
+                      src={lakenhal_sw}
+                      className={classes.lakenhalLogo}
+                      alt="Lakenhal logo"
+                    />
+                  )}
+                </Box>
+              </Box>
+
+              <Typography variant="body1" className={classes.detailsOpdracht}>
+                {activiteit.beschrijving}
+              </Typography>
+              <Box className={classes.detailsOpdrachtBottom}>
+                <Chip
+                  label={activiteit.categorie}
+                  className={classes.categorieLabel}
+                />
+                <Box className={classes.detailsDatum}>
+                  <QueryBuilderIcon className={classes.detailsDatumIcon} />
                   <Typography
-                    variant="h6"
-                    component="h3"
-                    className={classes.opdrachtTitle}
+                    className={classes.detailsDatumText}
+                    variant="body1"
                   >
-                    {activiteit.titel}
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    className={classes.opdrachtSubtitle}
-                  >
-                    {activiteit.categorie}
+                    {getDate(activiteit.created_at)}
                   </Typography>
                 </Box>
               </Box>
-              <Box className={classes.right}>
-                {activiteit.lakenhal_activiteit && (
-                  <img
-                    src={lakenhal_sw}
-                    className={classes.lakenhalLogo}
-                    alt="Lakenhal logo"
-                  />
-                )}
-              </Box>
-            </Box>
 
-            <Typography variant="body1" className={classes.detailsOpdracht}>
-              {activiteit.beschrijving}
-            </Typography>
-            <Box className={classes.detailsOpdrachtBottom}>
-              <Chip label={activiteit.categorie} className={classes.categorieLabel}/>
-              <Box className={classes.detailsDatum}>
-                <QueryBuilderIcon className={classes.detailsDatumIcon} />
-                <Typography
-                  className={classes.detailsDatumText}
-                  variant="body1"
-                >
-                  {getDate(activiteit.created_at)}
+              <Box className={classes.aantalDeelnemersContainer}>
+                <GroupIcon />
+                <Typography variant="body1">
+                  Aantal deelnemers: {aantalAanmeldingen} /{" "}
+                  {activiteit.max_aantal_deelnemers}
                 </Typography>
               </Box>
             </Box>
-
-            <Box className={classes.aantalDeelnemersContainer}>
-              <GroupIcon />
-              <Typography variant="body1">
-                Aantal deelnemers: {aantalAanmeldingen} / {activiteit.max_aantal_deelnemers}
-              </Typography>
-            </Box>
-          </Box>
-          <Snackbar
-            className={classes.snackBar}
-            open={snackBarOpen}
-            autoHideDuration={1500}
-            onClose={closeSnackBar}
-          >
-            {rapportageSuccesvol ? (
-              <Alert onClose={closeSnackBar} severity="success">
-                Rapportage succesvol!
-              </Alert>
+            <Snackbar
+              className={classes.snackBar}
+              open={snackBarOpen}
+              autoHideDuration={1500}
+              onClose={closeSnackBar}
+            >
+              {rapportageSuccesvol ? (
+                <Alert onClose={closeSnackBar} severity="success">
+                  Rapportage succesvol!
+                </Alert>
+              ) : (
+                <Alert onClose={closeSnackBar} severity="error">
+                  Al gerapporteerd!
+                </Alert>
+              )}
+            </Snackbar>
+            {user !== null ? (
+              window.location.href ===
+                "http://" + window.location.hostname + ":3000/" &&
+              user.user_ID !== activiteit.user_ID &&
+              ingeschreven === false &&
+              rapporteerPost === false && (
+                <InschrijvenActiviteit
+                  user={user}
+                  activiteit={activiteit.activiteit_ID}
+                />
+              )
             ) : (
-              <Alert onClose={closeSnackBar} severity="error">
-                Al gerapporteerd!
-              </Alert>
+              <div></div>
             )}
-          </Snackbar>
-          {user !== null ? (
-            window.location.href === "http://localhost:3000/" &&
-            user.user_ID !== activiteit.user_ID &&
-            ingeschreven === false &&
-            rapporteerPost === false && (
-              <InschrijvenActiviteit
-                user={user}
-                activiteit={activiteit.activiteit_ID}
-              />
-            )
-          ) : (
-            <div></div>
-          )}
-          {user !== null ? (
-            window.location.href === "http://localhost:3000/" &&
-            user.user_ID !== activiteit.user_ID &&
-            ingeschreven === false &&
-            rapporteerPost === true && (
+            {user !== null ? (
+              window.location.href ===
+                "http://" + window.location.hostname + ":3000/" &&
+              user.user_ID !== activiteit.user_ID &&
+              ingeschreven === false &&
+              rapporteerPost === true && (
+                <ActieButtons
+                  close={closeScreen}
+                  user={activiteit.user_ID}
+                  activiteit={activiteit.activiteit_ID}
+                  rapporteerPost={rapporteerPost}
+                  openSnackBar={openSnackBar}
+                />
+              )
+            ) : (
+              <div></div>
+            )}
+
+            {window.location.href ===
+              "http://" + window.location.hostname + ":3000/profiel" && (
+              <div>
+                <AanmeldingenList activiteit_ID={activiteit.activiteit_ID} />
+                <VerwijderActiviteit
+                  user={user}
+                  activiteit={activiteit.activiteit_ID}
+                />
+              </div>
+            )}
+
+            {window.location.href ===
+              "http://" + window.location.hostname + ":3000/moderator" && (
               <ActieButtons
-                close={closeScreen}
+                closed={closeScreen}
                 user={activiteit.user_ID}
                 activiteit={activiteit.activiteit_ID}
-                rapporteerPost={rapporteerPost}
-                openSnackBar={openSnackBar}
               />
-            )
-          ) : (
-            <div></div>
-          )}
+            )}
 
-          {window.location.href === "http://localhost:3000/profiel" && (
-            <div>
-              <AanmeldingenList activiteit_ID={activiteit.activiteit_ID} />
-              <VerwijderActiviteit
-                user={user}
-                activiteit={activiteit.activiteit_ID}
-              />
-            </div>
-          )}
-
-          {window.location.href === "http://localhost:3000/moderator" && (
-            <ActieButtons
-              closed={closeScreen}
-              user={activiteit.user_ID}
-              activiteit={activiteit.activiteit_ID}
-            />
-          )}
-
-          {user !== null ? (
-            window.location.href === "http://localhost:3000/" &&
-            user.user_ID == activiteit.user_ID && (
-              <VerwijderActiviteit
-                user={user}
-                activiteit={activiteit.activiteit_ID}
-              />
-            )
-          ) : (
-            <div></div>
-          )}
-        </Box>
-      )}
+            {user !== null ? (
+              window.location.href ===
+                "http://" + window.location.hostname + ":3000/" &&
+              user.user_ID == activiteit.user_ID && (
+                <VerwijderActiviteit
+                  user={user}
+                  activiteit={activiteit.activiteit_ID}
+                />
+              )
+            ) : (
+              <div></div>
+            )}
+          </Box>
+        )}
       </div>
     </Dialog>
   );
