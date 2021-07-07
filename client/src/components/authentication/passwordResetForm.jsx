@@ -10,6 +10,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import FeedbackBlock from "../feedbackBlock/feedbackBlock";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -29,7 +30,7 @@ const PasswordResetForm = () => {
   const [passwordResetted, setPasswordResetted] = useState(false);
   const [serverText, setServerText] = useState("");
 
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   const {
     control,

@@ -7,6 +7,7 @@ import {
   Typography,
   makeStyles
 } from "@material-ui/core";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   titleAanmelding: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 const AanmeldingenList = ({ activiteit_ID }) => {
   console.log(activiteit_ID);
   const classes = useStyles()
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   const [aangemeldeUsers, setAangemeldeUsers] = useState([]);
 
@@ -51,7 +52,9 @@ const AanmeldingenList = ({ activiteit_ID }) => {
     <List className={classes.listAanmelding}>
       {aangemeldeUsers &&
         Object.entries(aangemeldeUsers).map(([key, value]) => {
-          return <AanmeldingenCard aangemeldeUser={value} />;
+          if (value.geaccepteerd === 0) {
+            return <AanmeldingenCard aangemeldeUser={value} />
+          }
         })}
     </List>
     </div>

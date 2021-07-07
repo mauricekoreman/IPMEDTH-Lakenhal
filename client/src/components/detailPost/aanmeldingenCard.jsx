@@ -14,8 +14,8 @@ import React, { useState } from "react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import ProfileTab from "../../pages/profileTab/profileTab";
 import DetailProfileTab from "../profile/detailProfileTab";
+import { TEST_URL } from "../../assets/globalVariables";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -23,30 +23,33 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
   aanmelding: {
-    display: 'block',
-    padding: theme.spacing(1)
+    display: "block",
+    padding: theme.spacing(1),
   },
-}))
+}));
 
 const AanmeldingenCard = ({ aangemeldeUser }) => {
   console.log(aangemeldeUser);
-  const classes = useStyles()
-  const [show, setShow] = useState(false);
+  const classes = useStyles();
   const [aanmeldingCheck, setAanmelding] = useState();
-  const [anchorEl, setAnchorEl] = useState(null);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
 
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const [detailProfileOpen, setDetailProfileOpen] = useState(false);
-  const detailProfileClick = () => {
+  
+  const detailProfileClick = (rapporteer = false) => {
     setDetailProfileOpen(!detailProfileOpen);
+    if(rapporteer){
+      handleSubmit(onSubmit)
+      openSnackBar()
+    }
   };
 
   const { handleSubmit } = useForm();
 
   const openSnackBar = (succesVolRapportage) => {
     setSnackBarOpen(true);
-    console.log('werkt dit?')
+    console.log("werkt dit?");
   };
 
   const closeSnackBar = (event, reason) => {
@@ -55,7 +58,7 @@ const AanmeldingenCard = ({ aangemeldeUser }) => {
     }
     setSnackBarOpen(false);
   };
-  
+
   const onSubmit = async () => {
     axios
       .put(
@@ -70,7 +73,7 @@ const AanmeldingenCard = ({ aangemeldeUser }) => {
       )
       .then((res) => {
         console.log(res.data);
-        setAanmelding(res.data)
+        setAanmelding(res.data);
       })
       .catch((error) => {
         console.log(error.response);
@@ -79,43 +82,53 @@ const AanmeldingenCard = ({ aangemeldeUser }) => {
 
   return (
     <div className={classes.aanmelding}>
-      {!aanmeldingCheck &&
-      <div>
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography data-testid="testNaam">{aangemeldeUser.naam}</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography data-testid="testBericht">
-            {aangemeldeUser.bericht != null
-              ? aangemeldeUser.bericht
-              : "De aangemelde persoon heeft geen tekst ingestuurd"}
-          </Typography>
-        </AccordionDetails>
-        <AccordionActions>
-          <Button
-            color="primary"
-            onClick={detailProfileClick}
-            data-testid="testButton"
-          >
-            Profiel Bekijken
-          </Button>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Button onClick={(() => openSnackBar())} type="submit" color="primary">
-              Accepteer 
-            </Button>
-          </form>
-        </AccordionActions>
-      </Accordion>
-      <DetailProfileTab user={aangemeldeUser} closeScreen={detailProfileClick} open={detailProfileOpen}/>
-      </div>
-      }
+      {!aanmeldingCheck && (
+        <div>
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography data-testid="testNaam">
+                {aangemeldeUser.naam}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography data-testid="testBericht">
+                {aangemeldeUser.bericht != null
+                  ? aangemeldeUser.bericht
+                  : "De aangemelde persoon heeft geen tekst ingestuurd"}
+              </Typography>
+            </AccordionDetails>
+            <AccordionActions>
+              <Button
+                color="primary"
+                onClick={detailProfileClick}
+                data-testid="testButton"
+              >
+                Profiel Bekijken
+              </Button>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <Button
+                  onClick={() => openSnackBar()}
+                  type="submit"
+                  color="primary"
+                >
+                  Accepteer
+                </Button>
+              </form>
+            </AccordionActions>
+          </Accordion>
+          <DetailProfileTab
+            user={aangemeldeUser}
+            closeScreen={detailProfileClick}
+            open={detailProfileOpen}
+          />
+        </div>
+      )}
       <Snackbar
         className={classes.snackBar}
         open={snackBarOpen}
         autoHideDuration={3000}
         onClose={closeSnackBar}
-      > 
+      >
         <Alert onClose={closeSnackBar} severity="success">
           aan melding succesvol!
         </Alert>

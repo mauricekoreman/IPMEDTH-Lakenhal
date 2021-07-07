@@ -1,15 +1,26 @@
 import React from "react";
-import { makeStyles, Typography } from "@material-ui/core";
+import { makeStyles, Typography, Avatar } from "@material-ui/core";
+import useChats from "../../hooks/useChats";
+import isJson from '../../contexts/isJson';
 
 const useStyles = makeStyles((theme) => ({
   chatContainer: {
     display: "flex",
+    position: "relative",
     justifyContent: "center",
     alignItems: "center",
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
-    borderTop: "1px solid #eee",
-    borderBottom: "1px solid #eee",
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    '&:before':{
+      content: "''",
+      position: 'absolute',
+      right: '0',
+      bottom: 0,
+      width: '85vw',
+      borderBottom: "2px solid #eee",
+    }
   },
   chatImage: {
     height: "50px",
@@ -18,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 100,
   },
   rows: {
-    width: "85%",
+    width: "80%",
   },
   chatRow: {
     display: "flex",
@@ -39,11 +50,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers }) => {
+const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers, chatAfbeelding }) => {
+  const { messages } = useChats(chatTitel);
+  const newMessage = messages.reduce((counter, obj) => {
+    if (obj.chat === chatTitel) counter += 1
+    return counter;
+  }, 0); 
+
+  let updateMessage = [];
+
+  if (messages.length !== 0 ) {
+    messages.forEach((obj) => {
+      console.log(obj.chat);
+      if (obj.chat === chatTitel){
+        updateMessage.push(messages);
+        console.log("update2" + JSON.stringify(updateMessage));
+        localStorage.setItem(chatTitel, JSON.stringify(updateMessage[0]));
+      }
+    }); 
+  }
+
+  console.log(chatAfbeelding);
   const classes = useStyles();
   return (
     <div className={classes.chatContainer}>
-      <div className={classes.chatImage}></div>
+      <div className={classes.chatImage}>          
+        <Avatar
+            className={classes.chatImage}
+            src={"https://lakenhalmatchedapi.azurewebsites.net/storage/profiel_foto/" + chatAfbeelding}
+            // alt="chat afbeelding"
+        />
+      </div>
       <div className={classes.rows}>
         <div className={classes.chatRow}>
           <Typography variant="h5">{chatTitel}</Typography>
@@ -51,7 +88,10 @@ const ChatItem = ({ chatTitel, timeLastChatSent, aantalDeelnemers }) => {
         </div>
         <div className={classes.chatRow}>
           <Typography variant="body1">{`${aantalDeelnemers} deelnemers`}</Typography>
-          <div className={classes.newMessage}>3</div>
+          {newMessage > 0 && (
+            <div className={classes.newMessage}>{newMessage}</div>
+          )}
+          
         </div>
       </div>
     </div>

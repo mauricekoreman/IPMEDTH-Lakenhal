@@ -15,6 +15,11 @@ const useStyles = makeStyles((theme) => ({
     boxShadow:
       "0px 2px 5px 0px rgb(0 0 0 / 30%), 0px 2px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
     marginTop: "10%",
+    [theme.breakpoints.up("lg")]: {
+      width: '65%',
+      margin: '0 auto',
+      marginTop: '3%'
+    },
   },
   zieCategorieItem: {
     display: "flex",
@@ -22,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
   },
   listTitle: {
     fontSize: "14px",
+    [theme.breakpoints.up("lg")]: {
+      width: '65%',
+      fontSize: 24
+    },
   },
   animateList: {
     animation: "$dropdown .5s ease-in-out",

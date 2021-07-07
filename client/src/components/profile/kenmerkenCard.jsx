@@ -3,10 +3,11 @@ import React from "react";
 import { Chip } from "@material-ui/core";
 
 import axios from "axios";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const KenmerkenCard = ({ kenmerk, kenmerkValue, onReload }) => {
   const user = JSON.parse(localStorage.getItem("user"));
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   const handleDelete = (kenmerkValue) => () => {
     onSubmit({ [kenmerk]: kenmerkValue });
@@ -29,7 +30,6 @@ const KenmerkenCard = ({ kenmerk, kenmerkValue, onReload }) => {
   if (kenmerk === kenmerkValue) {
     kenmerkValue = null;
   }
-  console.log(kenmerkValue);
   return (
     <div>
       {kenmerkValue != null && (

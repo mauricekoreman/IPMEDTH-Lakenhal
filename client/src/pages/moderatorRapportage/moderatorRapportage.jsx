@@ -5,16 +5,22 @@ import DetailPost from "../../components/detailPost/detailPost";
 import isJson from "../../contexts/isJson";
 
 import { Grid, makeStyles, Box } from "@material-ui/core";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(6),
+    width: '90%',
+    margin: '0 auto',
+    [theme.breakpoints.up("md")]: {
+      width: '80%'
+    },
   },
 }));
 
 const ModeratorRapportage = () => {
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const [detailRapportageOpen, setDetailRapportageOpen] = useState(false);
   const [detailRapportage, setDetailRapportage] = useState([]);
   const [rapportageList, setRapportageList] = useState([]);
@@ -53,13 +59,14 @@ const ModeratorRapportage = () => {
   return (
     <div>
       {user.admin ? (
-        <Box className={classes.pageContainer}>
-          <Grid container spacing={2}>
+          <Grid className={classes.pageContainer}container spacing={2}>
             {rapportageList.map((rapportage, key) => {
               return (
                 <Grid
                   item
                   xs={12}
+                  sm={6}
+                  lg={4}
                   key={key}
                   onClick={() => detailRapportageClick(rapportage)}
                 >
@@ -75,7 +82,6 @@ const ModeratorRapportage = () => {
               );
             })}
           </Grid>
-        </Box>
       ) : (
         <div>404</div>
       )}

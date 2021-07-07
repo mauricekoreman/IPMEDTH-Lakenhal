@@ -12,6 +12,7 @@ import axios from "axios";
 
 import { useAuth } from "../../contexts/authContext";
 import { Link, useHistory } from "react-router-dom";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const LoginForm = () => {
   const classes = useStyles();
 
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   const [generalLoginError, setGeneralLoginError] = useState();
 

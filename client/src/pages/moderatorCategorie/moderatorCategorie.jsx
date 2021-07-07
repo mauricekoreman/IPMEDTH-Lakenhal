@@ -4,6 +4,7 @@ import { Box, makeStyles } from "@material-ui/core";
 import { useAuth } from "../../contexts/authContext";
 import CategorieForm from "../../components/categorie/categorieForm";
 import isJson from "../../contexts/isJson";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -11,11 +12,17 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(6),
     width: "80%",
     margin: "0 auto",
+    [theme.breakpoints.up("sm")]: {
+      width: '60%'
+    },
+    [theme.breakpoints.up("md")]: {
+      width: '40%'
+    },
   },
 }));
 
 const ModeratorCategorie = () => {
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const classes = useStyles();
   const { currentUser } = useAuth();
   const [categorieList, setCategorie] = useState([]);

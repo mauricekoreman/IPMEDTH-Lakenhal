@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logout from "../authentication/logout";
 
 import {
   List,
@@ -7,15 +8,32 @@ import {
   ListItemText,
   makeStyles,
   SwipeableDrawer,
+  Divider,
+  Button,
+  Box,
 } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   drawer: {
     width: 240,
+    display: "flex",
+    [theme.breakpoints.up("md")]: {
+      width: 300
+    },
   },
-});
+  buttonsContainer: {
+    width: "80%",
+    margin: "0 auto",
+    marginTop: "20px",
+  },
+  textMenuDrawer: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: "35px"
+    },
+  }
+}));
 
-const MenuDrawer = ({ openDrawer, toggleDrawer }) => {
+const MenuDrawer = ({ openDrawer, toggleDrawer, user }) => {
   const classes = useStyles();
   const itemList = [
     {
@@ -44,11 +62,43 @@ const MenuDrawer = ({ openDrawer, toggleDrawer }) => {
           const { text, link } = item;
           return (
             <ListItem button key={text} component={Link} to={"/" + link}>
-              <ListItemText primary={text} />
+              <ListItemText 
+              primary={text}
+              classes={{
+                primary: classes.textMenuDrawer,
+              }} />
             </ListItem>
           );
         })}
       </List>
+      <Divider />
+      {user ? (
+        <Logout />
+      ) : (
+        <Box className={classes.buttonsContainer}>
+          <Button
+            component={Link}
+            to="/login"
+            variant="contained"
+            onClick={toggleDrawer}
+            color="primary"
+            fullWidth
+          >
+            Login
+          </Button>
+          <Button
+            component={Link}
+            to="/register"
+            onClick={toggleDrawer}
+            variant="outlined"
+            color="primary"
+            fullWidth
+            style={{ marginTop: "10px" }}
+          >
+            Registreer
+          </Button>
+        </Box>
+      )}
     </SwipeableDrawer>
   );
 };

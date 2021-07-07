@@ -6,6 +6,7 @@ import {
   IconButton,
   Typography,
   makeStyles,
+  Container,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import SendIcon from "@material-ui/icons/Send";
@@ -29,7 +30,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(2),
     overflow: "auto",
+    [theme.breakpoints.up('md')]: {
+      flexGrow: 0.8,
+    },
   },
+  
   message: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
@@ -53,6 +58,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    [theme.breakpoints.up('md')]: {
+      width: "600px",
+      bottom: "80px",
+      position: "fixed",
+      right: 0,
+      left: "450px",
+      marginRight: "auto",
+      marginLeft: "auto",
+    },
   },
   inputField: {
     border: "none",
@@ -78,11 +92,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChatContainer = ({ close, chatTitle, roomId }) => {
+const ChatContainer = ({ close, chatTitle, roomId, naam}) => {
   const classes = useStyles();
   const [newMessage, setNewMessage] = useState("");
 
   const { messages, sendMessage } = useChat(roomId);
+    
+  let today = new Date(),
+  time = today.getHours() + ':' + today.getMinutes();
 
   function handleChange(e) {
     setNewMessage(e.target.value);
@@ -90,59 +107,64 @@ const ChatContainer = ({ close, chatTitle, roomId }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    sendMessage(newMessage);
+    sendMessage(newMessage, naam, time);
     setNewMessage("");
   }
 
   return (
     <Box className={classes.container}>
-      <AppBar className={classes.appBar} elevation={1}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={close}
-            aria-label="close"
-          >
-            <CloseIcon />
-          </IconButton>
-          <Typography variant="h6">{roomId}</Typography>
-        </Toolbar>
-      </AppBar>
-
-      <Box className={classes.chatBox}>
-        {messages.map((message, i) => {
-          return (
-            <div
-              className={`${classes.message} ${
-                message.ownedByCurrentUser
+      {window.innerWidth < 960 &&
+        <AppBar className={classes.appBar} elevation={1}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={close}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6">{chatTitle}</Typography>
+          </Toolbar>
+        </AppBar>
+      }
+        <Box className={classes.chatBox}>
+          {messages.map((message, i) => {
+            if (message.chat === chatTitle) {
+              return (
+                <div
+                className={`${classes.message} ${
+                  message.naam === naam
                   ? classes.myMessage
                   : classes.receivedMessage
-              }`}
-              key={i}
-            >
-              <Typography variant="body1" className={classes.text}>
-                {message.body}
-              </Typography>
-              <Typography variant="caption" className={classes.sender}>
-                Sender name
-              </Typography>
-            </div>
-          );
-        })}
-      </Box>
+                }`}
+                key={i}
+                >
+                  <div>              
+                    <Typography variant="body1" className={classes.text}>
+                      {message.body}
+                    </Typography>
+                    <Typography variant="caption" className={classes.sender}>
+                      {message.naam}
+                    </Typography>
+                  </div>
+                </div>
+              );
+            }
+          })}
+        </Box>
 
-      <form onSubmit={handleSubmit} className={classes.form}>
-        <input
-          value={newMessage}
-          onChange={handleChange}
-          className={classes.inputField}
-          placeholder="schrijf een bericht"
-        />
-        <button type="submit" className={classes.sendMessageBtn}>
-          <SendIcon fontSize="small" color="secondary" />
-        </button>
-      </form>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <input
+            value={newMessage}
+            onChange={handleChange}
+            className={classes.inputField}
+            placeholder="schrijf een bericht"
+            />
+          <button type="submit" className={classes.sendMessageBtn}>
+            <SendIcon fontSize="small" color="secondary" />
+          </button>
+        </form>
     </Box>
   );
 };

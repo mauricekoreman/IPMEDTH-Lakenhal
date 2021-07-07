@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   AppBar,
-  Box,
   makeStyles,
   Tab,
   Tabs,
@@ -12,10 +11,10 @@ import PostsTab from "../../pages/postsTab/postsTab";
 import ProfileTab from "../../pages/profileTab/profileTab";
 import ModeratorRapportage from "../../pages/moderatorRapportage/moderatorRapportage";
 import ModeratorCategorie from "../../pages/moderatorCategorie/moderatorCategorie";
-import ProfileEditTab from "../../pages/profileTab/profileEditTab";
 import isJson from "../../contexts/isJson";
 import axios from "axios";
 import { useAuth } from "../../contexts/authContext";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -40,7 +39,7 @@ const ExtraTabsHeader = ({ width, tabs, onProfile, onModerator }) => {
     setSelectedTab(newValue);
   };
 
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
   const { currentUser, setCurrentUser } = useAuth();
   const updateUser = () => {
     axios

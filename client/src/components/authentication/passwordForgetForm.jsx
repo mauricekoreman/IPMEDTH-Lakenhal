@@ -9,6 +9,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
 import FeedbackBlock from "../feedbackBlock/feedbackBlock";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -27,7 +28,7 @@ const PasswordForgetForm = () => {
   const [mailSent, setMailSent] = useState(false);
   const [serverText, setServerText] = useState("");
 
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   const {
     control,

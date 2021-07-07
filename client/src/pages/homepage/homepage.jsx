@@ -4,14 +4,15 @@ import CreatePost from "../../components/activiteit/createpost";
 import PostList from "../../components/activiteit/postList";
 import axios from "axios";
 import Fab from "../../components/fab/fab";
-import { Grid, makeStyles } from "@material-ui/core";
+import { FormHelperText, Grid, makeStyles } from "@material-ui/core";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
-  pageContainer: {
-    position: "relative",
-    display: "flex",
-    paddingTop: theme.spacing(10),
-    paddingBottom: theme.spacing(6),
+  container: {
+    margin: "0 auto",
+    marginTop: theme.spacing(7),
+    marginBottom: theme.spacing(7),
+    backgroundColor: "cyan",
   },
   fabPosition: {
     margin: 0,
@@ -20,10 +21,12 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(2) + 56, // 56 == root height of bottom bar
     left: "auto",
     position: "fixed",
-  },
-  container: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(7),
+    [theme.breakpoints.up("md")]: {
+      bottom: theme.spacing(20),
+      right: theme.spacing(20),
+      width: '75px',
+      height: '75px'
+    },
   },
 }));
 
@@ -32,11 +35,11 @@ const Homepage = () => {
   const activiteitData = [];
   const [maakActiviteitOpen, setMaakActiviteitOpen] = useState(false);
   const [values, setValues] = useState(activiteitData);
-  
+
   const maakActiviteitClick = () => {
     setMaakActiviteitOpen(!maakActiviteitOpen);
   };
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   const activiteitenFetch = (refresh = false) => {
     axios
@@ -48,9 +51,9 @@ const Homepage = () => {
       .catch((error) => {
         console.log(error.response);
       });
-    if (refresh) {
-      window.location.reload();
-    }
+    // if (refresh) {
+    //   window.location.reload();
+    // }
   };
 
   useEffect(() => {
@@ -59,16 +62,7 @@ const Homepage = () => {
 
   return (
     <div>
-      <Grid container className={classes.container} spacing={3}>
-        <Grid item xs={1}></Grid>
-
-        <Grid item xs={10}>
-          <PostList values={values} />
-        </Grid>
-
-        <Grid item xs={1}></Grid>
-      </Grid>
-
+      <PostList values={values} />
       <Fab
         position={classes.fabPosition}
         color={"primary"}

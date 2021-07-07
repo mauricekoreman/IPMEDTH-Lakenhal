@@ -13,14 +13,30 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { useAuth } from '../../contexts/authContext';
 import isJson from '../../contexts/isJson';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100vw",
     position: "fixed",
     bottom: 0,
     backgroundColor: "primary",
+    [theme.breakpoints.up("md")]: {
+      display: 'flex',
+      justifyContent: 'space-around',
+      height: '75px'
+    },
   },
-});
+  navigationIcon: {
+    [theme.breakpoints.up("md")]: {
+      width: '35px',
+      height: '35px'
+    },
+  },
+  labelNav: {
+    [theme.breakpoints.up("md")]: {
+      fontSize: '24px'
+    },
+  },
+}));
 
 
 const BottomTabBar = (props) => {
@@ -47,34 +63,46 @@ const BottomTabBar = (props) => {
     setSelectedTab(newValue);
   };
   return (
-    <BottomNavigation
+    <BottomNavigation 
       value={selectedTab}
       onChange={handleChange}
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction
+      <BottomNavigationAction 
         label="Home"
-        icon={<HomeIcon />}
+        icon={<HomeIcon className={classes.navigationIcon}/>}
+        classes={{
+          label: classes.labelNav,
+        }}
         component={Link}
         to={"/"}
       />
       <BottomNavigationAction
         label="Chat"
-        icon={<ChatBubbleOutlineIcon />}
+        icon={<ChatBubbleOutlineIcon className={classes.navigationIcon} />}
+        classes={{
+          label: classes.labelNav,
+        }}
         component={Link}
         to={"/chat"}
       />
       <BottomNavigationAction
         label="Profiel"
-        icon={<PersonOutlineOutlinedIcon />}
+        classes={{
+          label: classes.labelNav,
+        }}
+        icon={<PersonOutlineOutlinedIcon className={classes.navigationIcon} />}
         component={Link}
         to={"/profiel"}
       />
      {user && user.admin &&
         (<BottomNavigationAction
           label="moderator"
-          icon={<SettingsIcon/>}
+          icon={<SettingsIcon className={classes.navigationIcon}/>}
+          classes={{
+            label: classes.labelNav,
+          }}
           component={Link}
           to={"/moderator"}
         />)

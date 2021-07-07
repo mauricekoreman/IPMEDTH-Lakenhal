@@ -24,7 +24,7 @@ const LoginPage = () => {
       <LoginForm />
       <Box style={{ textAlign: "center" }}>
         <Typography>
-          Geen accound?
+          Geen account?
           <Link className={classes.link} to="/register">
             Registreer nu!
           </Link>

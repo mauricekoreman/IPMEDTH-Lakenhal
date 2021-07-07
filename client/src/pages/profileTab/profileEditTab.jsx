@@ -1,9 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Button, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { useAuth } from "../../contexts/authContext";
 import EditProfileForm from "../../components/profile/editProfileForm";
 import axios from "axios";
+import { TEST_URL } from "../../assets/globalVariables";
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileEditTab = ({ user, closeDialog }) => {
   const classes = useStyles();
-  const TEST_URL = "http://127.0.0.1:8000/api/";
+   
 
   const { currentUser, setCurrentUser } = useAuth();
 
